@@ -7,7 +7,7 @@ const Product = require("./models/Product");
 const Cart = require("./models/Cart");
 const OrderItem = require("./models/OrderItem");
 
-User.hasOne(Cart);
+User.hasMany(Cart);
 Cart.belongsTo(User);
 Cart.hasMany(OrderItem);
 OrderItem.belongsTo(Cart);
