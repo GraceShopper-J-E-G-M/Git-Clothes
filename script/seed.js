@@ -14,23 +14,18 @@ async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log("db synced!");
 
-  // Creating Users
-  // const users = await Promise.all([
-  //   User.create({ username: 'cody', password: '123' }),
-  //   User.create({ username: 'murphy', password: '123' }),
-  // ])
-
   const users = [];
   for (let i = 1; i <= 10; i++) {
     users.push({
       firstName: faker.name.firstName(),
-      lastName: `User_l_${i}`,
-      email: `User_${i}@amu.com`,
-      username: `user${i}`,
-      password: `pwd${i}`,
+      lastName: faker.name.lastName(),
+      email: faker.internet.email(),
+      username: faker.internet.userName(),
+      password: faker.internet.password(15, true, /\w/, ''),
       role: `user`,
     });
   }
+  console.log(users)
 
   const products = [];
   const quantity = [10, 20, 40, 30, 50, 60, 70, 80, 90, 100];
@@ -105,13 +100,6 @@ async function seed() {
   console.log(prod2, prod3);
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
-
-  return {
-    users: {
-      cody: users[0],
-      murphy: users[1],
-    },
-  };
 }
 
 /*
