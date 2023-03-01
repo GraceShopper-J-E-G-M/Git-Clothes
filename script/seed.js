@@ -26,32 +26,29 @@ async function seed() {
     });
   }
 
-  const products = [];
-  const quantity = [10, 20, 40, 30, 50, 60, 70, 80, 90, 100];
-  const color = [
-    "red",
-    "blue",
-    "green",
-    "yellow",
-    "orange",
-    "indigo",
-    "black",
-    "white",
-  ];
-
   const size = ["XS", "S", "M", "L", "XL", "XXL"];
-  for (let i = 1; i <= 10; i++) {
-    let quantIndex = Math.floor(Math.random() * 10);
-    let costIndex = Math.floor(Math.random() * 10);
+
+  const colors = []
+  for (let i = 1; i<=10; i++){
+    colors.push(faker.color.human())
+  };
+
+  const products = [];
+  for (let i = 1; i <= 100; i++) {
     let sizeIndex = Math.floor(Math.random() * 6);
     products.push({
-      prodName: `Prod_${i}`,
-      prodQuantity: quantity[quantIndex],
-      prodPrice: quantity[costIndex],
+      prodName: faker.commerce.productName(),
+      //generates a random number between 0 and 10
+      prodQuantity: faker.datatype.number({ max: 10 }),
+      prodPrice: faker.commerce.price(1, 1000, 2),
       prodSize: size[sizeIndex],
-      prodColor: color,
+      prodColor: colors,
+      //generates a random fashion image url 
+      //NOTE: The height/width of the randomized image can be adjusted
+      prodImg: faker.image.fashion(true),
     });
   }
+
   const [
     user1,
     user2,
@@ -75,28 +72,30 @@ async function seed() {
     prod8,
     prod9,
     prod10,
-  ] = await Promise.all(products.map((product) => Product.create(product)));
-  const cart = await Cart.create();
-  const user = await User.findByPk(1);
+  ] = 
+  await Promise.all(products.map((product) => Product.create(product)));
+  // const cart = await Cart.create();
+  // const user = await User.findByPk(1);
 
-  await cart.setUser(user);
+  // await cart.setUser(user);
 
-  const quant = 2;
-  const total = prod3.prodPrice * quant;
-  console.log(quant, total);
-  const orderItem = await OrderItem.create({
-    quantity: quant,
-    total,
-  });
-  await orderItem.setProduct(prod3);
-  await orderItem.setCart(cart);
-  const orderItem1 = await OrderItem.create({
-    quantity: 3,
-    total: prod2.prodPrice * 3,
-  });
-  await orderItem1.setCart(cart);
-  await orderItem1.setProduct(prod2);
-  console.log(prod2, prod3);
+  // const quant = 2;
+  // const total = prod3.prodPrice * quant;
+  // console.log(quant, total);
+  // const orderItem = await OrderItem.create({
+  //   quantity: quant,
+  //   total,
+  // });
+  // await orderItem.setProduct(prod3);
+  // await orderItem.setCart(cart);
+  // const orderItem1 = await OrderItem.create({
+  //   quantity: 3,
+  //   total: prod2.prodPrice * 3,
+  // });
+  // await orderItem1.setCart(cart);
+  // await orderItem1.setProduct(prod2);
+  // console.log(prod2, prod3);
+  console.log(`seeded ${products.length} products`)
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
 }
