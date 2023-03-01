@@ -8,13 +8,13 @@ const Cart = require("./models/Cart");
 const OrderItem = require("./models/OrderItem");
 const Address = require("./models/Address")
 
-//User-Cart: One-to-Many
-User.hasMany(Cart);
-Cart.belongsTo(User);
-
 //User-Address: One-to-many
 User.hasMany(Address);
 Address.belongsTo(User);
+
+//User-Cart: One-to-Many
+User.hasMany(Cart);
+Cart.belongsTo(User);
 
 //Cart-OrderItem: One-to-many
 Cart.hasMany(OrderItem);

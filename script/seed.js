@@ -131,7 +131,7 @@ async function seed() {
   await orderItem2.setProduct(prod2);
 
 
-  //Cart-OrderItem: One-to-many
+  //Cart-OrderItem: One-to-many**
   //Give a cart to orderItem1.
   await orderItem1.setCart(cart1);
   //Give another cart to orderItem1.
