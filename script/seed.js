@@ -15,17 +15,16 @@ async function seed() {
   console.log("db synced!");
 
   const users = [];
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= 100; i++) {
     users.push({
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
       email: faker.internet.email(),
       username: faker.internet.userName(),
-      password: faker.internet.password(15, true, /\w/, ''),
+      password: faker.internet.password(15, true, /\w/, ""),
       role: `user`,
     });
   }
-  console.log(users)
 
   const products = [];
   const quantity = [10, 20, 40, 30, 50, 60, 70, 80, 90, 100];
