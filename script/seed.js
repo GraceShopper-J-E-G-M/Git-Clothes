@@ -69,6 +69,8 @@ async function seed() {
     });
   }
 
+
+
   ///--------------------MODEL INSTANCES WITH FAKER DATA---------------------///
   await Promise.all(users.map((user) => User.create(user)));
   await Promise.all(addresses.map((address) => Address.create(address)));
@@ -89,8 +91,19 @@ async function seed() {
   const cart1 = await Cart.create();
   const cart2 = await Cart.create();
 
+  const orderItem1 = await OrderItem.create({
+    quantity: 2,
+    total: prod3.prodPrice * 2
+  });
+
+  const orderItem2 = await OrderItem.create({
+    quantity: 3,
+    total: prod2.prodPrice * 3,
+  });
+
   ///---------------------MODEL ASSOCIATIONS WITH FAKER DATA----------------///
 
+  //User-Address: One-to-many
   //Give each address a user
   const assignAddresses = async () => {
     for (let i = 1; i <= 100; i++) {
@@ -101,26 +114,31 @@ async function seed() {
   };
   await assignAddresses();
 
+  //User-Cart: One-to-Many
+  //Give a cart to a user1.
+  const user1 = await User.findByPk(1);
+  await cart1.setUser(user1);
+  //Give another cart to a user1.
+  await cart2.setUser(user1);
 
-  const user = await User.findByPk(1);
-  await cart1.setUser(user);
+  //Product-OrderItem: One-to-many
+  //Give a product to orderItem1.
+  await orderItem1.setProduct(prod3);
+  //Give another product to orderItem1.
+  await orderItem1.setProduct(prod4);
 
-  const quant = 2;
-  const total = prod3.prodPrice * quant;
-  console.log(quant, total);
-  const orderItem = await OrderItem.create({
-    quantity: quant,
-    total,
-  });
-  await orderItem.setProduct(prod3);
-  await orderItem.setCart(cart1);
-  const orderItem1 = await OrderItem.create({
-    quantity: 3,
-    total: prod2.prodPrice * 3,
-  });
+  //Give a product to orderItem2.
+  await orderItem2.setProduct(prod2);
+
+
+  //Cart-OrderItem: One-to-many
+  //Give a cart to orderItem1.
   await orderItem1.setCart(cart1);
-  await orderItem1.setProduct(prod2);
-  console.log(prod2, prod3);
+  //Give another cart to orderItem1.
+  await orderItem1.setCart(cart2);
+
+  //Give a cart to orderItem2.
+  await orderItem2.setCart(cart1);
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${addresses.length} addresses`);
