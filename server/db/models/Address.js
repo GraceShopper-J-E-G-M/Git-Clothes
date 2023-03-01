@@ -11,7 +11,7 @@ const Address = db.define("address", {
     allowNull: false,
   },
   zipcode: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false,
   },
   state: {
@@ -25,6 +25,10 @@ const Address = db.define("address", {
   phoneNumber: {
     type: Sequelize.STRING,
     allowNull: false,
+  },
+  typeOfAddress: {
+    type: Sequelize.ENUM("shipping", "billing", "both"),
+    defaultValue: "both"
   }
 });
 
