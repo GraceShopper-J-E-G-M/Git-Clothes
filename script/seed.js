@@ -4,6 +4,7 @@ const {
   db,
   models: { User, Cart, OrderItem, Product },
 } = require("../server/db");
+const { faker } = require("@faker-js/faker");
 
 /**
  * seed - this function clears the database, updates tables to
@@ -22,7 +23,7 @@ async function seed() {
   const users = [];
   for (let i = 1; i <= 10; i++) {
     users.push({
-      firstName: `User_f_${i}`,
+      firstName: faker.name.firstName(),
       lastName: `User_l_${i}`,
       email: `User_${i}@amu.com`,
       username: `user${i}`,
