@@ -74,27 +74,27 @@ async function seed() {
     prod10,
   ] = 
   await Promise.all(products.map((product) => Product.create(product)));
-  // const cart = await Cart.create();
-  // const user = await User.findByPk(1);
+  const cart = await Cart.create();
+  const user = await User.findByPk(1);
 
-  // await cart.setUser(user);
+  await cart.setUser(user);
 
-  // const quant = 2;
-  // const total = prod3.prodPrice * quant;
-  // console.log(quant, total);
-  // const orderItem = await OrderItem.create({
-  //   quantity: quant,
-  //   total,
-  // });
-  // await orderItem.setProduct(prod3);
-  // await orderItem.setCart(cart);
-  // const orderItem1 = await OrderItem.create({
-  //   quantity: 3,
-  //   total: prod2.prodPrice * 3,
-  // });
-  // await orderItem1.setCart(cart);
-  // await orderItem1.setProduct(prod2);
-  // console.log(prod2, prod3);
+  const quant = 2;
+  const total = prod3.prodPrice * quant;
+  console.log(quant, total);
+  const orderItem = await OrderItem.create({
+    quantity: quant,
+    total,
+  });
+  await orderItem.setProduct(prod3);
+  await orderItem.setCart(cart);
+  const orderItem1 = await OrderItem.create({
+    quantity: 3,
+    total: prod2.prodPrice * 3,
+  });
+  await orderItem1.setCart(cart);
+  await orderItem1.setProduct(prod2);
+  console.log(prod2, prod3);
   console.log(`seeded ${products.length} products`)
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
