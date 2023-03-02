@@ -31,6 +31,13 @@ export const me = createAsyncThunk('auth/me', async () => {
   }
 });
 
+// export const admin = createAsyncThunk(
+//   '/auth/admin', async () => {
+//   const res = await axios.get('/api/users', {
+//     where: 
+
+//   });
+
 export const authenticate = createAsyncThunk(
   'auth/authenticate',
   async ({ username, password, method }, thunkAPI) => {
