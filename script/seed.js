@@ -61,7 +61,7 @@ async function seed() {
       //generates a random number between 0 and 10
       prodQuantity: faker.datatype.number({ max: 10 }),
       prodPrice: faker.commerce.price(1, 1000, 2),
-      prodSize: size[sizeIndex],
+      prodSize: size,
       prodColor: colors,
       //generates a random fashion image url
       //NOTE: The height/width of the randomized image can be adjusted
