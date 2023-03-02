@@ -39,6 +39,13 @@ const AuthForm = ({ name, displayName }) => {
     }
   };
 
+  //We want this function to act like the sign up function `PUT` thunk, except a temp User instance is created with attribute `guest`.
+  const continueAsGuest = (evt) => {
+    evt.preventDefault();
+    console.log("continue as guest")
+    dispatch(authenticate({ username: "guest", password: "guestpwd", method: "guest" }));
+  }
+
   return (
     <div>
       <span>
@@ -51,6 +58,7 @@ const AuthForm = ({ name, displayName }) => {
           <option value="Admin">Admin</option>
         </select>
       </span>
+      {/*the component will show this form if `admin` role is selected*/}
       {admin ? (
         <form onSubmit={handleAdminSubmit}>
           <div>
@@ -67,6 +75,7 @@ const AuthForm = ({ name, displayName }) => {
         </form>
       ) : (
         <div>
+          {/*the component will show this form if `user` role is selected*/}
           <form onSubmit={handleUserSubmit} name={name}>
             <div>
               <label htmlFor="username">
@@ -88,7 +97,7 @@ const AuthForm = ({ name, displayName }) => {
           <div className="guest">
             <small>
               Don't have an account?
-              <button>Continue as a guest</button>
+              <button onClick={continueAsGuest}>Continue as a guest</button>
               or <Link to="/signup">Sign Up</Link>
             </small>
           </div>
