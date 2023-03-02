@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchProductsAsync } from "allProductSlice.js";
+import { fetchProductsAsync } from "./allProductSlice.js";
 import { NavLink } from "react-router-dom";
 
 const AllProducts = () => {
