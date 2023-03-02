@@ -14,7 +14,7 @@ const Product = db.define("product", {
     allowNull: false,
   },
   prodSize: {
-    type: Sequelize.CHAR(255),
+    type: Sequelize.ARRAY(Sequelize.CHAR),
     allowNull: false,
   },
   prodColor: {
