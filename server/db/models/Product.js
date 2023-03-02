@@ -10,11 +10,11 @@ const Product = db.define("product", {
     allowNull: false,
   },
   prodPrice: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.DECIMAL,
     allowNull: false,
   },
   prodSize: {
-    type: Sequelize.CHAR(255),
+    type: Sequelize.ARRAY(Sequelize.CHAR),
     allowNull: false,
   },
   prodColor: {
