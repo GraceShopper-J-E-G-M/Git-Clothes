@@ -68,8 +68,8 @@ router.post("/", async (req, res, next) => {
       }
 
       await cart.update({
-        TotalCost: totalOrdersCost,
-        TotalCartItems: totalCartQty,
+        totalCost: totalOrdersCost,
+        totalCartItems: totalCartQty,
       });
       console.log("Total order items cost:", totalOrderItemsCost);
       res.status(200).json(cart);
@@ -109,8 +109,8 @@ router.post("/", async (req, res, next) => {
       console.log(totalOrdersCost);
 
       await cart[0].update({
-        TotalCost: totalOrdersCost,
-        TotalCartItems: totalCartQty,
+        totalCost: totalOrdersCost,
+        totalCartItems: totalCartQty,
       });
       console.log("Total order items cost:", totalOrderItemsCost);
       res.status(200).json(cart);
@@ -123,7 +123,10 @@ router.post("/", async (req, res, next) => {
 router.get("/", async (req, res, next) => {
   try {
     const userId = req.query.userId;
+    console.log("In db", userId);
     const user = await User.findByPk(userId);
+    //const user = req.query.userId;
+    console.log("IN db:", user);
     const userCart = await user.getCarts({
       where: {
         status: "Pending",

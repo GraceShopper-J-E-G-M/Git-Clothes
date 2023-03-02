@@ -2,12 +2,12 @@ const Sequelize = require("sequelize");
 const db = require("../db");
 
 const Cart = db.define("cart", {
-  TotalCost: {
+  totalCost: {
     type: Sequelize.DECIMAL,
     defaultValue: 0,
     allowNull: false,
   },
-  TotalCartItems: {
+  totalCartItems: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
     allowNull: false,
