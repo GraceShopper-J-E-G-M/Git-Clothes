@@ -12,10 +12,10 @@ router.use((req, res, next) => {
 
 router.get('/', async (req, res, next) => {
   try {
-    const products = await products.findAll({
+    const allProducts = await product.findAll({
       attributes: ['prodId']
     })
-    res.json(products)
+    res.json(allProducts)
   } catch (err) {
     next(err)
   }
