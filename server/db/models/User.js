@@ -8,11 +8,11 @@ const SALT_ROUNDS = 5;
 const User = db.define("user", {
   firstName: {
     type: Sequelize.CHAR(255),
-    allowNull: false,
+    allowNull: true,
   },
   lastName: {
     type: Sequelize.CHAR(255),
-    allowNull: false,
+    allowNull: true,
   },
   email: {
     type: Sequelize.CHAR(255),
