@@ -8,9 +8,6 @@ router.post("/guest", async (req, res, next) => {
   try {
     const user = await User.create(req.body);
     res.send({ token: await user.generateToken() });
-    if (err.name === "SequelizeUniqueConstraintError") {
-      res.status(401).send("User already exists");
-    }
   } catch (err) {
     next(err);
   }

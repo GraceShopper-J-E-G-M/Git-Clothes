@@ -9,6 +9,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const logoutAndRedirectHome = () => {
     dispatch(logout());
+
     navigate('/login');
   };
 

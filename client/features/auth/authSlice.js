@@ -17,7 +17,7 @@ export const me = createAsyncThunk('auth/me', async () => {
         headers: {
           authorization: token,
         },
-      });
+      })
       return res.data;
     } else {
       return {};
