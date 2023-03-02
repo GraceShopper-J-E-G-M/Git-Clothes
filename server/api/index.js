@@ -8,3 +8,14 @@ router.use((req, res, next) => {
   error.status = 404
   next(error)
 })
+
+router.get('/', async (req, res, next) => {
+  try {
+    const products = await products.findAll({
+      attributes: ['prodId']
+    })
+    res.json(products)
+  } catch (err) {
+    next(err)
+  }
+})
