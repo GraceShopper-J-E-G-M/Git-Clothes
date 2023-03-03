@@ -15,8 +15,8 @@ const Navbar = () => {
   const addToCart = async () => {
     const reqbody = {
       userId: 1,
-      prodId: 7,
-      quantity: 4,
+      prodId: 2,
+      quantity: 5,
     };
     await dispatch(addCartAsync(reqbody));
     navigate("/cart");

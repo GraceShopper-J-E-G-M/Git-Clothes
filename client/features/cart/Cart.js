@@ -33,8 +33,8 @@ const Cart = () => {
     <div>
       {cart?.orderItems?.length > 0 ? (
         <div>
-          <p>Total CartQty:{cart?.totalCartItems}</p>
-          <p>Total CartCost:{cart?.totalCost}</p>
+          <p>Total items:{cart?.totalCartItems}</p>
+          <p>Pre-Tax Order Total:{cart?.totalCost}</p>
           {cart?.orderItems?.map((orderItem) => {
             return (
               <div key={orderItem.id}>
@@ -72,6 +72,7 @@ const Cart = () => {
       ) : (
         <div>There are no items in the cart</div>
       )}
+      {cart?.orderItems?.length > 0 && <button type="button">Checkout</button>}
     </div>
   );
 };
