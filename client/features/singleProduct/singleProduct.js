@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from "react-router-dom";
 import { fetchSingleProduct, selectSingleProduct } from './singleProductSlice';
-import { fetchProductsAsync } from '../allProducts/allProductSlice';
+import { addCartAsync } from '../cart/cartSlice';
 
 const SingleProduct = () => {
     const dispatch = useDispatch();
@@ -13,20 +13,16 @@ const SingleProduct = () => {
     const [selectedSize, setSelectedSize] = useState("");
 
     const product = useSelector(selectSingleProduct);
-    const { prodName, prodQuantity, prodPrice, prodSize, prodColor, prodImg } = product;
-
-    const colorArray = prodColor;
-    console.log(colorArray);
+    const { prodName, prodPrice, prodSize, prodColor, prodImg } = product;
 
     useEffect(() => {
         dispatch(fetchSingleProduct(prodId));
-        // dispatch(fetchProductsAsync());
     }, [dispatch]);
 
     // useEffect hook so the state doesn't cause an infinity loop
     useEffect(() => {
-        setSelectedColor("red");
-        setSelectedSize("XS");
+        setSelectedColor(prodColor);
+        setSelectedSize(prodSize);
     }, [product])
 
     return (
@@ -37,6 +33,7 @@ const SingleProduct = () => {
                 onSubmit={(event) => {
                     event.preventDefault();
                     // dispatch add to cart
+                    // addCartAsync();
                 }}>
                 <p className="productName">{prodName}</p>
                 <p className="productPrice">{`$ ${prodPrice}`}</p>
@@ -44,7 +41,7 @@ const SingleProduct = () => {
                 <p>{selectedColor}</p>
 
                 {/* Drop down menu for selecting color */}
-                <select className="productColorSelector"
+                {/* <select className="productColorSelector"
                     onChange={(event) => {
                         setSelectedColor(event.target.value)
                     }}
@@ -52,10 +49,10 @@ const SingleProduct = () => {
                     {prodColor?.map((color) => {
                         <option value={color}>{color}</option>
                     })}
-                </select>
+                </select> */}
 
                 {/* Drop down menu for selecting size */}
-                <select className="productSizeSelector"
+                {/* <select className="productSizeSelector"
                     onChange={(event) => {
                         setSelectedSize(event.target.value)
                     }}
@@ -63,7 +60,7 @@ const SingleProduct = () => {
                     {prodSize?.map((size) => {
                         <option value={size}>{size}</option>
                     })}
-                </select>
+                </select> */}
 
                 <button type="submit">Add to Cart</button>
             </form>

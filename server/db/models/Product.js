@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
+
 const Product = db.define("product", {
   prodName: {
     type: Sequelize.CHAR(255),
@@ -28,4 +29,7 @@ const Product = db.define("product", {
     defaultValue: "/clothing_default.jpg",
   },
 });
+
+// Product.getAttributes().prodSize.values;
 module.exports = Product;
+
