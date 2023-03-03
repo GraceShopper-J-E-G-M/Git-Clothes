@@ -8,14 +8,13 @@ import { fetchCartAsync } from "../cart/cartSlice";
 const Home = (props) => {
   const username = useSelector((state) => state.auth.me.username);
   const user = useSelector((state) => state.auth.me);
-  const [inpUser, setInpUser] = useState(user);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (inpUser) {
-      dispatch(fetchCartAsync(inpUser));
+    if (user) {
+      dispatch(fetchCartAsync(user));
     }
-  }, [dispatch, inpUser]);
+  }, [dispatch, user]);
 
   return (
     <div>

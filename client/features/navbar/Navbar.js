@@ -1,7 +1,8 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { logout } from '../../app/store';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../../app/store";
+import { addCartAsync, fetchCartAsync } from "../cart/cartSlice";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
@@ -9,7 +10,16 @@ const Navbar = () => {
   const navigate = useNavigate();
   const logoutAndRedirectHome = () => {
     dispatch(logout());
-    navigate('/login');
+    navigate("/login");
+  };
+  const addToCart = async () => {
+    const reqbody = {
+      userId: 1,
+      prodId: 7,
+      quantity: 4,
+    };
+    await dispatch(addCartAsync(reqbody));
+    navigate("/cart");
   };
 
   return (
@@ -22,6 +32,9 @@ const Navbar = () => {
             <Link to="/home">Home</Link>
             <button type="button" onClick={logoutAndRedirectHome}>
               Logout
+            </button>
+            <button type="button" onClick={addToCart}>
+              Add To Cart
             </button>
           </div>
         ) : (
