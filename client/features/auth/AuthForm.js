@@ -2,7 +2,7 @@ import { copyDone } from "pg-protocol/dist/messages";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { authenticate } from "../../app/store";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 /**
   The AuthForm component can be used for Login or Sign Up.
@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 const AuthForm = ({ name, displayName }) => {
   const { error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [admin, setAdmin] = useState(false);
 
   const handleUserSubmit = (evt) => {
@@ -23,12 +24,13 @@ const AuthForm = ({ name, displayName }) => {
     dispatch(authenticate({ username, password, method: formName }));
   };
 
+  //On admin submit, naviage to /users endpoint and display `allUsers` component.
   const handleAdminSubmit = (evt) => {
     evt.preventDefault();
     const code = evt.target.adminCode.value;
     if (code === "code*") {
       console.log("Submit Admin!");
-      //dispatch(fetachAllUsers());
+      navigate(`/allUsers`)
     }
   };
 
