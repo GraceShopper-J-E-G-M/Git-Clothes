@@ -17,7 +17,7 @@ const singleProduct = () => {
     useEffect(() => {
         dispatch(fetchSingleProduct(productId));
         //change if erica name the line below differently
-        dispatch(fetchAllProducts());
+        dispatch(fetchAllProductsAsync());
     }, [dispatch]);
 
     //useEffect hook so the state doesn't cause an infinity loop
