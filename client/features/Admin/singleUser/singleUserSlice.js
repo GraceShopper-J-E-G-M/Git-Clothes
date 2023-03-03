@@ -46,16 +46,7 @@ export const singleUserSlice = createSlice({
     builder.addCase(editUser.fulfilled, (state, action) => {
         return action.payload;
     })
-  },
-    name: "singleUser",
-    initialState,
-    reducers: {},
-    extraReducers: (builder) => {
-        builder
-            .addCase(fetchSingleUser.fulfilled, (state, action) => {
-                state.info = action.payload;
-            })
-        }
+  }
 });
 
 export const selectSingleUser = (state) => {

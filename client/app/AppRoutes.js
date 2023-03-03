@@ -5,7 +5,7 @@ import AuthForm from '../features/auth/AuthForm';
 import Home from '../features/home/Home';
 import { me } from './store';
 import allProducts from "../features/allProducts/allProducts";
-import SingleProduct from '../features/singleProduct/singleProduct'
+import SingleProduct from '../features/singleProduct/singleProduct';
 
 /**
  * COMPONENT
