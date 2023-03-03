@@ -28,6 +28,7 @@ const AuthForm = ({ name, displayName }) => {
     const code = evt.target.adminCode.value;
     if (code === "code*") {
       console.log("Submit Admin!");
+      //dispatch(fetachAllUsers());
     }
   };
 

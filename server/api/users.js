@@ -16,3 +16,17 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// /**
+//  * DELETE `/api/campuses/:campusId` is a route to remove a campus (based on its id).
+//  */
+// router.delete("/:campusId", async (req, res, next) => {
+//   try {
+//     const campus = await Campus.findByPk(req.params.campusId);
+//     console.log(campus);
+//     await campus.destroy();
+//     res.send(campus);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+

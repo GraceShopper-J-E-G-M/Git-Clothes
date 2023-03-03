@@ -47,12 +47,6 @@ async function seed() {
   }
 
   ///--------------------------PRODUCTS DATA---------------------------///
-  const size = ["XS", "S", "M", "L", "XL", "XXL"];
-  const colors = [];
-  for (let i = 1; i <= 10; i++) {
-    colors.push(faker.color.human());
-  }
-
   const products = [];
   for (let i = 1; i <= 100; i++) {
     let sizeIndex = Math.floor(Math.random() * 6);
@@ -61,8 +55,8 @@ async function seed() {
       //generates a random number between 0 and 10
       prodQuantity: faker.datatype.number({ max: 10 }),
       prodPrice: faker.commerce.price(1, 1000, 2),
-      prodSize: size,
-      prodColor: colors,
+      prodSize,
+      prodColor,
       //generates a random fashion image url
       //NOTE: The height/width of the randomized image can be adjusted
       prodImg: faker.image.fashion(true),
