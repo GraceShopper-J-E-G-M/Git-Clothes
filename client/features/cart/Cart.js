@@ -1,32 +1,70 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCartAsync, selectCart } from "./cartSlice";
+import { editOrderItemAsync, deleteOrderItemAsync } from "./orderItemSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.me);
+  //console.log("User:", user);
+
   useEffect(() => {
-    dispatch(fetchCartAsync(userId));
-  }, [dispatch]);
+    if (user) {
+      dispatch(fetchCartAsync(user));
+    }
+  }, [dispatch, user]);
 
   const cart = useSelector(selectCart);
   console.log("After dispatch:", cart);
-  const [userId, setUserId] = useState(3);
+
+  const [qty, setQty] = useState(1);
+  const handleUpdateQuantity = async (orderItemId, prodPrice) => {
+    const reqBody = { qty, prodPrice };
+    await dispatch(editOrderItemAsync({ orderItemId, reqBody }));
+    await dispatch(fetchCartAsync(user));
+  };
+
+  const handleDelete = async (orderItemId) => {
+    await dispatch(deleteOrderItemAsync(orderItemId));
+    await dispatch(fetchCartAsync(user));
+  };
 
   return (
     <div>
-      <div>
-        <p>Total CartQty:{cart[0]?.TotalCartItems}</p>
-        <p>Total CartCost:{cart[0]?.TotalCost}</p>
-      </div>
-      {cart[0]?.orderItems?.length > 0 ? (
+      {cart?.orderItems?.length > 0 ? (
         <div>
-          {cart[0]?.orderItems?.map((orderItem) => {
+          <p>Total items:{cart?.totalCartItems}</p>
+          <p>Pre-Tax Order Total:{cart?.totalCost}</p>
+          {cart?.orderItems?.map((orderItem) => {
             return (
               <div key={orderItem.id}>
                 <p>ProdName:{orderItem.product.prodName}</p>
+                <input
+                  type="number"
+                  name="quantity"
+                  onChange={(event) => setQty(event.target.value)}
+                />
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleUpdateQuantity(
+                      orderItem.id,
+                      orderItem.product.prodPrice
+                    )
+                  }
+                >
+                  Update
+                </button>
                 <p>ProdQty:{orderItem.quantity}</p>
                 <p>ProdPrice:{orderItem.product.prodPrice}</p>
                 <p>ProdTotal:{orderItem.total}</p>
+                <button
+                  type="button"
+                  onClick={() => handleDelete(orderItem.id)}
+                >
+                  Delete
+                </button>
+                <br />
               </div>
             );
           })}
@@ -34,6 +72,7 @@ const Cart = () => {
       ) : (
         <div>There are no items in the cart</div>
       )}
+      {cart?.orderItems?.length > 0 && <button type="button">Checkout</button>}
     </div>
   );
 };
