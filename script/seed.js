@@ -23,7 +23,8 @@ async function seed() {
       lastName: faker.name.lastName(),
       email: faker.internet.email(),
       username: faker.internet.userName(),
-      password: faker.internet.password(15, true, /\w/, ""),
+      //password: faker.internet.password(15, true, /\w/, ""),
+      password: "user",
       role: `user`,
     });
   }
@@ -69,8 +70,6 @@ async function seed() {
     });
   }
 
-
-
   ///--------------------MODEL INSTANCES WITH FAKER DATA---------------------///
   await Promise.all(users.map((user) => User.create(user)));
   await Promise.all(addresses.map((address) => Address.create(address)));
@@ -89,11 +88,11 @@ async function seed() {
   ] = await Promise.all(products.map((product) => Product.create(product)));
 
   const cart1 = await Cart.create();
-  const cart2 = await Cart.create();
+  //const cart2 = await Cart.create();
 
   const orderItem1 = await OrderItem.create({
     quantity: 2,
-    total: prod3.prodPrice * 2
+    total: prod3.prodPrice * 2,
   });
 
   const orderItem2 = await OrderItem.create({
@@ -119,7 +118,6 @@ async function seed() {
   const user1 = await User.findByPk(1);
   await cart1.setUser(user1);
   //Give another cart to a user1.
-  await cart2.setUser(user1);
 
   //Product-OrderItem: One-to-many
   //Give a product to orderItem1.
@@ -130,12 +128,11 @@ async function seed() {
   //Give a product to orderItem2.
   await orderItem2.setProduct(prod2);
 
-
   //Cart-OrderItem: One-to-many**
   //Give a cart to orderItem1.
   await orderItem1.setCart(cart1);
   //Give another cart to orderItem1.
-  await orderItem1.setCart(cart2);
+  //await orderItem1.setCart(cart2);
 
   //Give a cart to orderItem2.
   await orderItem2.setCart(cart1);

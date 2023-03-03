@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
-import AuthForm from '../features/auth/AuthForm';
-import Home from '../features/home/Home';
-import { me } from './store';
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Route, Routes } from "react-router-dom";
+import AuthForm from "../features/auth/AuthForm";
+import Home from "../features/home/Home";
+import { me } from "./store";
+import Cart from "../features/cart/Cart";
 import allProducts from "../features/allProducts/allProducts";
-import SingleProduct from '../features/singleProduct/singleProduct'
+import SingleProduct from "../features/singleProduct/singleProduct";
 
 /**
  * COMPONENT
@@ -21,10 +22,12 @@ const AppRoutes = () => {
 
   return (
     <div>
-      {/* {isLoggedIn ? (
+      {isLoggedIn ? (
         <Routes>
           <Route path="/*" element={<Home />} />
           <Route to="/home" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/products/:prodId" element={<SingleProduct />} />
         </Routes>
       ) : (
         <Routes>
@@ -40,11 +43,13 @@ const AppRoutes = () => {
             path="/signup"
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/products/:prodId" element={<SingleProduct />} />
         </Routes>
-      )} */}
-      <Routes>
-        <Route path="/products/:prodId" element={<SingleProduct />}/>
-      </Routes>
+      )}
+      {/* <Routes>
+        <Route path="/products/:prodId" element={<SingleProduct />} />
+      </Routes> */}
     </div>
   );
 };

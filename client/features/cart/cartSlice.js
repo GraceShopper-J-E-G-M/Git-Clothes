@@ -1,26 +1,33 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchCartAsync = createAsyncThunk("cart", async (userId) => {
+export const fetchCartAsync = createAsyncThunk("cart", async (user) => {
   try {
-    const { data } = await axios.get("/api/cart", { params: { userId } });
-    console.log("In slice:", data);
-    return data;
+    //console.log("In slice:", user);
+    if (user) {
+      const userId = user.id;
+
+      const { data } = await axios.get("/api/cart", { params: { userId } });
+      //console.log("In slice:", data);
+      return data;
+    }
   } catch (err) {
     console.error(err);
   }
 });
 
-export const addCartAsync = createAsyncThunk("addCart", async ({ reqbody }) => {
+export const addCartAsync = createAsyncThunk("addCart", async (reqbody) => {
   try {
+    console.log("ReqBody:+++++++", reqbody);
     const { data } = await axios.post("/api/cart", reqbody);
+    console.log("IN SLICE:+++++", data);
     return data;
   } catch (err) {
     console.error(err);
   }
 });
 
-const initialState = [];
+const initialState = {};
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
