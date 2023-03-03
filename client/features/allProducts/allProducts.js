@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAllProductsAsync, selectAllProducts } from "..allProducts/allProductSlice";
-// import { useParams, NavLink } from "react-router-dom";
-import singleProduct from "../singleProduct/singleProduct";
+import { fetchAllProductsAsync, selectAllProducts } from "./allProductSlice";
 
 const AllProducts = () => {
   const dispatch = useDispatch();
@@ -16,7 +14,6 @@ const AllProducts = () => {
   
   return (
     <div className='allProductsContainer'>
-      {/* <Link to='/products/add-product'><button>Add to Cart</button></Link> */}
       <h1> All Products </h1>
       <div className= "products"> 
         {products.map((product)=> {
@@ -25,14 +22,6 @@ const AllProducts = () => {
           )
         })}
       </div>
-      {/* {products && products.length
-        ? products.map((product) => (
-            <NavLink
-              to={`/products/${product.id}`}
-              key={`All Products: ${product.id}`} >
-            </NavLink>
-          ))
-        : null} */}
     </div>
   );
 };

@@ -18,13 +18,13 @@ const Navbar = () => {
       prodId: 2,
       quantity: 5,
     };
-    await dispatch(addCartAsync(reqbody));
+    await dispatch(addCartAsync(req.body));
     navigate("/cart");
   };
 
   return (
     <div>
-      <h1>FS-App-Template</h1>
+      <h1>Git-Clothes</h1>
       <nav>
         {isLoggedIn ? (
           <div>
