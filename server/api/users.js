@@ -17,3 +17,13 @@ router.get("/", async (req, res, next) => {
     next(err);
   }
 });
+
+router.get("/:userId", async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.userId);
+    const addresses = await user.getAddresses();
+    res.json(addresses);
+  } catch (err) {
+    next(err);
+  }
+});
