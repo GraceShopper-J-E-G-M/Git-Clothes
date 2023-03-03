@@ -14,11 +14,13 @@ const Product = db.define("product", {
     allowNull: false,
   },
   prodSize: {
-    type: Sequelize.ARRAY(Sequelize.CHAR),
+    type: Sequelize.ENUM("XS","S","M","L","XL","XXL"),
+    defaultValue: "XS",
     allowNull: false,
   },
   prodColor: {
-    type: Sequelize.ARRAY(Sequelize.CHAR),
+    type: Sequelize.ENUM("Red", "Pink", "Plum", "Mustard", "Burgundy", "Forest Green", "Beige", "Olive", "Grey", "Black", "Brown", "Dark Brown", "Blue"),
+    defaultValue: "Red",
     allowNull: false,
   },
   prodImg: {
