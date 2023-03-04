@@ -11,11 +11,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
  */
 
 export const fetchAllUsersAsync = createAsyncThunk(
-  "users/fetchAll",
+  "allUsers/fetchAll",
   async () => {
     try {
       const { data } = await axios.get("http://localhost:8080/api/users");
-      console.log(data)
+      console.log("data", data);
     } catch (error) {
       console.log(error);
     }
@@ -31,9 +31,8 @@ export const allUsersSlice = createSlice({
     //For now, all our data is aync so my logic does not go here, but in the extraReducers.
   },
   extraReducers: (builder) => {
-    builder.addCase(
-      fetchAllUsersAsync.fulfilled,
-      (state, { payload }) => payload
+    builder
+    .addCase(fetchAllUsersAsync.fulfilled, (state, {payload}) => payload
     );
   },
 });

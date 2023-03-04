@@ -6,7 +6,7 @@ import Home from "../features/home/Home";
 import { me } from "./store";
 import AllUsers from "../features/allUsers/allUsers";
 import Cart from "../features/cart/Cart";
-import allProducts from "../features/allProducts/allProducts";
+import AllProducts from "../features/allProducts/allProducts";
 import SingleProduct from "../features/singleProduct/singleProduct";
 
 /**
@@ -23,12 +23,13 @@ const AppRoutes = () => {
 
   return (
     <div>
-      {isLoggedIn ? (
+      {/* {isLoggedIn ? (
         <Routes>
           <Route path="/*" element={<Home />} />
           <Route to="/home" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/products/:prodId" element={<SingleProduct />} />
+          <Route path="/allUsers" element={<AllUsers />} />
         </Routes>
       ) : (
         <Routes>
@@ -48,10 +49,12 @@ const AppRoutes = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/products/:prodId" element={<SingleProduct />} />
         </Routes>
-      )}
-      {/* <Routes>
+      )} */}
+      <Routes>
+        <Route path="/products" element={<AllProducts/>}></Route>
         <Route path="/products/:prodId" element={<SingleProduct />} />
-      </Routes> */}
+        <Route path="/allUsers" element={<AllUsers />} />
+      </Routes>
     </div>
   );
 };

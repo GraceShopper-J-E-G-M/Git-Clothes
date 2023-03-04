@@ -4,10 +4,8 @@ const { models: { Product } } = require('../db');
 //get all
 router.get('/', async (req, res, next) => {
   try {
-    const allProducts = await product.findAll({
-      attributes: ['prodId']
-    })
-    res.json(allProducts)
+    const allProducts = await Product.findAll();
+    res.send(allProducts);
   } catch (err) {
     next(err)
   }
