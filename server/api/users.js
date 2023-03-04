@@ -23,8 +23,8 @@ router.get("/", async (req, res, next) => {
 //`GET` user at /api/users/:userId, include their assosiated address(es).
 router.get("/:userId", async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.userId, { include: [Address] });
-    res.json(user);
+    const singleUser = await User.findByPk(req.params.userId, { include: [Address] });
+      res.send(singleUser);
   } catch (err) {
     next(err);
   }

@@ -34,7 +34,7 @@ const AllUsers = () => {
             <div key={`Inside all user view: ${i}`}>
               <li id="users-view-list-item">
                 {/** Clicking on a user from the users view should navigate to show that user */}
-                <Link id="link" to={`/users/${user.id}`}>
+                <Link id="link" to={`/allUsers/${user.id}`}>
                   <span>{user.username}</span>
                 </Link>
                 <p> {user.email}</p>

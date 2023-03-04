@@ -5,11 +5,11 @@ import AuthForm from "../features/auth/AuthForm";
 import Home from "../features/home/Home";
 import { me } from "./store";
 import AllUsers from "../features/admin/allUsers/allUsers";
-import singleUser from "../features/Admin/singleUser/singleUser";
 import Cart from "../features/cart/Cart";
 import AllProducts from "../features/allProducts/allProducts";
 import SingleProduct from "../features/singleProduct/singleProduct";
 import AdminNavBar from "../features/admin/adminNavBar/adminNavBar";
+import SingleUser from "../features/Admin/singleUser/singleUser";
 
 /**
  * COMPONENT
@@ -52,6 +52,7 @@ const AppRoutes = () => {
           <Route path="/admin" element={<AdminNavBar />} />
           <Route path="/allUsers" element={<AllUsers />} />
           {/**This is where we should add the routes for /allUsers/:id, /allProducts, and /allProducts/:id */}
+          <Route path="/allUsers/:userId" element={<SingleUser />} />
         </Routes>
       )}
     </div>
