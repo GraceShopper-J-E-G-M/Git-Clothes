@@ -12,7 +12,7 @@ const AllUsers = () => {
   const dispatch = useDispatch();
   const allUsers = useSelector(selectAllUsers);
 
-  console.log("allUsers", allUsers)
+  console.log("allUsers", allUsers);
   const [loading, setLoading] = useState(true);
 
   //React dispatches a thunk to load initial data from /api/users.
@@ -24,20 +24,26 @@ const AllUsers = () => {
   return loading ? (
     <p style={{ textAlign: "center" }}>Loading...</p>
   ) : (
-    <ul id="users-list">
-      {allUsers.map((user, i) => {
-        return (
-          <div key={`Inside all user view: ${i}`}>
-            <li id="users-view-list-item">
-              {/** Clicking on a user from the users view should navigate to show that user */}
-              <Link id="link" to={`/users/${user.id}`}>
-                <span>user.username</span>
-              </Link>
-            </li>
-          </div>
-        );
-      })}
-    </ul>
+    <div>
+      <Link to="/admin">
+        <button>Back to admin portal</button>
+      </Link>
+      <ul id="users-list">
+        {allUsers.map((user, i) => {
+          return (
+            <div key={`Inside all user view: ${i}`}>
+              <li id="users-view-list-item">
+                {/** Clicking on a user from the users view should navigate to show that user */}
+                <Link id="link" to={`/allUsers/${user.id}`}>
+                  <span>{user.username}</span>
+                </Link>
+                <p> {user.email}</p>
+              </li>
+            </div>
+          );
+        })}
+      </ul>
+    </div>
   );
 };
 
