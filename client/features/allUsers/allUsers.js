@@ -12,7 +12,7 @@ const AllUsers = () => {
   const dispatch = useDispatch();
   const allUsers = useSelector(selectAllUsers);
 
-  console.log("allUsers", allUsers)
+  console.log("allUsers", allUsers);
   const [loading, setLoading] = useState(true);
 
   //React dispatches a thunk to load initial data from /api/users.
@@ -31,8 +31,11 @@ const AllUsers = () => {
             <li id="users-view-list-item">
               {/** Clicking on a user from the users view should navigate to show that user */}
               <Link id="link" to={`/users/${user.id}`}>
-                <span>user.username</span>
+                <span>
+                  {user.username}
+                </span>
               </Link>
+              <p> {user.email}</p>
             </li>
           </div>
         );
