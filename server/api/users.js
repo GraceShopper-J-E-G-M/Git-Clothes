@@ -20,8 +20,12 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:userId", async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.userId);
-    const addresses = await user.getAddresses();
+    const userId = req.params.userId;
+    console.log("userId:", userId);
+    const user = await User.findByPk(userId);
+    console.log("user:", user);
+    const [addresses] = await user.getAddresses();
+    console.log("address:", addresses);
     res.json(addresses);
   } catch (err) {
     next(err);
