@@ -5,6 +5,7 @@ import AuthForm from "../features/auth/AuthForm";
 import Home from "../features/home/Home";
 import { me } from "./store";
 import AllUsers from "../features/admin/allUsers/allUsers";
+import singleUser from "../features/Admin/singleUser/singleUser";
 import Cart from "../features/cart/Cart";
 import AllProducts from "../features/allProducts/allProducts";
 import SingleProduct from "../features/singleProduct/singleProduct";
