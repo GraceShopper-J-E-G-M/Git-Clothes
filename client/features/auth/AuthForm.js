@@ -31,7 +31,6 @@ const AuthForm = ({ name, displayName }) => {
     if (code === "code*") {
       console.log("Submit Admin!");
       navigate(`/admin`)
-      // navigate(`/allUsers`)
     }
   };
 
@@ -50,6 +49,7 @@ const AuthForm = ({ name, displayName }) => {
     dispatch(
       authenticate({ username: "guest", password: "guestpwd", method: "guest" })
     );
+    navigate(`/allProducts`)
   };
 
   return (

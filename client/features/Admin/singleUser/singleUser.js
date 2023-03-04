@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { fetchSingleUser, selectSingleUser } from "./singleUserSlice";
+import { useParams, Link } from "react-router-dom";
+import { fetchSingleUser, selectSingleUser } from "./singleuserSlice";
 
 const SingleUser = () => {
   const dispatch = useDispatch();
@@ -59,6 +59,7 @@ const SingleUser = () => {
           <p>No role for this user.</p>
         )}
       </div>
+      <Link to="/allUsers"><button>Back to All Users</button></Link>
     </div>
   );
 };

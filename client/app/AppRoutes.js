@@ -4,12 +4,12 @@ import { Route, Routes } from "react-router-dom";
 import AuthForm from "../features/auth/AuthForm";
 import Home from "../features/home/Home";
 import { me } from "./store";
-import AllUsers from "../features/admin/allUsers/allUsers";
 import Cart from "../features/cart/Cart";
 import AllProducts from "../features/allProducts/allProducts";
 import SingleProduct from "../features/singleProduct/singleProduct";
 import AdminNavBar from "../features/admin/adminNavBar/adminNavBar";
-import SingleUser from "../features/Admin/singleUser/singleUser";
+import AllUsers from "../features/admin/allUsers/allUsers";
+import SingleUser from "../features/admin/singleUser/singleuser";
 
 /**
  * COMPONENT
@@ -30,8 +30,8 @@ const AppRoutes = () => {
           <Route path="/*" element={<Home />} />
           <Route to="/home" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/products" element={<AllProducts/>}></Route>
-          <Route path="/products/:prodId" element={<SingleProduct />} />
+          <Route path="/allProducts" element={<AllProducts/>}/>
+          <Route path="/allProducts/:prodId" element={<SingleProduct />} />
         </Routes>
       ) : (
         <Routes>
@@ -48,10 +48,10 @@ const AppRoutes = () => {
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/products/:prodId" element={<SingleProduct />} />
+          <Route path="/allProducts/:prodId" element={<SingleProduct />} />
           <Route path="/admin" element={<AdminNavBar />} />
           <Route path="/allUsers" element={<AllUsers />} />
-          {/**This is where we should add the routes for /allUsers/:id, /allProducts, and /allProducts/:id */}
+          {/**This is where we should add the ADMIN routes for /allUsers/:id, /allProducts, and /allProducts/:id */}
           <Route path="/allUsers/:userId" element={<SingleUser />} />
         </Routes>
       )}

@@ -14,26 +14,26 @@ export const fetchSingleUser = createAsyncThunk(
   }
 );
 
-// export const editSingleUser = createAsyncThunk(
-//   "users/editSingleUser",
-//   async ({ id, username, password, firstName, lastName, email, role }) => {
-//     try {
-//       const { data } = await axios.put(`/api/users/${id}/editSingleUser`, {
-//         username,
-//         password,
-//         firstName,
-//         lastName,
-//         // address,
-//         email,
-//         role,
-//       });
-//       console.log("After axios put");
-//       return data;
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   }
-// );
+export const editSingleUser = createAsyncThunk(
+  "users/editSingleUser",
+  async ({ id, username, password, firstName, lastName, email, role }) => {
+    try {
+      const { data } = await axios.put(`/api/users/${id}/editSingleUser`, {
+        username,
+        password,
+        firstName,
+        lastName,
+        // address,
+        email,
+        role,
+      });
+      console.log("After axios put");
+      return data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
 
 export const singleUserSlice = createSlice({
   name: "singleUser",
