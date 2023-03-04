@@ -2,14 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCartAsync, selectCart } from "./cartSlice";
 import { editOrderItemAsync, deleteOrderItemAsync } from "./orderItemSlice";
+import { useNavigate } from "react-router-dom";
+import Checkout from "../checkout/Checkout";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.me);
+  const navigate = useNavigate();
   //console.log("User:", user);
 
   useEffect(() => {
-    if (user) {
+    if (user.id) {
       dispatch(fetchCartAsync(user));
     }
   }, [dispatch, user]);
@@ -72,7 +75,16 @@ const Cart = () => {
       ) : (
         <div>There are no items in the cart</div>
       )}
-      {cart?.orderItems?.length > 0 && <button type="button">Checkout</button>}
+      {cart?.orderItems?.length > 0 && (
+        <button
+          type="button"
+          onClick={() => {
+            navigate("/checkout");
+          }}
+        >
+          Checkout
+        </button>
+      )}
     </div>
   );
 };
