@@ -4,10 +4,11 @@ import { Route, Routes } from "react-router-dom";
 import AuthForm from "../features/auth/AuthForm";
 import Home from "../features/home/Home";
 import { me } from "./store";
-import AllUsers from "../features/allUsers/allUsers";
+import AllUsers from "../features/admin/allUsers/allUsers";
 import Cart from "../features/cart/Cart";
 import AllProducts from "../features/allProducts/allProducts";
 import SingleProduct from "../features/singleProduct/singleProduct";
+import AdminNavBar from "../features/admin/adminNavBar/adminNavBar";
 
 /**
  * COMPONENT
@@ -30,7 +31,6 @@ const AppRoutes = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/products" element={<AllProducts/>}></Route>
           <Route path="/products/:prodId" element={<SingleProduct />} />
-          <Route path="/allUsers" element={<AllUsers />} />
         </Routes>
       ) : (
         <Routes>
@@ -46,16 +46,13 @@ const AppRoutes = () => {
             path="/signup"
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
-          <Route path="/allUsers" element={<AllUsers />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/products/:prodId" element={<SingleProduct />} />
+          <Route path="/admin" element={<AdminNavBar />} />
+          <Route path="/allUsers" element={<AllUsers />} />
+          {/**This is where we should add the routes for /allUsers/:id, /allProducts, and /allProducts/:id */}
         </Routes>
       )}
-      {/* <Routes>
-        <Route path="/products" element={<AllProducts/>}></Route>
-        <Route path="/products/:prodId" element={<SingleProduct />} />
-        <Route path="/allUsers" element={<AllUsers />} />
-      </Routes> */}
     </div>
   );
 };

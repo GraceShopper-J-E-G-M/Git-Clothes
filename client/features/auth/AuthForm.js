@@ -30,7 +30,8 @@ const AuthForm = ({ name, displayName }) => {
     const code = evt.target.adminCode.value;
     if (code === "code*") {
       console.log("Submit Admin!");
-      navigate(`/allUsers`)
+      navigate(`/admin`)
+      // navigate(`/allUsers`)
     }
   };
 

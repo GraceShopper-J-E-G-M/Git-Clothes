@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../app/store";
 import { addCartAsync, fetchCartAsync } from "../cart/cartSlice";
-import AllUsers from "../allUsers/allUsers";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);

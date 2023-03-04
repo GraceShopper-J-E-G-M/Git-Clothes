@@ -6,8 +6,8 @@ import singleProductSlice from "../features/singleProduct/singleProductSlice";
 import allProductsSlice from "../features/allProducts/allProductSlice";
 import addressSlice from "../features/checkout/addressSlice";
 import orderItemSlice from "../features/cart/orderItemSlice";
-import singleUserSlice from "../features/Admin/singleUser/singleUserSlice";
-import allUsersReducer from "../features/allUsers/allUsersSlice";
+import singleUserSlice from "../features/admin/singleUser/singleUserSlice";
+import allUsersReducer from "../features/admin/allUsers/allUsersSlice";
 
 const store = configureStore({
   reducer: {
