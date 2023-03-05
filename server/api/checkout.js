@@ -18,6 +18,15 @@ router.post("/:cartId/shipping", async (req, res, next) => {
   }
 });
 
+router.get("/shipping/:shippingId", async (req, res, next) => {
+  try {
+    const shippingId = req.params.shippingId;
+    const shipping = await Shipping.findByPk(shippingId);
+    res.json(shipping);
+  } catch (err) {
+    next(err);
+  }
+});
 router.post("/:cartId/payment", async (req, res, next) => {
   try {
     const cartId = req.params.cartId;

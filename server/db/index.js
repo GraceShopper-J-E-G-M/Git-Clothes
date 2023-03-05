@@ -43,6 +43,7 @@ module.exports = {
     Product,
     Cart,
     OrderItem,
+    Address,
     Payment,
     Shipping,
     OrderPayment,
