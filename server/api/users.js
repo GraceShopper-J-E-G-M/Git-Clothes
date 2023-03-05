@@ -23,9 +23,25 @@ router.get("/", async (req, res, next) => {
 //`GET` user at /api/users/:userId, include their assosiated address(es).
 router.get("/:userId", async (req, res, next) => {
   try {
-    const singleUser = await User.findByPk(req.params.userId, { include: [Address] });
-      res.send(singleUser);
+    const singleUser = await User.findByPk(req.params.userId, {
+      include: [Address],
+    });
+    res.send(singleUser);
   } catch (err) {
     next(err);
+  }
+});
+
+/**
+ * DELETE `/api/users/:userId` is a route to remove a user (based on its id).
+ */
+router.delete("/:userId", async (req, res, next) => {
+  try {
+    const userToDelete = await User.findByPk(req.params.userId);
+    console.log(userToDelete);
+    await userToDelete.destroy();
+    res.send(userToDelete);
+  } catch (error) {
+    next(error);
   }
 });

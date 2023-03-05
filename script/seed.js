@@ -23,8 +23,7 @@ async function seed() {
       lastName: faker.name.lastName(),
       email: faker.internet.email(),
       username: faker.internet.userName(),
-      //password: faker.internet.password(15, true, /\w/, ""),
-      password: "user",
+      password: faker.internet.password(15, true, /\w/, ""),
       role: `user`,
     });
   }
