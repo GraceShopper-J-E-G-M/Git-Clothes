@@ -16,6 +16,21 @@ export const addShippingAddressAsync = createAsyncThunk(
   }
 );
 
+// export const fetchShippingAsync = createAsyncThunk(
+//   "shipping",
+//   async (shippingId) => {
+//     try {
+//       const { data } = await axios.get(
+//         `/api/checkout/shipping/${shippingId}/shipping`
+//       );
+//       console.log("Fetch Shipping:", data);
+//       return data;
+//     } catch (err) {
+//       console.error(err);
+//     }
+//   }
+// );
+
 const initialState = {};
 export const shippingSlice = createSlice({
   name: "shipping",
@@ -25,6 +40,9 @@ export const shippingSlice = createSlice({
     builder.addCase(addShippingAddressAsync.fulfilled, (state, action) => {
       return action.payload;
     });
+    // .addCase(fetchShippingAsync.fulfilled, (state, action) => {
+    //   return action.payload;
+    // });
   },
 });
 
