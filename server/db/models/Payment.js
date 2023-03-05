@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-const Payment = db.define({
+const Payment = db.define("payment", {
   card: {
     type: Sequelize.STRING,
     allowNull: false,
