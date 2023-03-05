@@ -30,7 +30,7 @@ const AppRoutes = () => {
           <Route path="/*" element={<Home />} />
           <Route to="/home" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/allProducts" element={<AllProducts/>}/>
+          <Route path="/allProducts" element={<AllProducts />} />
           <Route path="/allProducts/:prodId" element={<SingleProduct />} />
         </Routes>
       ) : (
@@ -48,10 +48,10 @@ const AppRoutes = () => {
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/allProducts/:prodId" element={<SingleProduct />} />
           <Route path="/admin" element={<AdminNavBar />} />
+
+          {/**This is where we should add the ADMIN routes for /allUsers, /allUsers/:id, /allProducts, and /allProducts/:id */}
           <Route path="/allUsers" element={<AllUsers />} />
-          {/**This is where we should add the ADMIN routes for /allUsers/:id, /allProducts, and /allProducts/:id */}
           <Route path="/allUsers/:userId" element={<SingleUser />} />
         </Routes>
       )}
