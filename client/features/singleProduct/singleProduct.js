@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { fetchSingleProduct, selectSingleProduct } from './singleProductSlice';
 import { addCartAsync } from '../cart/cartSlice';
 
@@ -63,6 +63,7 @@ const SingleProduct = () => {
                 </select> */}
 
                 <button type="submit">Add to Cart</button>
+                <button><Link to="/allProducts">Back to all products</Link></button>
             </form>
         </section>
     )
