@@ -18,7 +18,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/:userId", async (req, res, next) => {
+router.get("/:userId/address", async (req, res, next) => {
   try {
     const userId = req.params.userId;
     console.log("userId:", userId);
@@ -27,6 +27,20 @@ router.get("/:userId", async (req, res, next) => {
     const [addresses] = await user.getAddresses();
     console.log("address:", addresses);
     res.json(addresses);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/:userId/payment", async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    console.log("userId:", userId);
+    const user = await User.findByPk(userId);
+    console.log("user:", user);
+    const payment = await user.getPayment();
+    console.log("payment:", payment);
+    res.json(payment);
   } catch (err) {
     next(err);
   }
