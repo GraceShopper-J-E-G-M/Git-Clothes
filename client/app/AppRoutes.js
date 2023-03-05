@@ -9,6 +9,7 @@ import Cart from "../features/cart/Cart";
 import allProducts from "../features/allProducts/allProducts";
 import SingleProduct from "../features/singleProduct/singleProduct";
 import Checkout from "../features/checkout/Checkout";
+import Success from "../features/checkout/Success";
 
 /**
  * COMPONENT
@@ -30,6 +31,7 @@ const AppRoutes = () => {
           <Route to="/home" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/confirmation/:cartId" element={<Success />} />
           <Route path="/products/:prodId" element={<SingleProduct />} />
         </Routes>
       ) : (
@@ -49,6 +51,7 @@ const AppRoutes = () => {
           <Route path="/allUsers" element={<AllUsers />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/confirmation" element={<Success />} />
           <Route path="/products/:prodId" element={<SingleProduct />} />
         </Routes>
       )}
