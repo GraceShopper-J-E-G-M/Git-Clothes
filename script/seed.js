@@ -59,7 +59,7 @@ async function seed() {
       prodColor: undefined,
       //generates a random fashion image url
       //NOTE: The height/width of the randomized image can be adjusted
-      prodImg: faker.image.fashion(true),
+      prodImg: faker.image.image(),
     });
   }
 
