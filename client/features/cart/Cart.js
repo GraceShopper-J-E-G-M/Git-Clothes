@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCartAsync, selectCart } from "./cartSlice";
-import { editOrderItemAsync, deleteOrderItemAsync } from "./orderItemSlice";
+import {
+  editOrderItemAsync,
+  deleteOrderItemAsync,
+  selectOrderItem,
+} from "./orderItemSlice";
 import { useNavigate } from "react-router-dom";
 import Checkout from "../checkout/Checkout";
 
@@ -18,6 +22,7 @@ const Cart = () => {
   }, [dispatch, user]);
 
   const cart = useSelector(selectCart);
+  const orderItem = useSelector(selectOrderItem);
   console.log("After dispatch:", cart);
 
   const [qty, setQty] = useState(1);
@@ -34,6 +39,7 @@ const Cart = () => {
 
   return (
     <div>
+      {orderItem.name === "Error" && <p>{orderItem.message}</p>}
       {cart?.orderItems?.length > 0 ? (
         <div>
           <p>Total items:{cart?.totalCartItems}</p>
@@ -47,17 +53,28 @@ const Cart = () => {
                   name="quantity"
                   onChange={(event) => setQty(event.target.value)}
                 />
-                <button
-                  type="button"
-                  onClick={() =>
-                    handleUpdateQuantity(
-                      orderItem.id,
-                      orderItem.product.prodPrice
-                    )
-                  }
-                >
-                  Update
-                </button>
+
+                {qty >= 0 &&
+                  (qty == 0 ? (
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(orderItem.id)}
+                    >
+                      Update
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handleUpdateQuantity(
+                          orderItem.id,
+                          orderItem.product.prodPrice
+                        )
+                      }
+                    >
+                      Update
+                    </button>
+                  ))}
                 <p>ProdQty:{orderItem.quantity}</p>
                 <p>ProdPrice:{orderItem.product.prodPrice}</p>
                 <p>ProdTotal:{orderItem.total}</p>
