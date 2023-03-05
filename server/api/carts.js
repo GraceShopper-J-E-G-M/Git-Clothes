@@ -3,7 +3,7 @@ const router = express.Router();
 const sequelize = require("sequelize");
 const {
   db,
-  models: { User, Cart, OrderItem, Product, Payment, Shipping },
+  models: { User, Cart, OrderItem, Product, Payment, Shipping, OrderPayment },
 } = require("../db");
 const index = require("../db/index");
 
@@ -90,7 +90,7 @@ router.post("/", async (req, res, next) => {
     console.log("IN carts Post");
     const userId = req.body.userId;
     const prodId = req.body.prodId;
-    const qty = req.body.quantity;
+    const qty = req.body.quantity ? req.body.quantity : 1;
 
     const user = await User.findByPk(userId);
     const prod = await Product.findByPk(prodId);
@@ -181,6 +181,12 @@ router.get("/", async (req, res, next) => {
                 attributes: ["prodName", "prodPrice", "prodImg"],
               },
             ],
+          },
+          {
+            model: OrderPayment,
+          },
+          {
+            model: Shipping,
           },
         ],
       });
