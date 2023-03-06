@@ -58,7 +58,7 @@ const updateCart = async (cart, totalCartCost, totalCartQty) => {
 
 const updateExistingProd = async (cart, userProd, newQuantity) => {
   let updateProd = false;
-  let updateOrderItem;
+  let updateOrderItem, updateOrderItemQty;
   const existingOrderItems = await cart.getOrderItems();
   for (const orderItem of existingOrderItems) {
     console.log("OrderItem:", orderItem);
@@ -68,13 +68,14 @@ const updateExistingProd = async (cart, userProd, newQuantity) => {
     if (existingProduct.id === userProd.id) {
       updateProd = true;
       updateOrderItem = orderItem;
+      updateOrderItemQty = orderItem.quantity;
       break;
     }
   }
   if (updateProd) {
     console.log("ExistingProd:", updateOrderItem.getProduct());
     await updateOrderItem.update({
-      quantity: newQuantity,
+      quantity: updateOrderItemQty + newQuantity,
       total: newQuantity * userProd.prodPrice,
     });
   } else {
