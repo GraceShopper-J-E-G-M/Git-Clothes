@@ -2,25 +2,26 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../app/store";
-import { addCartAsync, fetchCartAsync } from "../cart/cartSlice";
+import { addCartAsync, fetchCartAsync, selectCart } from "../cart/cartSlice";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const cart = useSelector(selectCart);
   const logoutAndRedirectHome = () => {
     dispatch(logout());
     navigate("/login");
   };
-  const addToCart = async () => {
-    const reqbody = {
-      userId: 8,
-      prodId: 11,
-      //quantity: 2,
-    };
-    await dispatch(addCartAsync(reqbody));
-    navigate("/cart");
-  };
+  // const addToCart = async () => {
+  //   const reqbody = {
+  //     userId: 101,
+  //     prodId: 11,
+  //     //quantity: 2,
+  //   };
+  //   await dispatch(addCartAsync(reqbody));
+  //   navigate("/cart");
+  // };
 
   return (
     <div>
@@ -33,9 +34,10 @@ const Navbar = () => {
             <button type="button" onClick={logoutAndRedirectHome}>
               Logout
             </button>
-            <button type="button" onClick={addToCart}>
+            {/* <button type="button" onClick={addToCart}>
               Add To Cart
-            </button>
+            </button> */}
+            <h4>cart : {cart.totalCartItems ? cart.totalCartItems : 0}</h4>
           </div>
         ) : (
           <div>
