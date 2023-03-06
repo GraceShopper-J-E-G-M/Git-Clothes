@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
 import { fetchCartAsync } from "../cart/cartSlice";
 
 /**
@@ -19,6 +20,10 @@ const Home = (props) => {
   return (
     <div>
       <h3>Welcome, {username}</h3>
+      <div>
+      <button><Link to="/allProducts">View all products</Link></button>
+      <button><Link to="/cart">View my cart</Link></button>
+      </div>
     </div>
   );
 };

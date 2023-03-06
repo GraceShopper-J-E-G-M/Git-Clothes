@@ -4,7 +4,16 @@ import axios from 'axios';
 export const fetchSingleProduct = createAsyncThunk("singleProduct", async (id) => {
     try {
         const { data } = await axios.get(`/api/products/${id}`);
-        console.log(data);
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+//admin - update product feature
+export const editProduct = createAsyncThunk("editProduct", async (productObj) => {
+    try {
+        const { data } = await axios.get(`/api/products/${productObj.id}`,productObj);
         return data;
     } catch (error) {
         console.log(error);
@@ -17,6 +26,9 @@ export const singleProductSlice = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(fetchSingleProduct.fulfilled, (state, action) => {
+            return action.payload;
+        })
+        .addCase(editProduct.fulfilled, (state, action) => {
             return action.payload;
         })
     }

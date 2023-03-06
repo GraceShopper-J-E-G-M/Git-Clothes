@@ -23,8 +23,7 @@ async function seed() {
       lastName: faker.name.lastName(),
       email: faker.internet.email(),
       username: faker.internet.userName(),
-      //password: faker.internet.password(15, true, /\w/, ""),
-      password: "user",
+      password: faker.internet.password(15, true, /\w/, ""),
       role: `user`,
     });
   }
@@ -60,7 +59,7 @@ async function seed() {
       prodColor: undefined,
       //generates a random fashion image url
       //NOTE: The height/width of the randomized image can be adjusted
-      prodImg: faker.image.fashion(true),
+      prodImg: faker.image.image(),
     });
   }
 

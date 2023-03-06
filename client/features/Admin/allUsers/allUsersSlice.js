@@ -11,14 +11,26 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
  */
 
 export const fetchAllUsersAsync = createAsyncThunk(
-  "users/fetchAll",
+  "allUsers/fetchAll",
   async () => {
     try {
       const { data } = await axios.get("http://localhost:8080/api/users");
-      console.log(data)
+      data.sort();
+      return data;
     } catch (error) {
       console.log(error);
     }
+  }
+);
+
+/**
+ * `deleteUserById DELETES data at api/users/:userId
+ */
+export const deleteUserById = createAsyncThunk(
+  "users/deleteUserById",
+  async (userId) => {
+    const { data } = await axios.delete(`/api/users/${userId}`);
+    return data;
   }
 );
 
@@ -31,10 +43,11 @@ export const allUsersSlice = createSlice({
     //For now, all our data is aync so my logic does not go here, but in the extraReducers.
   },
   extraReducers: (builder) => {
-    builder.addCase(
-      fetchAllUsersAsync.fulfilled,
-      (state, { payload }) => payload
-    );
+    builder
+      .addCase(fetchAllUsersAsync.fulfilled, (state, { payload }) => payload)
+      .addCase(deleteUserById.fulfilled, (state, { payload }) =>
+        state.filter((user) => user.id !== payload.id)
+      );
   },
 });
 
