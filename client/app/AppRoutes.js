@@ -30,6 +30,10 @@ const AppRoutes = () => {
 
   return (
     <div>
+      <Routes>
+        <Route path="/allProducts" element={<AllProducts />} />
+        <Route path="/allProducts/:prodId" element={<SingleProduct />} />
+      </Routes>
       {isLoggedIn ? (
         <Routes>
           <Route path="/*" element={<Home />} />
@@ -37,7 +41,6 @@ const AppRoutes = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/confirmation/:cartId" element={<Success />} />
-          {/* <Route path="/products/:prodId" element={<SingleProduct />} /> */}
           <Route path="/allProducts" element={<AllProducts />} />
           <Route path="/allProducts/:prodId" element={<SingleProduct />} />
         </Routes>

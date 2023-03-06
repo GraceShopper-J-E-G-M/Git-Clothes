@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../app/store";
 import { addCartAsync, fetchCartAsync } from "../cart/cartSlice";
+import AllProducts from "../allProducts/allProducts";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
@@ -14,7 +15,7 @@ const Navbar = () => {
   };
   const addToCart = async () => {
     const reqbody = {
-      userId: 8,
+      userId: 101,
       prodId: 11,
       //quantity: 2,
     };
@@ -24,7 +25,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <h1>Git-Clothes</h1>
+      <Link to="/allProducts"><h1>Git-Clothes</h1></Link>
       <nav>
         {isLoggedIn ? (
           <div>
