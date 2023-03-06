@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { fetchAllProductsAsync, selectAllProducts } from "./allProductSlice";
-import SingleProduct from "../singleProduct/singleProduct";
 
 const AllProducts = () => {
   const dispatch = useDispatch();
   const allProducts = useSelector(selectAllProducts);
   // const { productId } = useParams();
   console.log('allProducts', allProducts);
+
   useEffect(() => {
     dispatch(fetchAllProductsAsync());
   }, [dispatch]);
@@ -19,11 +20,11 @@ const AllProducts = () => {
       </Link>
       <h1> All Products </h1>
       <div className="products">
-        {allProducts.map((product) => {
+        <button><Link to="/home">Back to Home</Link></button>
+        {allProducts.map((product, i) => {
           return (
-            // <SingleProduct key={product.id} id={product.id} product={product} />
-            <div>
-              <h2>{product.prodName}</h2>
+            <div key={`inside the all products view ${i}`}>
+              <Link to={`/allProducts/${product.id}`}><h2>{product.prodName}</h2></Link>
               <img src={product.prodImg} />
             </div>
           );

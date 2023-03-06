@@ -23,6 +23,17 @@ export const fetchAllUsersAsync = createAsyncThunk(
   }
 );
 
+/**
+ * `deleteUserById DELETES data at api/users/:userId
+ */
+export const deleteUserById = createAsyncThunk(
+  "users/deleteUserById",
+  async (userId) => {
+    const { data } = await axios.delete(`/api/users/${userId}`);
+    return data;
+  }
+);
+
 //Here I invoke the createSlice function, and pass it an object with all of my state details.
 
 export const allUsersSlice = createSlice({
@@ -33,8 +44,10 @@ export const allUsersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-    .addCase(fetchAllUsersAsync.fulfilled, (state, {payload}) => payload
-    );
+      .addCase(fetchAllUsersAsync.fulfilled, (state, { payload }) => payload)
+      .addCase(deleteUserById.fulfilled, (state, { payload }) =>
+        state.filter((user) => user.id !== payload.id)
+      );
   },
 });
 
