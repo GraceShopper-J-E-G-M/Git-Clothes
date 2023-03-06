@@ -401,6 +401,9 @@ const Checkout = () => {
                           )}
                           {!phoneNumber && <p>{shipFormError.phoneNumber}</p>}
                           <button type="submit">save</button>
+                          <button type="button" onClick={() => setForm(false)}>
+                            cancel
+                          </button>
                         </form>
                       )}
                     </div>
@@ -409,7 +412,9 @@ const Checkout = () => {
                 <div>
                   <p>Cart Total : {cart.totalCost}</p>
                   <p>Tax : 5%</p>
-                  <h3>Checkout total : {calculateTotalCost(cart.totalCost)}</h3>
+                  <h3>
+                    Checkout total : ${calculateTotalCost(cart.totalCost)}
+                  </h3>
                   <p>{cart.totalCartItems} items added for checkout</p>
                 </div>
                 <div>
@@ -531,12 +536,19 @@ const Checkout = () => {
                       />
                       <p>{payFormError.expiry}</p>
                       <button type="submit">save</button>
+                      <button type="button" onClick={() => setPayForm(false)}>
+                        cancel
+                      </button>
                     </form>
                   )}
                 </div>
-                <button type="button" onClick={handlePlaceOrder}>
-                  Place order
-                </button>
+                {cart.shipping && cart.orderpayment ? (
+                  <button type="button" onClick={handlePlaceOrder}>
+                    Place order
+                  </button>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </div>
