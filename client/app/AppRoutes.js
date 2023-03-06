@@ -22,7 +22,10 @@ import UpdateProduct from "../features/admin/UpdateProduct/UpdateProduct";
 
 const AppRoutes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const isAdmin = useSelector((state) => state.auth.me.role);
   const dispatch = useDispatch();
+
+  console.log("isAdmin", isAdmin);
 
   useEffect(() => {
     dispatch(me());
@@ -34,6 +37,17 @@ const AppRoutes = () => {
         <Route path="/allProducts" element={<AllProducts />} />
         <Route path="/allProducts/:prodId" element={<SingleProduct />} />
       </Routes>
+      {/**This is where we should add the ADMIN routes for /allUsers, /allUsers/:id, /allProducts, and /allProducts/:id */}
+      {isAdmin ? (
+        <Routes>
+          <Route path="/admin" element={<AdminNavBar />} />
+          <Route path="/allUsers" element={<AllUsers />} />
+          <Route path="/allUsers/:userId" element={<SingleUser />} />
+          <Route path="/allUsers/:userId" element={<UpdateUser />} />
+          <Route path="/allProducts" element={<AdminAllProducts />} />
+          <Route path="/allProducts/:prodId" element={<UpdateProduct />} />
+        </Routes>
+      ) : null}
       {isLoggedIn ? (
         <Routes>
           <Route path="/*" element={<Home />} />
@@ -61,15 +75,6 @@ const AppRoutes = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/confirmation" element={<Success />} />
-          {/* <Route path="/products/:prodId" element={<SingleProduct />} /> */}
-          <Route path="/admin" element={<AdminNavBar />} />
-
-          {/**This is where we should add the ADMIN routes for /allUsers, /allUsers/:id, /allProducts, and /allProducts/:id */}
-          <Route path="/allUsers" element={<AllUsers />} />
-          <Route path="/allUsers/:userId" element={<SingleUser />} />
-          <Route path="/allUsers/:userId" element={<UpdateUser />} />
-          <Route path="/allProducts" element={<AdminAllProducts />} />
-          <Route path="/allProducts/:prodId" element={<UpdateProduct />} />
         </Routes>
       )}
     </div>
