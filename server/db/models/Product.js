@@ -30,6 +30,7 @@ const Product = db.define("product", {
   },
 });
 
-// Product.getAttributes().prodSize.values;
-module.exports = Product;
+// const sizeArray = Product.getAttributes().prodSize.values;
+// const colorArray = Product.getAttributes().prodColor.values;
 
+module.exports = Product;
