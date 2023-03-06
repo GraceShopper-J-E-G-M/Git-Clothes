@@ -10,11 +10,8 @@ import SingleProduct from "../features/singleProduct/singleProduct";
 import AdminNavBar from "../features/admin/adminNavBar/adminNavBar";
 import AllUsers from "../features/admin/allUsers/allUsers";
 import SingleUser from "../features/admin/singleUser/singleuser";
-<<<<<<< HEAD
 import AdminAllProducts from "../features/Admin/allProducts/AdminAllProducts";
-=======
 import UpdateProduct from "../features/admin/UpdateProduct/UpdateProduct";
->>>>>>> main
 
 /**
  * COMPONENT
@@ -58,11 +55,8 @@ const AppRoutes = () => {
           {/**This is where we should add the ADMIN routes for /allUsers, /allUsers/:id, /allProducts, and /allProducts/:id */}
           <Route path="/allUsers" element={<AllUsers />} />
           <Route path="/allUsers/:userId" element={<SingleUser />} />
-<<<<<<< HEAD
-          <Route path="/allProducts/" element={<AdminAllProducts />} />
-=======
+          <Route path="/allProducts" element={<AdminAllProducts />} />
           <Route path="/allProducts/:prodId" element={<UpdateProduct />} />
->>>>>>> main
         </Routes>
       )}
     </div>
