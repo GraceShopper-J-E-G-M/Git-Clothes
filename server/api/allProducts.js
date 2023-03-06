@@ -25,7 +25,18 @@ router.get('/:id', async (req, res, next) => {
     } catch (error) {
       next(error);
     }
-  })
+})
+
+//edit single product
+router.put("/:id", async (req, res, next) => {
+  try {
+    const singleProduct = await Product.findByPk(req.params.id);
+    await singleProduct.update(req.body);
+    res.status(204).send();
+  } catch (error) {
+    next(error)
+  }
+})
 
 //delete single product
 router.delete("/:id", async (req, res, next) => {
