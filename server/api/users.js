@@ -32,6 +32,16 @@ router.get("/:userId", async (req, res, next) => {
   }
 });
 
+//edit single user 
+router.put("/:id", async (req, res, next) => {
+  try {
+    const singleUser = await User.findByPk(req.params.id);
+    await singleUser.update(req.body);
+    res.status(204).send();
+  } catch (error) {
+    next(error)
+  }
+})
 /**
  * DELETE `/api/users/:userId` is a route to remove a user (based on its id).
  */
@@ -45,3 +55,13 @@ router.delete("/:userId", async (req, res, next) => {
     next(error);
   }
 });
+
+//adding new user
+router.post("/", async (req, res, next) => {
+  try {
+    const addUser = await User.create(req.body);
+    res.send(addUser);
+  } catch (err) {
+    next(err);
+  }
+})
