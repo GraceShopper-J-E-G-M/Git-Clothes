@@ -41,7 +41,7 @@ const SingleProduct = () => {
                 <p>{selectedColor}</p>
 
                 {/* Drop down menu for selecting color */}
-                {/* <select className="productColorSelector"
+                <select className="productColorSelector"
                     onChange={(event) => {
                         setSelectedColor(event.target.value)
                     }}
@@ -49,10 +49,10 @@ const SingleProduct = () => {
                     {prodColor?.map((color) => {
                         <option value={color}>{color}</option>
                     })}
-                </select> */}
+                </select>
 
                 {/* Drop down menu for selecting size */}
-                {/* <select className="productSizeSelector"
+                <select className="productSizeSelector"
                     onChange={(event) => {
                         setSelectedSize(event.target.value)
                     }}
@@ -60,7 +60,7 @@ const SingleProduct = () => {
                     {prodSize?.map((size) => {
                         <option value={size}>{size}</option>
                     })}
-                </select> */}
+                </select>
 
                 <button type="submit">Add to Cart</button>
                 <button><Link to="/allProducts">Back to all products</Link></button>
