@@ -6,7 +6,7 @@ import {
   deleteOrderItemAsync,
   selectOrderItem,
 } from "./orderItemSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Checkout from "../checkout/Checkout";
 
 const Cart = () => {
@@ -70,18 +70,23 @@ const Cart = () => {
                             </div>
                             <div className="col-lg-5 col-md-6 mb-4 mb-lg-0">
                               <p>
-                                <strong>{orderItem.product.prodName}</strong>
+                                <Link
+                                  to={`/allProducts/${orderItem.product.id}`}
+                                >
+                                  <strong>{orderItem.product.prodName}</strong>
+                                </Link>
                               </p>
                               <p>Color : {orderItem.product.prodColor}</p>
                               <p>Size : {orderItem.product.prodSize}</p>
                               <button
                                 type="button"
-                                className="btn btn-primary btn-sm me-1 mb-2"
+                                className="btn btn-danger btn-sm me-1 mb-2"
                                 data-mdb-toggle="tooltip"
                                 onClick={() => handleDelete(orderItem.id)}
                                 title="Remove item"
                               >
-                                <i className="fas fa-trash"></i>
+                                Delete
+                                {/* <i className="fas fa-trash"></i> */}
                               </button>
                             </div>
                             <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
@@ -155,9 +160,11 @@ const Cart = () => {
                                   Update
                                 </button>
                               ))} */}
-                            <p>ProdQty:{orderItem.quantity}</p>
+                            <p>ProdQty : {orderItem.quantity}</p>
                             {/* <p>ProdPrice:{orderItem.product.prodPrice}</p> */}
-                            <p>ProdTotal:{orderItem.total}</p>
+                            <p>
+                              ProdTotal : <strong>${orderItem.total}</strong>
+                            </p>
                             {/* <button
                               type="button"
                               onClick={() => handleDelete(orderItem.id)}
