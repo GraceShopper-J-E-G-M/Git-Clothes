@@ -38,4 +38,39 @@ router.put("/:id", async (req, res, next) => {
   }
 })
 
+//delete single product
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const prodId = req.params.id;
+    const product = await Product.findByPk(prodId);
+
+    if (!product) {
+      res.status(404).send();
+    } else {
+      const removeProduct = await Product.destroy({
+        where: {
+          prodId,
+        }
+      })
+      res.status(204).send();
+    }
+  } catch (error) {
+    if (isNaN(req.params.id)) {
+      res.status(400).send();
+    } else {
+      next(error);
+    }
+  }
+})
+
+//add new single product
+router.post("/", async (req, res, next) => {
+  try {
+    const newProduct = await Product.create(req.body);
+    res.send(newProduct);
+  } catch (err) {
+    next(err);
+  }
+})
+
 module.exports = router
