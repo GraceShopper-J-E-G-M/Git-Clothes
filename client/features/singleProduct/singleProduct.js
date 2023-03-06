@@ -4,7 +4,13 @@ import { useParams, Link } from "react-router-dom";
 import { fetchSingleProduct, selectSingleProduct } from './singleProductSlice';
 import { addCartAsync } from '../cart/cartSlice';
 
+
+
 const SingleProduct = () => {
+    const sizeArray = ["XS","S","M","L","XL","XXL"];
+    const colorArray = ["Red", "Pink", "Plum", "Mustard", "Burgundy", "Forest Green", "Beige", "Olive", "Grey", "Black", "Brown", "Dark Brown", "Blue"];
+    console.log(colorArray);
+
     const dispatch = useDispatch();
     const { prodId } = useParams();
 
@@ -13,6 +19,8 @@ const SingleProduct = () => {
     const [selectedSize, setSelectedSize] = useState("");
 
     const product = useSelector(selectSingleProduct);
+    console.log(product);
+
     const { prodName, prodPrice, prodSize, prodColor, prodImg } = product;
 
     useEffect(() => {
@@ -37,8 +45,6 @@ const SingleProduct = () => {
                 }}>
                 <p className="productName">{prodName}</p>
                 <p className="productPrice">{`$ ${prodPrice}`}</p>
-                <p>{prodColor}</p>
-                <p>{selectedColor}</p>
 
                 {/* Drop down menu for selecting color */}
                 <select className="productColorSelector"
@@ -46,9 +52,9 @@ const SingleProduct = () => {
                         setSelectedColor(event.target.value)
                     }}
                     value={selectedColor}>
-                    {prodColor?.map((color) => {
+                    {colorArray.map((color) => (
                         <option value={color}>{color}</option>
-                    })}
+                    ))}
                 </select>
 
                 {/* Drop down menu for selecting size */}
@@ -57,9 +63,9 @@ const SingleProduct = () => {
                         setSelectedSize(event.target.value)
                     }}
                     value={selectedSize}>
-                    {prodSize?.map((size) => {
+                    {sizeArray.map((size) => (
                         <option value={size}>{size}</option>
-                    })}
+                    ))}
                 </select>
 
                 <button type="submit">Add to Cart</button>
