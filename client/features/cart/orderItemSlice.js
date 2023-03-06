@@ -9,10 +9,27 @@ export const editOrderItemAsync = createAsyncThunk(
       const { data } = await axios.put(`/api/cart/${orderItemId}`, reqBody);
       return data;
     } catch (err) {
-      console.error(err);
+      throw new Error(
+        `User quantity is greater than available product quantity`
+      );
     }
   }
 );
+
+// export const fetchOrderItemAsync = createAsyncThunk("orderItem", async(user) => {
+//   try {
+//     //console.log("In slice:", user);
+//     if (user) {
+//       const userId = user.id;
+
+//       const { data } = await axios.get("/api/cart", { params: { userId } });
+//       //console.log("In slice:", data);
+//       return data;
+//     }
+//   } catch (err) {
+//     console.error(err);
+//   }
+// })
 
 export const deleteOrderItemAsync = createAsyncThunk(
   "deleteOrderItem",
@@ -34,10 +51,14 @@ export const orderItemSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) =>
-    builder.addCase(editOrderItemAsync.fulfilled, (state, action) => {
-      console.log("In OrderItem slice:", action.payload);
-      return action.payload;
-    }),
+    builder
+      .addCase(editOrderItemAsync.fulfilled, (state, action) => {
+        console.log("In OrderItem slice:", action.payload);
+        return action.payload;
+      })
+      .addCase(editOrderItemAsync.rejected, (state, action) => {
+        return action.error;
+      }),
 });
 
 export const selectOrderItem = (state) => state.orderItem;

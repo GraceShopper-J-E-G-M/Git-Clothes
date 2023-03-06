@@ -6,7 +6,9 @@ import singleProductSlice from "../features/singleProduct/singleProductSlice";
 import allProductsSlice from "../features/allProducts/allProductSlice";
 import addressSlice from "../features/checkout/addressSlice";
 import orderItemSlice from "../features/cart/orderItemSlice";
-import singleUserSlice from "../features/admin/singleUser/singleuserSlice";
+import singleUserSlice from "../features/Admin/singleUser/singleUserSlice";
+import paymentSlice from "../features/checkout/paymentSlice";
+import shippingSlice from "../features/checkout/shippingSlice";
 import allUsersReducer from "../features/admin/allUsers/allUsersSlice";
 
 const store = configureStore({
@@ -18,6 +20,8 @@ const store = configureStore({
     address: addressSlice,
     orderItem: orderItemSlice,
     singleUser: singleUserSlice,
+    payment: paymentSlice,
+    shipping: shippingSlice,
     allUsers: allUsersReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),

@@ -11,16 +11,30 @@ const Product = db.define("product", {
     allowNull: false,
   },
   prodPrice: {
-    type: Sequelize.DECIMAL,
+    type: Sequelize.DECIMAL(10, 2),
     allowNull: false,
   },
   prodSize: {
-    type: Sequelize.ENUM("XS","S","M","L","XL","XXL"),
+    type: Sequelize.ENUM("XS", "S", "M", "L", "XL", "XXL"),
     defaultValue: "XS",
     allowNull: false,
   },
   prodColor: {
-    type: Sequelize.ENUM("Red", "Pink", "Plum", "Mustard", "Burgundy", "Forest Green", "Beige", "Olive", "Grey", "Black", "Brown", "Dark Brown", "Blue"),
+    type: Sequelize.ENUM(
+      "Red",
+      "Pink",
+      "Plum",
+      "Mustard",
+      "Burgundy",
+      "Forest Green",
+      "Beige",
+      "Olive",
+      "Grey",
+      "Black",
+      "Brown",
+      "Dark Brown",
+      "Blue"
+    ),
     defaultValue: "Red",
     allowNull: false,
   },
@@ -30,7 +44,7 @@ const Product = db.define("product", {
   },
 });
 
+// Product.getAttributes().prodSize.values;
+module.exports = Product;
 // const sizeArray = Product.getAttributes().prodSize.values;
 // const colorArray = Product.getAttributes().prodColor.values;
-
-module.exports = Product;

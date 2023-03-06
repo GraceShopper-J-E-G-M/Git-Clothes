@@ -20,6 +20,19 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.get("/:userId/address", async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    console.log("userId:", userId);
+    const user = await User.findByPk(userId);
+    console.log("user:", user);
+    const [addresses] = await user.getAddresses();
+    console.log("address:", addresses);
+    res.json(addresses);
+  } catch (err) {
+    next(err);
+  }
+});
 //`GET` user at /api/users/:userId, include their assosiated address(es).
 router.get("/:userId", async (req, res, next) => {
   try {
@@ -32,16 +45,29 @@ router.get("/:userId", async (req, res, next) => {
   }
 });
 
-//edit single user 
+router.get("/:userId/payment", async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    console.log("userId:", userId);
+    const user = await User.findByPk(userId);
+    console.log("user:", user);
+    const payment = await user.getPayment();
+    console.log("payment:", payment);
+    res.json(payment);
+  } catch (err) {
+    next(err);
+  }
+});
+//edit single user
 router.put("/:id", async (req, res, next) => {
   try {
     const singleUser = await User.findByPk(req.params.id);
     await singleUser.update(req.body);
     res.status(204).send();
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 /**
  * DELETE `/api/users/:userId` is a route to remove a user (based on its id).
  */
@@ -64,4 +90,4 @@ router.post("/", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-})
+});

@@ -14,11 +14,11 @@ const Navbar = () => {
   };
   const addToCart = async () => {
     const reqbody = {
-      userId: 1,
-      prodId: 2,
-      quantity: 5,
+      userId: 8,
+      prodId: 11,
+      //quantity: 2,
     };
-    await dispatch(addCartAsync(req.body));
+    await dispatch(addCartAsync(reqbody));
     navigate("/cart");
   };
 
