@@ -29,3 +29,14 @@ router.get("/:userId", async (req, res, next) => {
     next(err);
   }
 });
+
+//edit single user
+router.put("/:id", async (req, res, next) => {
+  try {
+    const singleUser = await User.findByPk(req.params.id);
+    await singleUser.update(req.body);
+    res.status(204).send();
+  } catch (error) {
+    next(error)
+  }
+})

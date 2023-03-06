@@ -10,6 +10,7 @@ import SingleProduct from "../features/singleProduct/singleProduct";
 import AdminNavBar from "../features/admin/adminNavBar/adminNavBar";
 import AllUsers from "../features/admin/allUsers/allUsers";
 import SingleUser from "../features/admin/singleUser/singleuser";
+import UpdateUser from "../features/Admin/singleUser/editSingleUser";
 
 /**
  * COMPONENT
@@ -53,6 +54,7 @@ const AppRoutes = () => {
           <Route path="/allUsers" element={<AllUsers />} />
           {/**This is where we should add the ADMIN routes for /allUsers/:id, /allProducts, and /allProducts/:id */}
           <Route path="/allUsers/:userId" element={<SingleUser />} />
+          <Route path="/allUsers/:userId" element={<UpdateUser />}/>
         </Routes>
       )}
     </div>
