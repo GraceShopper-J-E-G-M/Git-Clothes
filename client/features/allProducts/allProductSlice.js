@@ -15,7 +15,7 @@ export const fetchAllProductsAsync = createAsyncThunk('allProducts', async () =>
 //add new product
 export const newProduct = createAsyncThunk("newProduct", async (prodcutObj) => {
   try {
-    const { data } = await axios.post(`/api/allProducts`, prodcutObj);
+    const { data } = await axios.post(`/api/products`, prodcutObj);
     return data;
   } catch (error) {
     console.log(error);
@@ -25,7 +25,7 @@ export const newProduct = createAsyncThunk("newProduct", async (prodcutObj) => {
 //delete product
 export const removeProduct = createAsyncThunk("removeProduct", async (id) => {
     try {
-        const { data } = await axios.delete(`/api/allProducts/${id}`);
+        const { data } = await axios.delete(`/api/products/${id}`);
         return data;
     } catch (error) {
         console.log(error);
