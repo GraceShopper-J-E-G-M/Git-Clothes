@@ -28,6 +28,14 @@ async function seed() {
       role: `user`,
     });
   }
+  users.push({
+    firstName: "ADMIN",
+    lastName: "ADMIN",
+    email: null,
+    username: "ADMIN",
+    password: "code*",
+    role: "admin",
+  });
 
   ///-------------------------ADDRESSES DATA-----------------------///
   const addresses = [];
