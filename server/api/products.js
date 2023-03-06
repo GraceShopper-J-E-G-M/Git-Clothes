@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { models: { Product } } = require('../db');
 
 //get all
-// /allProducts
+// /products
 router.get('/', async (req, res, next) => {
   try {
     const allProducts = await Product.findAll();
@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
 })
 
 //get single product
-// /allProducts/${id}
+// /products/${id}
 router.get('/:id', async (req, res, next) => {
   try {
       const singleProduct = await Product.findByPk(req.params.id);
@@ -47,11 +47,7 @@ router.delete("/:id", async (req, res, next) => {
     if (!product) {
       res.status(404).send();
     } else {
-      const removeProduct = await Product.destroy({
-        where: {
-          prodId,
-        }
-      })
+      await product.destroy();
       res.status(204).send();
     }
   } catch (error) {

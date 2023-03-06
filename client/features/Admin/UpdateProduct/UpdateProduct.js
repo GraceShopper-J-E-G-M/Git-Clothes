@@ -5,7 +5,8 @@ import {
     fetchSingleProduct,
     editProduct,
     selectSingleProduct,
-} from "../../singleProduct/singleProductSlice"
+} from "../../singleProduct/singleProductSlice";
+import { fetchAllProductsAsync } from "../../allProducts/allProductSlice";
 
 const updateProduct = () => {
     const sizeArray = ["XS","S","M","L","XL","XXL"];
@@ -17,6 +18,7 @@ const updateProduct = () => {
 
     //need state for storing edit
     const [newProdName, setProdName] = useState("");
+    const [newProdQuantity, setProdQuantity] = useState(0);
     const [newProdPrice, setProdPrice] = useState(0.00);
     const [newProdSize, setProdSize] = useState("");
     const [newProdColor, setProdColor] = useState("");
@@ -24,20 +26,26 @@ const updateProduct = () => {
 
     //fetch product
     const product = useSelector(selectSingleProduct);
-    const { prodName, prodPrice, prodSize, prodColor, prodImg } = product;
+    const { prodName, prodQuantity, prodPrice, prodSize, prodColor, prodImg } = product;
 
     useEffect(() => {
         dispatch(fetchSingleProduct(prodId));
+        dispatch(fetchAllProductsAsync());
     }, [dispatch]);
 
     // useEffect hook so the state doesn't cause an infinity loop
     useEffect(() => {
         setProdName(prodName);
+        setProdQuantity(prodQuantity);
         setProdPrice(prodPrice);
         setProdSize(prodSize);
         setProdColor(prodColor);
         setProdImg(prodImg);
     }, [product])
+
+    const handleUpdate = (event) => {
+        
+    }
 
     return (
         <form className="update" onSubmit={(event) => {
@@ -46,15 +54,19 @@ const updateProduct = () => {
             const productObj = {
                 id: prodId,
                 prodName: newProdName,
+                prodQuantity: newProdQuantity,
                 prodPrice: newProdPrice,
                 prodSize: newProdSize,
                 prodColor: newProdColor,
                 prodImg: newProdImg,
             }
+            //it is creating the object
+            console.log(productObj);
             dispatch(editProduct(productObj));
             dispatch(fetchSingleProduct(prodId));
+            dispatch(fetchAllProductsAsync());
             //might need to fix route
-            navigate(`/allProducts/${id}`);
+            navigate(`/allProducts/${prodId}`);
         }}>
             {/* Single Product info */}
             <div className="inputRow">
@@ -63,6 +75,13 @@ const updateProduct = () => {
                     setProdName(event.target.value)
                 }}
                     value={newProdName}></input>
+            </div>
+            <div className="inputRow">
+                <p>Product Quantity:</p>
+                <input onChange={(event) => {
+                    setProdQuantity(event.target.value)
+                }}
+                    value={newProdQuantity}></input>
             </div>
             <div className="inputRow">
                 <p>Product Price:</p>
@@ -98,6 +117,8 @@ const updateProduct = () => {
                 }}
                     value={newProdImg}></input>
             </div>
+            <br></br>
+            <button type="submit">Submit</button>
         </form>
     )
 }

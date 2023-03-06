@@ -85,6 +85,8 @@ const AddNewProduct = () => {
                 }}
                     value={prodImg}></input>
             </div>
+            <br></br>
+            <button type="submit">Submit</button>
         </form>
     )
 }
