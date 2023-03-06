@@ -259,113 +259,123 @@ const Checkout = () => {
   };
 
   return (
-    <div>
-      <div>
-        {cart.shipping ? (
-          <div>
-            <h3>Shipping Address:</h3>
-            <p>Address Line1 : {cart.shipping.line1}</p>
-            <p>Address Line2 : {cart.shipping.line2}</p>
-            <p>Zipcode : {cart.shipping.zipcode}</p>
-            <p>State : {cart.shipping.state}</p>
-            <p>City : {cart.shipping.city}</p>
-            <p>Phone Number : {cart.shipping.phoneNumber}</p>
-          </div>
-        ) : addresses ? (
-          <div>
-            <h3>Shipping Address:</h3>
-            <p>Address Line1 : {addresses.line1}</p>
-            <p>Address Line2 : {addresses.line2}</p>
-            <p>Zipcode : {addresses.zipcode}</p>
-            <p>State : {addresses.state}</p>
-            <p>City : {addresses.city}</p>
-            <p>Phone Number : {addresses.phoneNumber}</p>
-            {!cart.shipping?.id && (
-              <button type="button" onClick={handleShippingAddress}>
-                Use
-              </button>
-            )}
-            {!cart.shipping?.id && (
-              <button type="button" onClick={() => setForm(true)}>
-                Change Shipping Address
-              </button>
-            )}
-          </div>
-        ) : (
-          <div>
-            <p>There is no shipping address available</p>
-            <button type="button" onClick={() => setForm(true)}>
-              Add Shipping Address
-            </button>
-          </div>
-        )}
-        {
-          <div>
-            {form && (
-              <form onSubmit={(event) => handleFormShippingAddress(event)}>
-                <h3>Add New Shipping address:</h3>
-                <label htmlFor="addressLine1">Address Line1 : </label>
-                <input
-                  type="text"
-                  name="addressLine1"
-                  value={address1}
-                  placeholder="address line1"
-                  onChange={(event) => {
-                    setAddress1(event.target.value);
-                    setShipFormError({});
-                  }}
-                />
-                <p>{shipFormError.address1}</p>
-                <label htmlFor="addressLine2">Address Line2 : </label>
-                <input
-                  type="text"
-                  name="addressLine2"
-                  value={address2}
-                  placeholder="address line2"
-                  onChange={(event) => {
-                    setAddress2(event.target.value);
-                    setShipFormError({});
-                  }}
-                />
-                <p>{shipFormError.address2}</p>
-                <label htmlFor="zipcode">Zipcode : </label>
-                <input
-                  type="text"
-                  name="zipcode"
-                  value={zipcode}
-                  placeholder="zipcode"
-                  onChange={(event) => {
-                    setZipcode(event.target.value);
-                    setShipFormError({});
-                  }}
-                />
-                <p>{shipFormError.zipcode}</p>
-                <label htmlFor="state">State : </label>
-                <input
-                  type="text"
-                  name="state"
-                  value={state}
-                  placeholder="state"
-                  onChange={(event) => {
-                    setState(event.target.value);
-                    setShipFormError({});
-                  }}
-                />
-                <p>{shipFormError.state}</p>
-                <label htmlFor="city">City : </label>
-                <input
-                  type="text"
-                  name="city"
-                  value={city}
-                  placeholder="city"
-                  onChange={(event) => {
-                    setCity(event.target.value);
-                    setShipFormError({});
-                  }}
-                />
-                <p>{shipFormError.city}</p>
-                <label htmlFor="phoneNumber">Phone Number : </label>
-                {/* <input
+    <section className="h-100 gradient-custom">
+      <div className="container py-5">
+        <div className="row d-flex justify-content-center my-4">
+          <div className="col-md-8">
+            <div className="card mb-4">
+              <div className="card-header py-3">
+                <h5 className="mb-0">Cart items</h5>
+              </div>
+              <div>
+                <div>
+                  {cart.shipping ? (
+                    <div>
+                      <h3>Shipping Address:</h3>
+                      <p>Address Line1 : {cart.shipping.line1}</p>
+                      <p>Address Line2 : {cart.shipping.line2}</p>
+                      <p>Zipcode : {cart.shipping.zipcode}</p>
+                      <p>State : {cart.shipping.state}</p>
+                      <p>City : {cart.shipping.city}</p>
+                      <p>Phone Number : {cart.shipping.phoneNumber}</p>
+                    </div>
+                  ) : addresses ? (
+                    <div>
+                      <h3>Shipping Address:</h3>
+                      <p>Address Line1 : {addresses.line1}</p>
+                      <p>Address Line2 : {addresses.line2}</p>
+                      <p>Zipcode : {addresses.zipcode}</p>
+                      <p>State : {addresses.state}</p>
+                      <p>City : {addresses.city}</p>
+                      <p>Phone Number : {addresses.phoneNumber}</p>
+                      {!cart.shipping?.id && (
+                        <button type="button" onClick={handleShippingAddress}>
+                          Use
+                        </button>
+                      )}
+                      {!cart.shipping?.id && (
+                        <button type="button" onClick={() => setForm(true)}>
+                          Change Shipping Address
+                        </button>
+                      )}
+                    </div>
+                  ) : (
+                    <div>
+                      <p>There is no shipping address available</p>
+                      <button type="button" onClick={() => setForm(true)}>
+                        Add Shipping Address
+                      </button>
+                    </div>
+                  )}
+                  {
+                    <div>
+                      {form && (
+                        <form
+                          onSubmit={(event) => handleFormShippingAddress(event)}
+                        >
+                          <h3>Add New Shipping address:</h3>
+                          <label htmlFor="addressLine1">Address Line1 : </label>
+                          <input
+                            type="text"
+                            name="addressLine1"
+                            value={address1}
+                            placeholder="address line1"
+                            onChange={(event) => {
+                              setAddress1(event.target.value);
+                              setShipFormError({});
+                            }}
+                          />
+                          <p>{shipFormError.address1}</p>
+                          <label htmlFor="addressLine2">Address Line2 : </label>
+                          <input
+                            type="text"
+                            name="addressLine2"
+                            value={address2}
+                            placeholder="address line2"
+                            onChange={(event) => {
+                              setAddress2(event.target.value);
+                              setShipFormError({});
+                            }}
+                          />
+                          <p>{shipFormError.address2}</p>
+                          <label htmlFor="zipcode">Zipcode : </label>
+                          <input
+                            type="text"
+                            name="zipcode"
+                            value={zipcode}
+                            placeholder="zipcode"
+                            onChange={(event) => {
+                              setZipcode(event.target.value);
+                              setShipFormError({});
+                            }}
+                          />
+                          <p>{shipFormError.zipcode}</p>
+                          <label htmlFor="state">State : </label>
+                          <input
+                            type="text"
+                            name="state"
+                            value={state}
+                            placeholder="state"
+                            onChange={(event) => {
+                              setState(event.target.value);
+                              setShipFormError({});
+                            }}
+                          />
+                          <p>{shipFormError.state}</p>
+                          <label htmlFor="city">City : </label>
+                          <input
+                            type="text"
+                            name="city"
+                            value={city}
+                            placeholder="city"
+                            onChange={(event) => {
+                              setCity(event.target.value);
+                              setShipFormError({});
+                            }}
+                          />
+                          <p>{shipFormError.city}</p>
+                          <label htmlFor="phoneNumber">Phone Number : </label>
+                          {/* <input
                   type="text"
                   name="phoneNumber"
                   value={phoneNumber}
@@ -375,152 +385,164 @@ const Checkout = () => {
                     setShipFormError({});
                   }}
                 /> */}
-                <PhoneInput
-                  defaultCountry="US"
-                  value={phoneNumber}
-                  placeholder="* (***)***-****"
-                  onChange={setPhoneNumber}
-                  style={phoneNumberStyle}
-                />
-                {phoneNumber ? (
-                  isPossiblePhoneNumber(phoneNumber) ? undefined : (
-                    <p>Invalid phone number</p>
-                  )
-                ) : (
-                  ""
-                )}
-                {!phoneNumber && <p>{shipFormError.phoneNumber}</p>}
-                <button type="submit">save</button>
-              </form>
-            )}
+                          <PhoneInput
+                            defaultCountry="US"
+                            value={phoneNumber}
+                            placeholder="* (***)***-****"
+                            onChange={setPhoneNumber}
+                            style={phoneNumberStyle}
+                          />
+                          {phoneNumber ? (
+                            isPossiblePhoneNumber(phoneNumber) ? undefined : (
+                              <p>Invalid phone number</p>
+                            )
+                          ) : (
+                            ""
+                          )}
+                          {!phoneNumber && <p>{shipFormError.phoneNumber}</p>}
+                          <button type="submit">save</button>
+                        </form>
+                      )}
+                    </div>
+                  }
+                </div>
+                <div>
+                  <p>Cart Total : {cart.totalCost}</p>
+                  <p>Tax : 5%</p>
+                  <h3>Checkout total : {calculateTotalCost(cart.totalCost)}</h3>
+                  <p>{cart.totalCartItems} items added for checkout</p>
+                </div>
+                <div>
+                  <div>
+                    <h3>Payment:</h3>
+                    {cart.orderpayment ? (
+                      <div>
+                        <p>
+                          Card :{" "}
+                          {"************" +
+                            cart.orderpayment.card?.substring(12)}
+                        </p>
+                        <p>Expiry year : {cart.orderpayment.expiryYear}</p>
+                      </div>
+                    ) : payment ? (
+                      <div>
+                        <p>
+                          Card : {"************" + payment.card?.substring(12)}
+                        </p>
+                        <p>Expiry year : {payment.expiryYear}</p>
+                        {!cart.orderpayment && (
+                          <button type="button" onClick={handlePayment}>
+                            Use
+                          </button>
+                        )}
+                        {!cart.orderpayment && (
+                          <button
+                            type="button"
+                            onClick={() => setPayForm(true)}
+                          >
+                            Change Payment
+                          </button>
+                        )}
+                      </div>
+                    ) : (
+                      <div>
+                        <p>There is no payment available</p>
+                        <button type="button" onClick={() => setPayForm(true)}>
+                          Add New Payment
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                  {payForm && (
+                    <form onSubmit={(event) => handleFormPayment(event)}>
+                      <label htmlFor="cardNumber">Card Number</label>
+                      <input
+                        type="text"
+                        name="cardFirst"
+                        value={cardFirst}
+                        placeholder="****"
+                        maxLength={4}
+                        onChange={(event) => {
+                          setCardFirst(event.target.value);
+                          setPayFormError({});
+                        }}
+                      />{" "}
+                      -
+                      <input
+                        type="text"
+                        name="cardSec"
+                        value={cardSec}
+                        placeholder="****"
+                        maxLength={4}
+                        onChange={(event) => {
+                          setCardSec(event.target.value);
+                          setPayFormError({});
+                        }}
+                      />{" "}
+                      -
+                      <input
+                        type="text"
+                        name="cardThird"
+                        value={cardThird}
+                        placeholder="****"
+                        maxLength={4}
+                        onChange={(event) => {
+                          setCardThird(event.target.value);
+                          setPayFormError({});
+                        }}
+                      />{" "}
+                      -
+                      <input
+                        type="text"
+                        name="cardFourth"
+                        value={cardFourth}
+                        placeholder="****"
+                        maxLength={4}
+                        onChange={(event) => {
+                          setCardFourth(event.target.value);
+                          setPayFormError({});
+                        }}
+                      />
+                      <p>{payFormError.cardNum}</p>
+                      <label htmlFor="cvv">CVV</label>
+                      <input
+                        type="text"
+                        name="cvv"
+                        value={cvv}
+                        placeholder="***"
+                        maxLength={3}
+                        onChange={(event) => {
+                          setCvv(event.target.value);
+                          setPayFormError({});
+                        }}
+                      />
+                      <p>{payFormError.cvv}</p>
+                      <label htmlFor="expiry">Expiry year</label>
+                      <input
+                        type="text"
+                        name="expiry"
+                        value={expiry}
+                        placeholder="MM/YY"
+                        maxLength={5}
+                        onChange={(event) => {
+                          setExpiry(event.target.value);
+                          setPayFormError({});
+                        }}
+                      />
+                      <p>{payFormError.expiry}</p>
+                      <button type="submit">save</button>
+                    </form>
+                  )}
+                </div>
+                <button type="button" onClick={handlePlaceOrder}>
+                  Place order
+                </button>
+              </div>
+            </div>
           </div>
-        }
-      </div>
-      <div>
-        <p>Cart Total : {cart.totalCost}</p>
-        <p>Tax : 5%</p>
-        <h3>Checkout total : {calculateTotalCost(cart.totalCost)}</h3>
-        <p>{cart.totalCartItems} items added for checkout</p>
-      </div>
-      <div>
-        <div>
-          <h3>Payment:</h3>
-          {cart.orderpayment ? (
-            <div>
-              <p>
-                Card : {"************" + cart.orderpayment.card?.substring(12)}
-              </p>
-              <p>Expiry year : {cart.orderpayment.expiryYear}</p>
-            </div>
-          ) : payment ? (
-            <div>
-              <p>Card : {"************" + payment.card?.substring(12)}</p>
-              <p>Expiry year : {payment.expiryYear}</p>
-              {!cart.orderpayment && (
-                <button type="button" onClick={handlePayment}>
-                  Use
-                </button>
-              )}
-              {!cart.orderpayment && (
-                <button type="button" onClick={() => setPayForm(true)}>
-                  Change Payment
-                </button>
-              )}
-            </div>
-          ) : (
-            <div>
-              <p>There is no payment available</p>
-              <button type="button" onClick={() => setPayForm(true)}>
-                Add New Payment
-              </button>
-            </div>
-          )}
         </div>
-        {payForm && (
-          <form onSubmit={(event) => handleFormPayment(event)}>
-            <label htmlFor="cardNumber">Card Number</label>
-            <input
-              type="text"
-              name="cardFirst"
-              value={cardFirst}
-              placeholder="****"
-              maxLength={4}
-              onChange={(event) => {
-                setCardFirst(event.target.value);
-                setPayFormError({});
-              }}
-            />{" "}
-            -
-            <input
-              type="text"
-              name="cardSec"
-              value={cardSec}
-              placeholder="****"
-              maxLength={4}
-              onChange={(event) => {
-                setCardSec(event.target.value);
-                setPayFormError({});
-              }}
-            />{" "}
-            -
-            <input
-              type="text"
-              name="cardThird"
-              value={cardThird}
-              placeholder="****"
-              maxLength={4}
-              onChange={(event) => {
-                setCardThird(event.target.value);
-                setPayFormError({});
-              }}
-            />{" "}
-            -
-            <input
-              type="text"
-              name="cardFourth"
-              value={cardFourth}
-              placeholder="****"
-              maxLength={4}
-              onChange={(event) => {
-                setCardFourth(event.target.value);
-                setPayFormError({});
-              }}
-            />
-            <p>{payFormError.cardNum}</p>
-            <label htmlFor="cvv">CVV</label>
-            <input
-              type="text"
-              name="cvv"
-              value={cvv}
-              placeholder="***"
-              maxLength={3}
-              onChange={(event) => {
-                setCvv(event.target.value);
-                setPayFormError({});
-              }}
-            />
-            <p>{payFormError.cvv}</p>
-            <label htmlFor="expiry">Expiry year</label>
-            <input
-              type="text"
-              name="expiry"
-              value={expiry}
-              placeholder="MM/YY"
-              maxLength={5}
-              onChange={(event) => {
-                setExpiry(event.target.value);
-                setPayFormError({});
-              }}
-            />
-            <p>{payFormError.expiry}</p>
-            <button type="submit">save</button>
-          </form>
-        )}
       </div>
-      <button type="button" onClick={handlePlaceOrder}>
-        Place order
-      </button>
-    </div>
+    </section>
   );
 };
 
