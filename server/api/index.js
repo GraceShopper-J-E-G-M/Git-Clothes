@@ -3,6 +3,8 @@ module.exports = router;
 
 router.use("/users", require("./users"));
 router.use("/cart", require("./carts"));
+router.use("/products", require("./products"));
+router.use("/checkout", require("./checkout"));
 router.use("/allProducts", require("./allProducts"));
 
 router.use((req, res, next) => {
@@ -10,4 +12,3 @@ router.use((req, res, next) => {
   error.status = 404;
   next(error);
 });
-

@@ -6,7 +6,7 @@ const OrderItem = db.define("orderItem", {
     allowNull: false,
   },
   total: {
-    type: Sequelize.DECIMAL,
+    type: Sequelize.DECIMAL(10, 2),
     allowNull: false,
   },
 });

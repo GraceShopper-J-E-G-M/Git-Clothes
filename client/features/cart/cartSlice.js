@@ -23,9 +23,25 @@ export const addCartAsync = createAsyncThunk("addCart", async (reqbody) => {
     console.log("IN SLICE:+++++", data);
     return data;
   } catch (err) {
-    console.error(err);
+    throw new Error(`User quantity is greater than available product quantity`);
   }
 });
+
+export const updateCheckoutCartAsync = createAsyncThunk(
+  "updateCart",
+  async (reqbody) => {
+    try {
+      console.log("ReqBody:+++++++", reqbody);
+      const { data } = await axios.put("/api/cart", reqbody);
+      console.log("IN SLICE:+++++", data);
+      return data;
+    } catch (err) {
+      throw new Error(
+        `User quantity is greater than available product quantity`
+      );
+    }
+  }
+);
 
 const initialState = {};
 export const cartSlice = createSlice({
@@ -39,6 +55,14 @@ export const cartSlice = createSlice({
       })
       .addCase(addCartAsync.fulfilled, (state, action) => {
         return action.payload;
+      })
+      .addCase(addCartAsync.rejected, (state, action) => {
+        console.log(action.error);
+        return action.error;
+      })
+      .addCase(updateCheckoutCartAsync.rejected, (state, action) => {
+        console.log(action.error);
+        return action.error;
       });
   },
 });
