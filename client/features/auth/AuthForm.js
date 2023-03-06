@@ -60,7 +60,6 @@ const AuthForm = ({ name, displayName }) => {
         </label>
         <select onChange={handleRoleChange} className="selectRole">
           <option value="User">User</option>
-          {/* <option value="Guest">Guest</option> */}
           <option value="Admin">Admin</option>
         </select>
       </span>
