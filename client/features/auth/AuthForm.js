@@ -109,6 +109,7 @@ const AuthForm = ({ name, displayName }) => {
           </div>
         </div>
       )}
+      <Link to="/admin">Admin</Link>
     </div>
   );
 };
