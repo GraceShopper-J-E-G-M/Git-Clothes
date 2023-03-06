@@ -10,6 +10,10 @@ import SingleProduct from "../features/singleProduct/singleProduct";
 import AdminNavBar from "../features/admin/adminNavBar/adminNavBar";
 import AllUsers from "../features/admin/allUsers/allUsers";
 import SingleUser from "../features/admin/singleUser/singleuser";
+<<<<<<< HEAD
+=======
+import UpdateUser from "../features/Admin/singleUser/editSingleUser";
+>>>>>>> 240807a4bb0e82a9462f1a59bdcf82ca060880ec
 import AdminAllProducts from "../features/Admin/allProducts/AdminAllProducts";
 import UpdateProduct from "../features/admin/UpdateProduct/UpdateProduct";
 
@@ -55,6 +59,10 @@ const AppRoutes = () => {
           {/**This is where we should add the ADMIN routes for /allUsers, /allUsers/:id, /allProducts, and /allProducts/:id */}
           <Route path="/allUsers" element={<AllUsers />} />
           <Route path="/allUsers/:userId" element={<SingleUser />} />
+<<<<<<< HEAD
+=======
+          <Route path="/allUsers/:userId" element={<UpdateUser />}/>
+>>>>>>> 240807a4bb0e82a9462f1a59bdcf82ca060880ec
           <Route path="/allProducts/" element={<AdminAllProducts />} />
           <Route path="/allProducts/:prodId" element={<UpdateProduct />} />
         </Routes>

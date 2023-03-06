@@ -9,7 +9,8 @@ const SingleUser = () => {
   const { userId } = useParams();
 
   // //Destructure the singleUser's information here, so it's cleaner in the return statement of the component.
-  const { firstName, lastName, email, username, addresses, role, createdAt } = user;
+  const { firstName, lastName, email, username, addresses, role, createdAt } =
+    user;
 
   const [loading, setLoading] = useState();
 
@@ -44,13 +45,22 @@ const SingleUser = () => {
       </div>
       <div>
         {addresses ? (
-          <div>Address: {addresses[0].line1}, {addresses[0].line2}, <div>{addresses[0].city}, {addresses[0].state}, {addresses[0].zipcode}</div></div>
+          <div>
+            Address: {addresses[0].line1}, {addresses[0].line2},{" "}
+            <div>
+              {addresses[0].city}, {addresses[0].state}, {addresses[0].zipcode}
+            </div>
+          </div>
         ) : (
           <p>No address for this user.</p>
         )}
       </div>
       <div>
-        {createdAt? (<p>Sign up date: {createdAt}</p>): <p>This user doesn't exist.</p>}
+        {createdAt ? (
+          <p>Sign up date: {createdAt}</p>
+        ) : (
+          <p>This user doesn't exist.</p>
+        )}
       </div>
       <div>
         {role ? (
@@ -59,7 +69,12 @@ const SingleUser = () => {
           <p>No role for this user.</p>
         )}
       </div>
-      <Link to="/allUsers"><button>Back to All Users</button></Link>
+      <Link to="/editSingleUser">
+        <button> Edit User </button>{" "}
+      </Link>
+      <Link to="/allUsers">
+        <button>Back to All Users</button>
+      </Link>
     </div>
   );
 };
