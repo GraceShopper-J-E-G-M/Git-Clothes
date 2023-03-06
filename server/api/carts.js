@@ -178,7 +178,7 @@ router.get("/", async (req, res, next) => {
             include: [
               {
                 model: Product,
-                attributes: ["prodName", "prodPrice", "prodImg"],
+                //attributes: ["prodName", "prodPrice", "prodImg"],
               },
             ],
           },
