@@ -55,3 +55,13 @@ router.delete("/:userId", async (req, res, next) => {
     next(error);
   }
 });
+
+//adding new user
+router.post("/", async (req, res, next) => {
+  try {
+    const addUser = await User.create(req.body);
+    res.send(addUser);
+  } catch (err) {
+    next(err);
+  }
+})
