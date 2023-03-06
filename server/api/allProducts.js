@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { models: { Product } } = require('../db');
 
 //get all
+// /allProducts
 router.get('/', async (req, res, next) => {
   try {
     const allProducts = await Product.findAll();
@@ -12,8 +13,8 @@ router.get('/', async (req, res, next) => {
 })
 
 //get single product
-// /products/:id
-router.get("/:id", async (req, res, next) => {
+// /allProducts/${id}
+router.get('/:id', async (req, res, next) => {
   try {
       const singleProduct = await Product.findByPk(req.params.id);
       if (!singleProduct) {
