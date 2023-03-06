@@ -6,7 +6,7 @@ import AddNewProduct from "./NewProduct";
 
 const AdminAllProducts = () => {
     const products = useSelector(selectAllProducts);
-    
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -16,12 +16,18 @@ const AdminAllProducts = () => {
     useEffect(() => {
         dispatch(fetchAllProductsAsync());
         setLoading(false);
-      }, [dispatch]);
+    }, [dispatch]);
 
+    const handleDeleteProduct = async (event, id) => {
+        event.preventDefault();
+        await dispatch(removeProduct(id));
+        await dispatch(fetchAllProductsAsync());
+        navigate("/allProducts");
+    };
 
     return loading ? (
         <p style={{ textAlign: "center" }}>Loading...</p>
-      ) : (
+    ) : (
         // flex row
         <div className="allDisplay">
             <Link to="/admin">
@@ -34,13 +40,8 @@ const AdminAllProducts = () => {
                             <Link to={`/allProducts/${product.id}`}>
                                 <h2>{product.id} {product.prodName}</h2>
                             </Link>
-                                <p>{`Price: ${product.prodPrice}`}</p>
-                                <button onClick={(event) => {
-                                    event.preventDefault();
-                                    dispatch(removeProduct(product.id));
-                                    setLoading(false);
-                                    navigate("/allProducts");
-                                }}>Delete Product</button>
+                            <p>{`Price: ${product.prodPrice}`}</p>
+                            <button onClick={(event) => handleDeleteProduct(event, product.id)}>Delete Product</button>
                         </div>
                     ))
                     : null}

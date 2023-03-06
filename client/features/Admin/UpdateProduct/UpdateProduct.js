@@ -43,6 +43,10 @@ const updateProduct = () => {
         setProdImg(prodImg);
     }, [product])
 
+    const handleUpdate = (event) => {
+        
+    }
+
     return (
         <form className="update" onSubmit={(event) => {
             event.preventDefault();
@@ -56,6 +60,7 @@ const updateProduct = () => {
                 prodColor: newProdColor,
                 prodImg: newProdImg,
             }
+            //it is creating the object
             console.log(productObj);
             dispatch(editProduct(productObj));
             dispatch(fetchSingleProduct(prodId));
