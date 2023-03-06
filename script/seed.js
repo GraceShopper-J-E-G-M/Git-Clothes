@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: { User, Cart, OrderItem, Product },
+  models: { User, Cart, OrderItem, Product, Payment, Shipping },
 } = require("../server/db");
 const { faker } = require("@faker-js/faker");
 const Address = require("../server/db/models/Address");
@@ -93,6 +93,45 @@ async function seed() {
     total: prod2.prodPrice * 3,
   });
 
+  const payment1 = await Payment.create({
+    card: "1111-1111-1111-1111",
+    cvv: "111",
+    expiryYear: "11/31",
+  });
+  const user = await User.findByPk(1);
+  await payment1.setUser(user);
+
+  const payment2 = await Payment.create({
+    card: "2222-2222-2222-2222",
+    cvv: "222",
+    expiryYear: "12/32",
+  });
+  const user2 = await User.findByPk(2);
+  await payment2.setUser(user2);
+
+  const payment3 = await Payment.create({
+    card: "3333-3333-3333-3333",
+    cvv: "333",
+    expiryYear: "13/33",
+  });
+  const user3 = await User.findByPk(3);
+  await payment3.setUser(user3);
+
+  const payment4 = await Payment.create({
+    card: "4444-4444-4444-4444",
+    cvv: "444",
+    expiryYear: "14/34",
+  });
+  const user4 = await User.findByPk(4);
+  await payment4.setUser(user4);
+
+  const payment5 = await Payment.create({
+    card: "5555-5555-5555-5555",
+    cvv: "555",
+    expiryYear: "15/35",
+  });
+  const user5 = await User.findByPk(5);
+  await payment5.setUser(user5);
   ///---------------------MODEL ASSOCIATIONS WITH FAKER DATA----------------///
 
   //User-Address: One-to-many

@@ -3,12 +3,11 @@ import axios from "axios";
 
 export const fetchAddressAsync = createAsyncThunk("addresses", async (user) => {
   try {
-    //console.log("In slice:", user);
+    console.log("In address slice:", user);
     if (user) {
       const userId = user.id;
-
-      const { data } = await axios.get(`/api/users/${userId}`);
-      //console.log("In slice:", data);
+      const { data } = await axios.get(`/api/users/${userId}/address`);
+      console.log("In address slice return data:", data);
       return data;
     }
   } catch (err) {

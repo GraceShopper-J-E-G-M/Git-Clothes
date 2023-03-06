@@ -3,7 +3,7 @@ const router = express.Router();
 const sequelize = require("sequelize");
 const {
   db,
-  models: { User, Cart, OrderItem, Product },
+  models: { User, Cart, OrderItem, Product, Payment, Shipping, OrderPayment },
 } = require("../db");
 const index = require("../db/index");
 
@@ -90,13 +90,14 @@ router.post("/", async (req, res, next) => {
     console.log("IN carts Post");
     const userId = req.body.userId;
     const prodId = req.body.prodId;
-    const qty = req.body.quantity;
+    const qty = req.body.quantity ? req.body.quantity : 1;
 
     const user = await User.findByPk(userId);
     const prod = await Product.findByPk(prodId);
 
     if (qty > prod.prodQuantity) {
-      res.status(404); // user quantity exceeds the available product quantity
+      res.sendStatus(404);
+      return; // user quantity exceeds the available product quantity
     }
 
     const pendingCart = await user.getCarts({
@@ -177,9 +178,15 @@ router.get("/", async (req, res, next) => {
             include: [
               {
                 model: Product,
-                attributes: ["prodName", "prodPrice", "prodImg"],
+                //attributes: ["prodName", "prodPrice", "prodImg"],
               },
             ],
+          },
+          {
+            model: OrderPayment,
+          },
+          {
+            model: Shipping,
           },
         ],
       });
@@ -201,16 +208,52 @@ router.put("/:orderItemId", async (req, res, next) => {
     const product = await orderItem.getProduct();
 
     if (userQuantity > product.prodQuantity) {
-      res.send(404); // user quantity exceeds the available product quantity
+      console.log("User Qty not matching");
+      res.sendStatus(404);
+      return; // user quantity exceeds the available product quantity
     }
     const updatedOrderItem = await orderItem.update({
       quantity: req.body.qty,
       total: req.body.qty * req.body.prodPrice,
     });
-    console.log("UpdatedOrderItem:++++++++", updatedOrderItem);
+    console.log("UpdatedOrderItem:++++++++");
     const { totalCartCost, totalCartQty } = await findTotalCartCostQty(cart.id);
-    const updatedCart = await updateCart(cart, totalCartCost, totalCartQty);
+    await updateCart(cart, totalCartCost, totalCartQty);
     res.json(updatedOrderItem);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put("/", async (req, res, next) => {
+  try {
+    console.log("REQ body:", req.body);
+    const totalCostWithTax = req.body.totalCostWithTax;
+    const cartId = req.body.cartId;
+    const prodList = req.body.cartProdList;
+    const cart = await Cart.findByPk(cartId);
+
+    for (const prod of prodList) {
+      const product = await Product.findByPk(prod.prodId);
+      if (prod.userQty > prod.prodQuantity) {
+        res
+          .sendStatus(404)
+          .send("User quantity is greater than available product quantity");
+        return;
+      }
+      const updateProduct = await product.update({
+        prodQuantity: product.prodQuantity - prod.userQty,
+      });
+    }
+    // await payment.setCart(updateCart);
+    // await shipping.setCart(updateCart);
+    const updateCart = await cart.update({
+      totalCost: totalCostWithTax,
+      status: "Completed",
+    });
+    //prod reduce and validations,change cart total and status
+
+    res.send(updateCart);
   } catch (err) {
     next(err);
   }
@@ -222,8 +265,19 @@ router.delete("/", async (req, res, next) => {
     const orderItem = await OrderItem.findByPk(orderItemId);
     const cart = await orderItem.getCart();
     await orderItem.destroy();
-    const { totalCartCost, totalCartQty } = await findTotalCartCostQty(cart.id);
-    const updatedCart = await updateCart(cart, totalCartCost, totalCartQty);
+    //const { totalCartCost, totalCartQty } = await findTotalCartCostQty(cart.id);
+    const totalCartCostQty = await findTotalCartCostQty(cart.id);
+    const totalCartCost = totalCartCostQty?.totalCartCost;
+    const totalCartQty = totalCartCostQty?.totalCartQty;
+    let updatedCart;
+    if (totalCartCostQty) {
+      updatedCart = await updateCart(cart, totalCartCost, totalCartQty);
+    } else {
+      updatedCart = updateCart(cart, 0, 0);
+    }
+    //const updatedCart = await updateCart(cart, totalCartCost, totalCartQty);
+    console.log("UpdatedCart:", updatedCart);
+
     res.send(orderItem);
   } catch (err) {
     next(err);
