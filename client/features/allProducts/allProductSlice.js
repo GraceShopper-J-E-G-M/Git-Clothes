@@ -4,14 +4,33 @@ import axios from "axios";
 const initialState = [];
 
 export const fetchAllProductsAsync = createAsyncThunk('allProducts', async () => {
-    try {
-      const { data } = await axios.get(`/api/products`);
-      return data;
-    } catch (err) {
-      console.error(err);
-    }
-  });
+  try {
+    const { data } = await axios.get(`/api/products`);
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+});
 
+//add new product
+export const newProduct = createAsyncThunk("newProduct", async (prodcutObj) => {
+  try {
+    const { data } = await axios.post(`/api/allProducts`, prodcutObj);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//delete product
+export const removeProduct = createAsyncThunk("removeProduct", async (id) => {
+    try {
+        const { data } = await axios.delete(`/api/allProducts/${id}`);
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+});
   
 export const allProductsSlice = createSlice({
     name: "allProducts",
@@ -19,6 +38,12 @@ export const allProductsSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
       builder.addCase(fetchAllProductsAsync.fulfilled, (state, action) => {
+        return action.payload;
+      });
+      builder.addCase(newProduct.fulfilled, (state, action) => {
+        return action.payload;
+      });
+      builder.addCase(removeProduct.fulfilled, (state, action) => {
         return action.payload;
       });
     },
