@@ -90,7 +90,7 @@ async function seed() {
   ] = await Promise.all(products.map((product) => Product.create(product)));
 
   const cart1 = await Cart.create();
-  //const cart2 = await Cart.create();
+  const cart2 = await Cart.create();
 
   const orderItem1 = await OrderItem.create({
     quantity: 2,
@@ -159,8 +159,8 @@ async function seed() {
   };
   await assignAddresses();
 
-  //User-Cart: One-to-Many
-  //Give a cart to a user1.
+  // User-Cart: One-to-Many
+  // Give a cart to a user1.
   const user1 = await User.findByPk(1);
   await cart1.setUser(user1);
   //Give another cart to a user1.
