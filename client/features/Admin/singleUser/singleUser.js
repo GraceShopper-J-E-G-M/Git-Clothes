@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import { fetchSingleUser, selectSingleUser } from "./singleuserSlice";
-// import { UpdateUser } from "./editSingleUser";
  
 const SingleUser = () => {
   const dispatch = useDispatch();
@@ -81,14 +80,4 @@ const SingleUser = () => {
     </div>
   );
 };
-
-{/* <div key={product.id}>
-                  <Link
-                    className='dataItem'
-                    to={/products/${product.id}`}
-                    target='blank'
-                  >
-                    <p>{product.productName}</p>
-                  </Link>
-                </div> */}
 export default SingleUser;
