@@ -36,7 +36,7 @@ const AdminAllProducts = () => {
             <section id="adminAllProducts">
                 {products && products.length
                     ? products.map((product) => (
-                        <div className="adminProduct" key={product.id}>
+                        <div key={product.id.toString()} className="adminProduct">
                             <Link to={`/allProducts/${product.id}`}>
                                 <h2>{product.id} {product.prodName}</h2>
                             </Link>

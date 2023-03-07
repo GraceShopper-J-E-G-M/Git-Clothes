@@ -59,9 +59,9 @@ router.get("/:userId/payment", async (req, res, next) => {
   }
 });
 //edit single user
-router.put("/:id", async (req, res, next) => {
+router.put("/:userId/edit", async (req, res, next) => {
   try {
-    const singleUser = await User.findByPk(req.params.id);
+    const singleUser = await User.findByPk(req.params.userId);
     await singleUser.update(req.body);
     res.status(204).send();
   } catch (error) {
