@@ -5,8 +5,9 @@ import {
   // updateSingleUser,
   selectSingleUser,
   fetchSingleUser,
-  editSingleUser
+  editSingleUser,
 } from "./singleUserSlice";
+import { fetchAllUsersAsync } from "../allUsers/allUsersSlice";
 
 const UpdateUser = () => {
   const [newFirstName, setFirstName] = useState("");
@@ -26,10 +27,11 @@ const UpdateUser = () => {
 
   useEffect(() => {
     dispatch(fetchSingleUser(userId));
+    dispatch(fetchAllUsersAsync());
   }, [dispatch]);
 
   useEffect(() => {
-    setFirstName(updateUser.firstName ?? "");
+    setFirstName(firstName ?? "");
     setLastName(updateUser.lastName ?? "");
     setEmail(updateUser.email ?? "");
     setUsername(updateUser.username ?? "");
@@ -37,22 +39,24 @@ const UpdateUser = () => {
     // setImageUrl(updateUser.imageUrl ?? ""); are we doing images for user? 
     setAddress(updateUser.address ?? "");
     setRole(updateUser.role ?? "");
+    console.log(updateUser);
   }, [updateUser]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     await dispatch(
-      updateSingleUser({
-        firstName,
-        lastName,
-        email,
+      editSingleUser({
+        firstName: newFirstName,
+        lastName: newLastName,
+        email: newEmail,
         // imageUrl,
-        address,
-        username,
-        password,
+        address: newAddress,
+        username: newUsername,
+        password: newPassword,
+        role: newRole,
       })
     );
-    navigate(`/user/${userId}`);
+    navigate(`/user/${userId}/edit`);
   };
 
   return (
@@ -62,33 +66,33 @@ const UpdateUser = () => {
         <label htmlFor="firstName">First Name:</label>
         <input
           name="firstName"
-          value={firstName}
+          value={newFirstName}
           onChange={(evt) => setFirstName(evt.target.value)}
         />
 
         <label htmlFor="lastName">Last Name:</label>
         <input
           name="lastName"
-          value={lastName}
+          value={newLastName}
           onChange={(evt) => setLastName(evt.target.value)}
         />
 
         <label htmlFor="email">Email:</label>
         <input
           name="email"
-          value={email}
+          value={newEmail}
           onChange={(evt) => setEmail(evt.target.value)}
         />
         <label htmlFor="username">Username:</label>
         <input
           name="username"
-          value={username}
+          value={newUsername}
           onChange={(evt) => setUsername(evt.target.value)}
         />
         <label htmlFor="password">Password:</label>
         <input
           name="password"
-          value={password}
+          value={newPassword}
           onChange={(evt) => setPassword(evt.target.value)}
         />
 
@@ -101,12 +105,12 @@ const UpdateUser = () => {
 
         <label htmlFor="address">Address:</label>
         <input
-          name="Street"
-          value={street}
+          name="Address"
+          value={newAddress}
           onChange={(evt) => setAddress(evt.target.value)}
         />
-
-        <button type="submit">Submit Changes</button>
+  
+        <button type="submit"> Submit Changes </button>
       </form>
     </div>
   );
