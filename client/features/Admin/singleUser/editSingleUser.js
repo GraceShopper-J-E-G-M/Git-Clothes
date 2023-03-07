@@ -27,7 +27,6 @@ const UpdateUser = () => {
 
   useEffect(() => {
     dispatch(fetchSingleUser(userId));
-    dispatch(fetchAllUsersAsync());
   }, [dispatch]);
 
   useEffect(() => {
@@ -111,6 +110,9 @@ const UpdateUser = () => {
         />
   
         <button type="submit"> Submit Changes </button>
+        <Link to="/allUsers">
+          <button> Back to All Users </button>
+        </Link>
       </form>
     </div>
   );
