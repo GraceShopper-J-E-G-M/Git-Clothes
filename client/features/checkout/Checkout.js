@@ -56,6 +56,7 @@ const Checkout = () => {
       cardSec,
       cardThird,
       cardFourth,
+      cardName,
       cvv,
       expiry
     );
@@ -64,6 +65,7 @@ const Checkout = () => {
     console.log("card:", cardNum);
     const reqbody = {
       card: cardNum,
+      cardName,
       cvv,
       expiryYear: expiry,
     };
@@ -71,10 +73,13 @@ const Checkout = () => {
     if (
       !error.hasOwnProperty("cardNum") &&
       !error.hasOwnProperty("cvv") &&
-      !error.hasOwnProperty("expiry")
+      !error.hasOwnProperty("expiry") &&
+      !error.hasOwnProperty("cardName")
     ) {
       await dispatch(addPaymentAsync({ cartId, reqbody }));
-      await dispatch(fetchCartAsync(user));
+      if (user.id) {
+        await dispatch(fetchCartAsync(user));
+      }
       setPayForm(false);
     }
   };
@@ -84,6 +89,8 @@ const Checkout = () => {
     const error = shippingFormValidate(
       address1,
       address2,
+      firstName,
+      lastName,
       zipcode,
       state,
       city,
@@ -93,10 +100,12 @@ const Checkout = () => {
     const reqbody = {
       line1: address1,
       line2: address2,
-      zipcode: zipcode,
-      state: state,
-      city: city,
-      phoneNumber: phoneNumber,
+      firstName,
+      lastName,
+      zipcode,
+      state,
+      city,
+      phoneNumber,
     };
     const cartId = cart.id;
     if (
@@ -105,7 +114,9 @@ const Checkout = () => {
       !error.hasOwnProperty("state") &&
       !error.hasOwnProperty("city") &&
       !error.hasOwnProperty("zipcode") &&
-      !error.hasOwnProperty("phoneNumber")
+      !error.hasOwnProperty("phoneNumber") &&
+      !error.hasOwnProperty("firstName") &&
+      !error.hasOwnProperty("lastName")
     ) {
       await dispatch(addShippingAddressAsync({ cartId, reqbody }));
       await dispatch(fetchCartAsync(user));
@@ -117,6 +128,7 @@ const Checkout = () => {
     const reqbody = {
       card: payment.card,
       cvv: payment.cvv,
+      cardName: payment.cardName,
       expiryYear: payment.expiryYear,
     };
     const cartId = cart.id;
@@ -128,6 +140,8 @@ const Checkout = () => {
     const reqbody = {
       line1: addresses.line1,
       line2: addresses.line2,
+      firstName: cart.user.firstName,
+      lastName: cart.user.lastName,
       zipcode: addresses.zipcode,
       state: addresses.state,
       city: addresses.city,
@@ -141,12 +155,15 @@ const Checkout = () => {
   const handlePlaceOrder = async () => {
     const cartId = cart.id;
     const cartProdList = cartProdListandQty();
+    const orderPaymentId = cart.orderpayment.id;
     const reqbody = {
       totalCostWithTax,
       cartId,
       cartProdList,
+      orderPaymentId,
     };
-    dispatch(updateCheckoutCartAsync(reqbody));
+    await dispatch(updateCheckoutCartAsync(reqbody));
+    await dispatch(fetchCartAsync(user));
     navigate(`/confirmation/${cartId}`);
   };
 
@@ -171,8 +188,12 @@ const Checkout = () => {
   const [payForm, setPayForm] = useState(false);
   const [payFormError, setPayFormError] = useState({});
   const [shipFormError, setShipFormError] = useState({});
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
   const shippingFormValidate = (
+    firstName,
+    lastName,
     address1,
     address2,
     zipcode,
@@ -193,6 +214,12 @@ const Checkout = () => {
     if (!city) {
       error.city = "City cant be blank";
     }
+    if (!firstName) {
+      error.firstName = "FirstName cant be blank";
+    }
+    if (!lastName) {
+      error.lastName = "LastName cant be blank";
+    }
     const zipRegex = /^[0-9]{5}$/;
     if (!zipcode.match(zipRegex)) {
       error.zipcode = "Not a valid zipcode";
@@ -209,6 +236,7 @@ const Checkout = () => {
     cardSec,
     cardThird,
     cardFourth,
+    cardName,
     cvv,
     expiry
   ) => {
@@ -242,6 +270,9 @@ const Checkout = () => {
     if (!cvv.match(cvvRegex)) {
       error.cvv = "Not a valid cvv";
     }
+    if (!cardName) {
+      error.cardName = "cardName cant be blank";
+    }
     setPayFormError(() => error);
     console.log("Inside validation:", error);
     console.log("payFormError:", payFormError);
@@ -252,10 +283,15 @@ const Checkout = () => {
   const [cardSec, setCardSec] = useState("");
   const [cardThird, setCardThird] = useState("");
   const [cardFourth, setCardFourth] = useState("");
+  const [cardName, setCardName] = useState("");
 
   const phoneNumberStyle = {
     padding: "0px",
     margin: "0px",
+  };
+
+  const cardNumWidth = {
+    maxWidth: "100px",
   };
 
   return (
@@ -265,117 +301,243 @@ const Checkout = () => {
           <div className="col-md-8">
             <div className="card mb-4">
               <div className="card-header py-3">
-                <h5 className="mb-0">Cart items</h5>
+                <h5 className="mb-0">Checkout</h5>
               </div>
               <div>
                 <div>
                   {cart.shipping ? (
                     <div>
-                      <h3>Shipping Address:</h3>
-                      <p>Address Line1 : {cart.shipping.line1}</p>
-                      <p>Address Line2 : {cart.shipping.line2}</p>
-                      <p>Zipcode : {cart.shipping.zipcode}</p>
-                      <p>State : {cart.shipping.state}</p>
-                      <p>City : {cart.shipping.city}</p>
-                      <p>Phone Number : {cart.shipping.phoneNumber}</p>
+                      <h3 className="mx-3 my-3">Shipping Address:</h3>
+                      <p className="mx-3">
+                        Name :{" "}
+                        {cart?.user?.firstName + " " + cart?.user?.lastName}
+                      </p>
+                      <p className="mx-3">
+                        Address Line1 : {cart.shipping.line1}
+                      </p>
+                      <p className="mx-3">
+                        Address Line2 : {cart.shipping.line2}
+                      </p>
+                      <p className="mx-3">Zipcode : {cart.shipping.zipcode}</p>
+                      <p className="mx-3">State : {cart.shipping.state}</p>
+                      <p className="mx-3">City : {cart.shipping.city}</p>
+                      <p className="mx-3">
+                        Phone Number : {cart.shipping.phoneNumber}
+                      </p>
                     </div>
                   ) : addresses ? (
                     <div>
-                      <h3>Shipping Address:</h3>
-                      <p>Address Line1 : {addresses.line1}</p>
-                      <p>Address Line2 : {addresses.line2}</p>
-                      <p>Zipcode : {addresses.zipcode}</p>
-                      <p>State : {addresses.state}</p>
-                      <p>City : {addresses.city}</p>
-                      <p>Phone Number : {addresses.phoneNumber}</p>
+                      <h3 className="mx-3 my-3">Shipping Address:</h3>
+                      <p className="mx-3">
+                        Name :{" "}
+                        {cart?.user?.firstName + " " + cart?.user?.lastName}
+                      </p>
+                      <p className="mx-3">Address Line1 : {addresses.line1}</p>
+                      <p className="mx-3">Address Line2 : {addresses.line2}</p>
+                      <p className="mx-3">Zipcode : {addresses.zipcode}</p>
+                      <p className="mx-3">State : {addresses.state}</p>
+                      <p className="mx-3">City : {addresses.city}</p>
+                      <p className="mx-3">
+                        Phone Number : {addresses.phoneNumber}
+                      </p>
                       {!cart.shipping?.id && (
-                        <button type="button" onClick={handleShippingAddress}>
+                        <button
+                          type="button"
+                          className="btn btn-primary mb-4 mx-3"
+                          onClick={handleShippingAddress}
+                        >
                           Use
                         </button>
                       )}
                       {!cart.shipping?.id && (
-                        <button type="button" onClick={() => setForm(true)}>
+                        <button
+                          type="button"
+                          className="btn btn-primary mb-4"
+                          onClick={() => setForm(true)}
+                        >
                           Change Shipping Address
                         </button>
                       )}
                     </div>
                   ) : (
                     <div>
-                      <p>There is no shipping address available</p>
-                      <button type="button" onClick={() => setForm(true)}>
+                      <p className="text mx-3 my-3">
+                        There is no shipping address available
+                      </p>
+                      <button
+                        type="button"
+                        className="btn btn-primary mb-4 mx-3"
+                        onClick={() => setForm(true)}
+                      >
                         Add Shipping Address
                       </button>
                     </div>
                   )}
                   {
-                    <div>
-                      {form && (
-                        <form
-                          onSubmit={(event) => handleFormShippingAddress(event)}
-                        >
-                          <h3>Add New Shipping address:</h3>
-                          <label htmlFor="addressLine1">Address Line1 : </label>
-                          <input
-                            type="text"
-                            name="addressLine1"
-                            value={address1}
-                            placeholder="address line1"
-                            onChange={(event) => {
-                              setAddress1(event.target.value);
-                              setShipFormError({});
-                            }}
-                          />
-                          <p>{shipFormError.address1}</p>
-                          <label htmlFor="addressLine2">Address Line2 : </label>
-                          <input
-                            type="text"
-                            name="addressLine2"
-                            value={address2}
-                            placeholder="address line2"
-                            onChange={(event) => {
-                              setAddress2(event.target.value);
-                              setShipFormError({});
-                            }}
-                          />
-                          <p>{shipFormError.address2}</p>
-                          <label htmlFor="zipcode">Zipcode : </label>
-                          <input
-                            type="text"
-                            name="zipcode"
-                            value={zipcode}
-                            placeholder="zipcode"
-                            onChange={(event) => {
-                              setZipcode(event.target.value);
-                              setShipFormError({});
-                            }}
-                          />
-                          <p>{shipFormError.zipcode}</p>
-                          <label htmlFor="state">State : </label>
-                          <input
-                            type="text"
-                            name="state"
-                            value={state}
-                            placeholder="state"
-                            onChange={(event) => {
-                              setState(event.target.value);
-                              setShipFormError({});
-                            }}
-                          />
-                          <p>{shipFormError.state}</p>
-                          <label htmlFor="city">City : </label>
-                          <input
-                            type="text"
-                            name="city"
-                            value={city}
-                            placeholder="city"
-                            onChange={(event) => {
-                              setCity(event.target.value);
-                              setShipFormError({});
-                            }}
-                          />
-                          <p>{shipFormError.city}</p>
-                          <label htmlFor="phoneNumber">Phone Number : </label>
-                          {/* <input
+                    <section className="py-5 px-5">
+                      <div>
+                        {form && (
+                          <form
+                            className="border"
+                            onSubmit={(event) =>
+                              handleFormShippingAddress(event)
+                            }
+                          >
+                            <h3 className="mx-2 my-2">
+                              Add New Shipping address:
+                            </h3>
+                            <div className="mb-3">
+                              <label className="form-label" htmlFor="firstName">
+                                FirstName :
+                              </label>
+                              <input
+                                type="text"
+                                name="firstName"
+                                value={firstName}
+                                className="form-control"
+                                placeholder="firstName"
+                                onChange={(event) => {
+                                  setFirstName(event.target.value);
+                                  setShipFormError({});
+                                }}
+                              />
+                              <p className="text-danger-emphasis">
+                                {shipFormError.firstName}
+                              </p>
+                            </div>
+                            <div className="mb-3">
+                              <label className="form-label" htmlFor="firstName">
+                                LastName :
+                              </label>
+                              <input
+                                type="text"
+                                name="lastName"
+                                value={lastName}
+                                className="form-control"
+                                placeholder="lastName"
+                                onChange={(event) => {
+                                  setLastName(event.target.value);
+                                  setShipFormError({});
+                                }}
+                              />
+                              <p className="text-danger-emphasis">
+                                {shipFormError.lastName}
+                              </p>
+                            </div>
+                            <div className="mb-3">
+                              <label
+                                className="form-label"
+                                htmlFor="addressLine1"
+                              >
+                                Address Line1 :{" "}
+                              </label>
+                              <input
+                                type="text"
+                                name="addressLine1"
+                                value={address1}
+                                className="form-control"
+                                placeholder="address line1"
+                                onChange={(event) => {
+                                  setAddress1(event.target.value);
+                                  setShipFormError({});
+                                }}
+                              />
+                              <p className="text-danger-emphasis">
+                                {shipFormError.address1}
+                              </p>
+                            </div>
+
+                            <div className="mb-3">
+                              <label
+                                className="form-label"
+                                htmlFor="addressLine2"
+                              >
+                                Address Line2 :{" "}
+                              </label>
+                              <input
+                                type="text"
+                                name="addressLine2"
+                                className="form-control"
+                                value={address2}
+                                placeholder="address line2"
+                                onChange={(event) => {
+                                  setAddress2(event.target.value);
+                                  setShipFormError({});
+                                }}
+                              />
+                              <p className="text-danger-emphasis">
+                                {shipFormError.address2}
+                              </p>
+                            </div>
+
+                            <div className="mb-3">
+                              <label className="form-label" htmlFor="zipcode">
+                                Zipcode :{" "}
+                              </label>
+                              <input
+                                type="text"
+                                name="zipcode"
+                                className="form-control"
+                                value={zipcode}
+                                placeholder="zipcode"
+                                onChange={(event) => {
+                                  setZipcode(event.target.value);
+                                  setShipFormError({});
+                                }}
+                              />
+                              <p className="text-danger-emphasis">
+                                {shipFormError.zipcode}
+                              </p>
+                            </div>
+
+                            <div className="mb-3">
+                              <label className="form-label" htmlFor="state">
+                                State :{" "}
+                              </label>
+                              <input
+                                type="text"
+                                name="state"
+                                className="form-control"
+                                value={state}
+                                placeholder="state"
+                                onChange={(event) => {
+                                  setState(event.target.value);
+                                  setShipFormError({});
+                                }}
+                              />
+                              <p className="text-danger-emphasis">
+                                {shipFormError.state}
+                              </p>
+                            </div>
+
+                            <div className="mb-3">
+                              <label className="form-label" htmlFor="city">
+                                City :{" "}
+                              </label>
+                              <input
+                                type="text"
+                                name="city"
+                                className="form-control"
+                                value={city}
+                                placeholder="city"
+                                onChange={(event) => {
+                                  setCity(event.target.value);
+                                  setShipFormError({});
+                                }}
+                              />
+                              <p className="text-danger-emphasis">
+                                {shipFormError.city}
+                              </p>
+                            </div>
+
+                            <div className="mb-3">
+                              <label
+                                className="form-label"
+                                htmlFor="phoneNumber"
+                              >
+                                Phone Number :{" "}
+                              </label>
+                              {/* <input
                   type="text"
                   name="phoneNumber"
                   value={phoneNumber}
@@ -385,63 +547,96 @@ const Checkout = () => {
                     setShipFormError({});
                   }}
                 /> */}
-                          <PhoneInput
-                            defaultCountry="US"
-                            value={phoneNumber}
-                            placeholder="* (***)***-****"
-                            onChange={setPhoneNumber}
-                            style={phoneNumberStyle}
-                          />
-                          {phoneNumber ? (
-                            isPossiblePhoneNumber(phoneNumber) ? undefined : (
-                              <p>Invalid phone number</p>
-                            )
-                          ) : (
-                            ""
-                          )}
-                          {!phoneNumber && <p>{shipFormError.phoneNumber}</p>}
-                          <button type="submit">save</button>
-                          <button type="button" onClick={() => setForm(false)}>
-                            cancel
-                          </button>
-                        </form>
-                      )}
-                    </div>
+                              <PhoneInput
+                                defaultCountry="US"
+                                value={phoneNumber}
+                                placeholder="* (***)***-****"
+                                onChange={setPhoneNumber}
+                                style={phoneNumberStyle}
+                              />
+                              {phoneNumber ? (
+                                isPossiblePhoneNumber(
+                                  phoneNumber
+                                ) ? undefined : (
+                                  <p className="text-danger-emphasis">
+                                    Invalid phone number
+                                  </p>
+                                )
+                              ) : (
+                                ""
+                              )}
+                              {!phoneNumber && (
+                                <p className="text-danger-emphasis">
+                                  {shipFormError.phoneNumber}
+                                </p>
+                              )}
+                            </div>
+
+                            <button
+                              type="submit"
+                              className="btn btn-primary mb-4 mx-2"
+                            >
+                              save
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-secondary mb-4"
+                              onClick={() => setForm(false)}
+                            >
+                              cancel
+                            </button>
+                          </form>
+                        )}
+                      </div>
+                    </section>
                   }
                 </div>
                 <div>
-                  <p>Cart Total : {cart.totalCost}</p>
-                  <p>Tax : 5%</p>
-                  <h3>
+                  <p className="text mx-3 my-3">
+                    Cart Total : {cart.totalCost}
+                  </p>
+                  <p className="text mx-3 my-3">Tax : 5%</p>
+                  <h3 className="text mx-3 my-3">
                     Checkout total : ${calculateTotalCost(cart.totalCost)}
                   </h3>
-                  <p>{cart.totalCartItems} items added for checkout</p>
+                  <p className="text mx-3 my-3">
+                    {cart.totalCartItems} items added for checkout
+                  </p>
                 </div>
                 <div>
                   <div>
-                    <h3>Payment:</h3>
+                    <h3 className="text mx-3 my-3">Payment:</h3>
                     {cart.orderpayment ? (
                       <div>
-                        <p>
-                          Card :{" "}
+                        <p className="mx-3">
+                          Card :
                           {"************" +
                             cart.orderpayment.card?.substring(12)}
                         </p>
-                        <p>Expiry year : {cart.orderpayment.expiryYear}</p>
+                        <p className="mx-3">
+                          Expiry year : {cart.orderpayment.expiryYear}
+                        </p>
                       </div>
                     ) : payment ? (
                       <div>
-                        <p>
+                        <p className="mx-3">
                           Card : {"************" + payment.card?.substring(12)}
                         </p>
-                        <p>Expiry year : {payment.expiryYear}</p>
+                        <p className="mx-3">
+                          Expiry year : {payment.expiryYear}
+                        </p>
                         {!cart.orderpayment && (
-                          <button type="button" onClick={handlePayment}>
+                          <button
+                            className="btn btn-primary mx-3 my-3"
+                            type="button"
+                            onClick={handlePayment}
+                          >
                             Use
                           </button>
                         )}
                         {!cart.orderpayment && (
                           <button
+                            className="btn btn-primary mx-3 my-3"
                             type="button"
                             onClick={() => setPayForm(true)}
                           >
@@ -451,99 +646,177 @@ const Checkout = () => {
                       </div>
                     ) : (
                       <div>
-                        <p>There is no payment available</p>
-                        <button type="button" onClick={() => setPayForm(true)}>
+                        <p className="text mx-3 my-3">
+                          There is no payment available
+                        </p>
+                        <button
+                          type="button"
+                          className="btn btn-primary mb-4 mx-3"
+                          onClick={() => setPayForm(true)}
+                        >
                           Add New Payment
                         </button>
                       </div>
                     )}
                   </div>
                   {payForm && (
-                    <form onSubmit={(event) => handleFormPayment(event)}>
-                      <label htmlFor="cardNumber">Card Number</label>
-                      <input
-                        type="text"
-                        name="cardFirst"
-                        value={cardFirst}
-                        placeholder="****"
-                        maxLength={4}
-                        onChange={(event) => {
-                          setCardFirst(event.target.value);
-                          setPayFormError({});
-                        }}
-                      />{" "}
-                      -
-                      <input
-                        type="text"
-                        name="cardSec"
-                        value={cardSec}
-                        placeholder="****"
-                        maxLength={4}
-                        onChange={(event) => {
-                          setCardSec(event.target.value);
-                          setPayFormError({});
-                        }}
-                      />{" "}
-                      -
-                      <input
-                        type="text"
-                        name="cardThird"
-                        value={cardThird}
-                        placeholder="****"
-                        maxLength={4}
-                        onChange={(event) => {
-                          setCardThird(event.target.value);
-                          setPayFormError({});
-                        }}
-                      />{" "}
-                      -
-                      <input
-                        type="text"
-                        name="cardFourth"
-                        value={cardFourth}
-                        placeholder="****"
-                        maxLength={4}
-                        onChange={(event) => {
-                          setCardFourth(event.target.value);
-                          setPayFormError({});
-                        }}
-                      />
-                      <p>{payFormError.cardNum}</p>
-                      <label htmlFor="cvv">CVV</label>
-                      <input
-                        type="text"
-                        name="cvv"
-                        value={cvv}
-                        placeholder="***"
-                        maxLength={3}
-                        onChange={(event) => {
-                          setCvv(event.target.value);
-                          setPayFormError({});
-                        }}
-                      />
-                      <p>{payFormError.cvv}</p>
-                      <label htmlFor="expiry">Expiry year</label>
-                      <input
-                        type="text"
-                        name="expiry"
-                        value={expiry}
-                        placeholder="MM/YY"
-                        maxLength={5}
-                        onChange={(event) => {
-                          setExpiry(event.target.value);
-                          setPayFormError({});
-                        }}
-                      />
-                      <p>{payFormError.expiry}</p>
-                      <button type="submit">save</button>
-                      <button type="button" onClick={() => setPayForm(false)}>
-                        cancel
-                      </button>
-                    </form>
+                    <section className="py-5 px-5">
+                      <div>
+                        <h3 className="mx-2 my-2">Add New Payment details:</h3>
+                        <form
+                          className="border"
+                          onSubmit={(event) => handleFormPayment(event)}
+                        >
+                          <div className="mb-3">
+                            <label className="form-label" htmlFor="cardNumber">
+                              Card Number
+                            </label>
+                            <div className="d-flex">
+                              <input
+                                type="text"
+                                name="cardFirst"
+                                className="form-control"
+                                value={cardFirst}
+                                style={cardNumWidth}
+                                placeholder="****"
+                                maxLength={4}
+                                onChange={(event) => {
+                                  setCardFirst(event.target.value);
+                                  setPayFormError({});
+                                }}
+                              />{" "}
+                              -
+                              <input
+                                type="text"
+                                name="cardSec"
+                                value={cardSec}
+                                style={cardNumWidth}
+                                className="form-control"
+                                placeholder="****"
+                                maxLength={4}
+                                onChange={(event) => {
+                                  setCardSec(event.target.value);
+                                  setPayFormError({});
+                                }}
+                              />{" "}
+                              -
+                              <input
+                                type="text"
+                                name="cardThird"
+                                value={cardThird}
+                                style={cardNumWidth}
+                                className="form-control"
+                                placeholder="****"
+                                maxLength={4}
+                                onChange={(event) => {
+                                  setCardThird(event.target.value);
+                                  setPayFormError({});
+                                }}
+                              />{" "}
+                              -
+                              <input
+                                type="text"
+                                name="cardFourth"
+                                value={cardFourth}
+                                style={cardNumWidth}
+                                className="form-control"
+                                placeholder="****"
+                                maxLength={4}
+                                onChange={(event) => {
+                                  setCardFourth(event.target.value);
+                                  setPayFormError({});
+                                }}
+                              />
+                            </div>
+                            <p className="text-danger-emphasis">
+                              {payFormError.cardNum}
+                            </p>
+                          </div>
+                          <div className="mb-3">
+                            <label className="form-label" htmlFor="cvv">
+                              CVV
+                            </label>
+                            <input
+                              type="text"
+                              name="cvv"
+                              value={cvv}
+                              style={cardNumWidth}
+                              className="form-control"
+                              placeholder="***"
+                              maxLength={3}
+                              onChange={(event) => {
+                                setCvv(event.target.value);
+                                setPayFormError({});
+                              }}
+                            />
+                            <p className="text-danger-emphasis">
+                              {payFormError.cvv}
+                            </p>
+                          </div>
+                          <div className="mb-3">
+                            <label className="form-label" htmlFor="expiry">
+                              Name on Card:
+                            </label>
+                            <input
+                              type="text"
+                              name="cardName"
+                              value={cardName}
+                              className="form-control"
+                              placeholder="Name on card"
+                              onChange={(event) => {
+                                setCardName(event.target.value);
+                                setPayForm({});
+                              }}
+                            />
+                            <p className="text-danger-emphasis">
+                              {payFormError.cardName}
+                            </p>
+                          </div>
+                          <div className="mb-3">
+                            <label className="form-label" htmlFor="expiry">
+                              Expiry year
+                            </label>
+                            <input
+                              type="text"
+                              name="expiry"
+                              value={expiry}
+                              style={cardNumWidth}
+                              className="form-control"
+                              placeholder="MM/YY"
+                              maxLength={5}
+                              onChange={(event) => {
+                                setExpiry(event.target.value);
+                                setPayFormError({});
+                              }}
+                            />
+                            <p className="text-danger-emphasis">
+                              {payFormError.expiry}
+                            </p>
+                          </div>
+                          <button
+                            type="submit"
+                            className="btn btn-primary mx-2 mb-2"
+                          >
+                            save
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-secondary mb-2"
+                            onClick={() => setPayForm(false)}
+                          >
+                            cancel
+                          </button>
+                        </form>
+                      </div>
+                    </section>
                   )}
                 </div>
                 {cart.shipping && cart.orderpayment ? (
-                  <button type="button" onClick={handlePlaceOrder}>
+                  <button
+                    type="button"
+                    className="btn btn-primary mx-3 my-3"
+                    onClick={handlePlaceOrder}
+                  >
                     Place order
                   </button>
                 ) : (

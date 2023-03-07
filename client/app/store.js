@@ -10,6 +10,7 @@ import singleUserSlice from "../features/Admin/singleUser/singleUserSlice";
 import paymentSlice from "../features/checkout/paymentSlice";
 import shippingSlice from "../features/checkout/shippingSlice";
 import allUsersReducer from "../features/admin/allUsers/allUsersSlice";
+import checkoutSlice from "../features/checkout/checkoutSlice";
 
 const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ const store = configureStore({
     singleUser: singleUserSlice,
     payment: paymentSlice,
     shipping: shippingSlice,
+    checkout: checkoutSlice,
     allUsers: allUsersReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),

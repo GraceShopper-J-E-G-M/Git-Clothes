@@ -13,7 +13,7 @@ export const fetchSingleProduct = createAsyncThunk("singleProduct", async (id) =
 //admin - update product feature
 export const editProduct = createAsyncThunk("editProduct", async (productObj) => {
     try {
-        const { data } = await axios.get(`/api/products/${productObj.id}`,productObj);
+        const { data } = await axios.put(`/api/products/${productObj.id}`,productObj);
         return data;
     } catch (error) {
         console.log(error);

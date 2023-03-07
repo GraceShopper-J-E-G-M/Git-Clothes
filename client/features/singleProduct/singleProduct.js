@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { fetchSingleProduct, selectSingleProduct } from "./singleProductSlice";
+import { fetchSingleProduct, selectSingleProduct, editProduct } from "./singleProductSlice";
 import { addCartAsync } from "../cart/cartSlice";
 
 const SingleProduct = () => {
@@ -35,7 +35,7 @@ const SingleProduct = () => {
   const user = useSelector((state) => state.auth.me);
   console.log(product);
 
-  const { prodName, prodPrice, prodSize, prodColor, prodImg } = product;
+  const { prodName, prodQuantity, prodPrice, prodSize, prodColor, prodImg } = product;
 
   useEffect(() => {
     dispatch(fetchSingleProduct(prodId));
@@ -49,9 +49,22 @@ const SingleProduct = () => {
 
   const addToCart = async (event) => {
     event.preventDefault();
+    const productObj = {
+      id: prodId,
+      prodName,
+      prodQuantity,
+      prodPrice,
+      prodSize: selectedSize,
+      prodColor: selectedColor,
+      prodImg,
+    }
+    console.log(productObj);
+    await dispatch(editProduct(productObj));
     const reqbody = {
       userId: user.id,
       prodId: product.id,
+      // selectedColor,
+      // selectedSize,
     };
     await dispatch(addCartAsync(reqbody));
     navigate("/cart");

@@ -71,7 +71,7 @@ const AppRoutes = () => {
           <Route path="/admin" element={<AdminNavBar />} />
           <Route path="/allUsers" element={<AllUsers />} />
           <Route path="/allUsers/:userId" element={<SingleUser />} />
-          <Route path="/allUsers/:userId" element={<UpdateUser />} />
+          <Route path="/allUsers/:userId/edit" element={<UpdateUser />} />
           <Route path="/allProducts" element={<AdminAllProducts />} />
           <Route path="/allProducts/:prodId" element={<UpdateProduct />} />
         </Routes>

@@ -6,6 +6,10 @@ const OrderPayment = db.define("orderpayment", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  cardName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
   cvv: {
     type: Sequelize.INTEGER,
     allowNull: false,

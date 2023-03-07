@@ -2,6 +2,14 @@ const Sequelize = require("sequelize");
 const db = require("../db");
 
 const Shipping = db.define("shipping", {
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
   line1: {
     type: Sequelize.STRING,
     allowNull: false,

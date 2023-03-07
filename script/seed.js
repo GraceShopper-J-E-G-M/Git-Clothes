@@ -102,44 +102,49 @@ async function seed() {
     total: prod2.prodPrice * 3,
   });
 
+  const user = await User.findByPk(1);
   const payment1 = await Payment.create({
-    card: "1111-1111-1111-1111",
+    card: "1111111111111111",
     cvv: "111",
+    cardName: user.firstName,
     expiryYear: "11/31",
   });
-  const user = await User.findByPk(1);
   await payment1.setUser(user);
 
+  const user2 = await User.findByPk(2);
   const payment2 = await Payment.create({
-    card: "2222-2222-2222-2222",
+    card: "2222222222222222",
     cvv: "222",
+    cardName: user2.firstName,
     expiryYear: "12/32",
   });
-  const user2 = await User.findByPk(2);
   await payment2.setUser(user2);
 
+  const user3 = await User.findByPk(3);
   const payment3 = await Payment.create({
-    card: "3333-3333-3333-3333",
+    card: "3333333333333333",
     cvv: "333",
+    cardName: user3.firstName,
     expiryYear: "13/33",
   });
-  const user3 = await User.findByPk(3);
   await payment3.setUser(user3);
 
+  const user4 = await User.findByPk(4);
   const payment4 = await Payment.create({
-    card: "4444-4444-4444-4444",
+    card: "4444444444444444",
     cvv: "444",
+    cardName: user4.firstName,
     expiryYear: "14/34",
   });
-  const user4 = await User.findByPk(4);
   await payment4.setUser(user4);
 
+  const user5 = await User.findByPk(5);
   const payment5 = await Payment.create({
-    card: "5555-5555-5555-5555",
+    card: "5555555555555555",
     cvv: "555",
+    cardName: user5.firstName,
     expiryYear: "15/35",
   });
-  const user5 = await User.findByPk(5);
   await payment5.setUser(user5);
   ///---------------------MODEL ASSOCIATIONS WITH FAKER DATA----------------///
 

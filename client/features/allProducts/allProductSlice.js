@@ -18,6 +18,7 @@ export const newProduct = createAsyncThunk("newProduct", async (prodcutObj) => {
     const { data } = await axios.post(`/api/products`, prodcutObj);
     return data;
   } catch (error) {
+    console.log("stuck on thunks")
     console.log(error);
   }
 });
