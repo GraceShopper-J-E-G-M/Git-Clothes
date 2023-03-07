@@ -14,7 +14,7 @@ import AllUsers from "../features/admin/allUsers/AllUsers";
 import SingleUser from "../features/admin/singleUser/SingleUser";
 import UpdateUser from "../features/admin/singleUser/UpdateUser";
 import AdminAllProducts from "../features/admin/allProducts/AdminAllProducts";
-import UpdateProduct from "../features/admin/UpdateProduct/UpdateProduct";
+import UpdateProduct from "../features/admin/updateProduct/UpdateProduct";
 
 /**
  * COMPONENT
