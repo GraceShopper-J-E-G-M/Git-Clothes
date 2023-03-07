@@ -39,7 +39,7 @@ const AddNewProduct = () => {
         setProdColor("Red");
         setProdImg("");
         await dispatch(fetchAllProductsAsync());
-        navigate("/allProducts");
+        navigate("/allAdminProducts");
     };
 
     return (

@@ -57,7 +57,7 @@ const UpdateProduct = () => {
         await dispatch(editProduct(productObj));
         await dispatch(fetchSingleProduct(prodId));
         //might need to fix route
-        navigate(`/allProducts/${prodId}`);
+        navigate(`/allAdminProducts`);
     }
 
     return (
@@ -96,7 +96,7 @@ const UpdateProduct = () => {
             </label>         
             <br></br>
             <button type="submit">Update</button>
-            <Link to="/allProducts">
+            <Link to="/allAdminProducts">
                 <button>Back to All Products</button>
             </Link>
         </form>
