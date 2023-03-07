@@ -33,7 +33,7 @@ const Navbar = () => {
   console.log("Cart Status in Nav:", cart.status);
   return (
     <div>
-      <h1>Git-Clothes</h1>
+      <Link to="/allProducts"><h1>Git-Clothes</h1></Link>
       <nav>
         {isLoggedIn ? (
           <div>

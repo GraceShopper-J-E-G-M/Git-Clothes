@@ -21,26 +21,29 @@ const AuthForm = ({ name, displayName }) => {
     const formName = evt.target.name;
     const username = evt.target.username.value;
     const password = evt.target.password.value;
+    if (username === "ADMIN") {
+      navigate("/admin");
+    }
     dispatch(authenticate({ username, password, method: formName }));
   };
 
-  //On admin submit, naviage to /users endpoint and display `allUsers` component.
-  const handleAdminSubmit = (evt) => {
-    evt.preventDefault();
-    const code = evt.target.adminCode.value;
-    if (code === "code*") {
-      console.log("Submit Admin!");
-      navigate(`/admin`)
-    }
-  };
+  // //On admin submit, naviage to /users endpoint and display `allUsers` component.
+  // const handleAdminSubmit = (evt) => {
+  //   evt.preventDefault();
+  //   const code = evt.target.adminCode.value;
+  //   if (code === "code*") {
+  //     console.log("Submit Admin!");
+  //     navigate(`/admin`)
+  //   }
+  // };
 
-  const handleRoleChange = (evt) => {
-    if (evt.target.value === "Admin") {
-      setAdmin(true);
-    } else {
-      setAdmin(false);
-    }
-  };
+  // const handleRoleChange = (evt) => {
+  //   if (evt.target.value === "Admin") {
+  //     setAdmin(true);
+  //   } else {
+  //     setAdmin(false);
+  //   }
+  // };
 
   //We want this function to act like the sign up function `PUT` thunk, except a temp User instance is created with attribute `guest`.
   const continueAsGuest = (evt) => {
@@ -49,21 +52,21 @@ const AuthForm = ({ name, displayName }) => {
     dispatch(
       authenticate({ username: "guest", password: "guestpwd", method: "guest" })
     );
-    navigate(`/allProducts`)
+    navigate(`/allProducts`);
   };
 
   return (
     <div>
-      <span>
+      {/* <span>
         <label htmlFor="role">
           <small>Select your role</small>
         </label>
         <select onChange={handleRoleChange} className="selectRole">
           <option value="User">User</option>
           {/* <option value="Guest">Guest</option> */}
-          <option value="Admin">Admin</option>
+      {/* <option value="Admin">Admin</option>
         </select>
-      </span>
+      </span> */}
       {/*the component will show this form if `admin` role is selected*/}
       {admin ? (
         <form onSubmit={handleAdminSubmit}>
@@ -109,6 +112,7 @@ const AuthForm = ({ name, displayName }) => {
           </div>
         </div>
       )}
+      <Link to="/admin">Admin</Link>
     </div>
   );
 };
