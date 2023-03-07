@@ -11,8 +11,8 @@ import Checkout from "../features/checkout/Checkout";
 import Success from "../features/checkout/Success";
 import AdminNavBar from "../features/admin/adminNavBar/adminNavBar";
 import AllUsers from "../features/admin/allUsers/allUsers";
-import SingleUser from "../features/admin/singleUser/singleuser";
-import UpdateUser from "../features/Admin/singleUser/editSingleUser";
+import SingleUser from "../features/admin/singleuser/singleuser";
+import UpdateUser from "../features/admin/singleuser/editSingleuser";
 import AdminAllProducts from "../features/Admin/allProducts/AdminAllProducts";
 import UpdateProduct from "../features/admin/UpdateProduct/UpdateProduct";
 
