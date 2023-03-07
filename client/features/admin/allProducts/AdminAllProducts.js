@@ -22,7 +22,7 @@ const AdminAllProducts = () => {
         event.preventDefault();
         await dispatch(removeProduct(id));
         await dispatch(fetchAllProductsAsync());
-        navigate("/allProducts");
+        navigate("/allAdminProducts");
     };
 
     return loading ? (
@@ -37,7 +37,7 @@ const AdminAllProducts = () => {
                 {products && products.length
                     ? products.map((product) => (
                         <div key={product.id.toString()} className="adminProduct">
-                            <Link to={`/allProducts/${product.id}`}>
+                            <Link to={`/allAdminProducts/${product.id}`}>
                                 <h2>{product.id} {product.prodName}</h2>
                             </Link>
                             <p>{`Price: ${product.prodPrice}`}</p>
