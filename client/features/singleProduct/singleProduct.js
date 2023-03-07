@@ -63,6 +63,8 @@ const SingleProduct = () => {
     const reqbody = {
       userId: user.id,
       prodId: product.id,
+      // selectedColor,
+      // selectedSize,
     };
     await dispatch(addCartAsync(reqbody));
     navigate("/cart");

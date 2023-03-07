@@ -35,7 +35,38 @@ router.post("/:cartId/payment", async (req, res, next) => {
     await payment.setCart(cart);
     res.json(payment);
   } catch (err) {
-    console.error(err);
+    next(err);
+  }
+});
+
+router.get("/:cartId", async (req, res, next) => {
+  try {
+    const cartId = req.params.cartId;
+    const cart = await Cart.findByPk(cartId, {
+      include: [
+        {
+          model: OrderItem,
+          include: [
+            {
+              model: Product,
+            },
+          ],
+        },
+        {
+          model: OrderPayment,
+        },
+        {
+          model: Shipping,
+        },
+        {
+          model: User,
+        },
+      ],
+    });
+
+    res.json(cart);
+  } catch (err) {
+    next(err);
   }
 });
 
