@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import { fetchSingleUser, selectSingleUser } from "./singleuserSlice";
-
+// import { UpdateUser } from "./editSingleUser";
+ 
 const SingleUser = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectSingleUser);
@@ -69,8 +70,10 @@ const SingleUser = () => {
           <p>No role for this user.</p>
         )}
       </div>
-      <Link to="/editSingleUser">
-        <button> Edit User </button>{" "}
+      <Link to={`/allUsers/${userId}/edit`}>
+      {/* <Link to="/allUsers/${userId}/edit"> */}
+        <button> Edit User </button>
+        {/* {" "} */}
       </Link>
       <Link to="/allUsers">
         <button>Back to All Users</button>
@@ -79,4 +82,13 @@ const SingleUser = () => {
   );
 };
 
+{/* <div key={product.id}>
+                  <Link
+                    className='dataItem'
+                    to={/products/${product.id}`}
+                    target='blank'
+                  >
+                    <p>{product.productName}</p>
+                  </Link>
+                </div> */}
 export default SingleUser;
