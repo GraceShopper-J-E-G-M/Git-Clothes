@@ -59,9 +59,8 @@ const AllUsers = () => {
                 <p>Email: {user.email}</p>
               </li>
             </div>
-          );
+          )
         })}
-        ;
       </ul>
     </div>
   );
