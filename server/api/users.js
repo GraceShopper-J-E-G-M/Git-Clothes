@@ -33,6 +33,7 @@ router.get("/:userId/address", async (req, res, next) => {
     next(err);
   }
 });
+
 //`GET` user at /api/users/:userId, include their assosiated address(es).
 router.get("/:userId", async (req, res, next) => {
   try {
@@ -58,13 +59,15 @@ router.get("/:userId/payment", async (req, res, next) => {
     next(err);
   }
 });
+
 //edit single user
-router.put("/:userId/edit", async (req, res, next) => {
+router.put("/:userId", async (req, res, next) => {
   try {
     const singleUser = await User.findByPk(req.params.userId);
     await singleUser.update(req.body);
     res.status(204).send();
   } catch (error) {
+    console.log(error);
     next(error);
   }
 });
@@ -83,11 +86,11 @@ router.delete("/:userId", async (req, res, next) => {
 });
 
 //adding new user
-router.post("/", async (req, res, next) => {
-  try {
-    const addUser = await User.create(req.body);
-    res.send(addUser);
-  } catch (err) {
-    next(err);
-  }
-});
+// router.post("/", async (req, res, next) => {
+//   try {
+//     const addUser = await User.create(req.body);
+//     res.send(addUser);
+//   } catch (err) {
+//     next(err);
+//   }
+// });

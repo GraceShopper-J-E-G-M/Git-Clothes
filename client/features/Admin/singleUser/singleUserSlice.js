@@ -14,23 +14,16 @@ export const fetchSingleUser = createAsyncThunk(
   }
 );
 
+//admin edit user
 export const editSingleUser = createAsyncThunk(
-  "allUsers/edit",
-  async ({ id, username, password, firstName, address, lastName, email, role }) => {
+  "editUser",
+  async ( updatedObject ) => {
     try {
-      const { data } = await axios.put(`/api/allUsers/${id}/edit`, {
-        username,
-        password,
-        firstName,
-        lastName,
-        address,
-        email,
-        role,
-      });
-      console.log("After axios put");
+      const { data } = await axios.put(`/api/users/${updatedObject.id}`, updatedObject);
       return data;
     } catch (err) {
       console.log(err);
+      next(err);
     }
   }
 );
