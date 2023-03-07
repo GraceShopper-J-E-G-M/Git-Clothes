@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../app/store";
-import { addCartAsync, fetchCartAsync, selectCart } from "../cart/cartSlice";
+import { fetchCartAsync, selectCart } from "../cart/cartSlice";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.me);
   const cart = useSelector(selectCart);
+  // useEffect(() => {
+  //   if (user) {
+  //     dispatch(fetchCartAsync(user));
+  //   }
+  // }, [dispatch, user]);
   const logoutAndRedirectHome = () => {
     dispatch(logout());
     navigate("/login");
@@ -23,6 +29,8 @@ const Navbar = () => {
   //   navigate("/cart");
   // };
 
+  const [cartStatus, setCartStatus] = useState("");
+  console.log("Cart Status in Nav:", cart.status);
   return (
     <div>
       <h1>Git-Clothes</h1>
@@ -31,13 +39,34 @@ const Navbar = () => {
           <div>
             {/* The navbar will show these links after you log in */}
             <Link to="/home">Home</Link>
-            <button type="button" onClick={logoutAndRedirectHome}>
+            <button
+              type="button"
+              className="mx-3 btn btn-primary"
+              onClick={logoutAndRedirectHome}
+            >
               Logout
             </button>
-            {/* <button type="button" onClick={addToCart}>
-              Add To Cart
-            </button> */}
-            <h4>cart : {cart.totalCartItems ? cart.totalCartItems : 0}</h4>
+
+            {(!cart ||
+              cart?.totalCartItems === 0 ||
+              cart.status === "Completed") && (
+              <button
+                onClick={() => navigate("/cart")}
+                className="mx-3 btn btn-primary"
+              >
+                <i className="bi bi-bag mx-3">0</i>
+              </button>
+            )}
+            {cart.totalCartItems > 0 && cart.status === "Pending" && (
+              <button
+                onClick={() => navigate("/cart")}
+                className="mx-3 btn btn-primary"
+              >
+                <i className="bi bi-bag-check-fill mx-3">
+                  {cart.totalCartItems}
+                </i>
+              </button>
+            )}
           </div>
         ) : (
           <div>

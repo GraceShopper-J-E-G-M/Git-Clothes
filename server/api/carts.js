@@ -189,6 +189,9 @@ router.get("/", async (req, res, next) => {
           {
             model: Shipping,
           },
+          {
+            model: User,
+          },
         ],
       });
       res.status(200).json(userCart);
@@ -232,6 +235,12 @@ router.put("/", async (req, res, next) => {
     const totalCostWithTax = req.body.totalCostWithTax;
     const cartId = req.body.cartId;
     const prodList = req.body.cartProdList;
+    const orderPaymentId = req.body.orderPaymentId;
+    const orderPayment = OrderPayment.findByPk(orderPaymentId);
+    if (orderPayment.card === "7777444477774444") {
+      res.sendStatus(404).send("Payment failed");
+      return;
+    }
     const cart = await Cart.findByPk(cartId);
 
     for (const prod of prodList) {
