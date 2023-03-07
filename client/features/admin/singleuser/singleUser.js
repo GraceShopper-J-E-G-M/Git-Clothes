@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
-import { fetchSingleUser, selectSingleUser } from "./singleuserSlice";
+import { fetchSingleUser, selectSingleUser } from "./singleUserSlice";
  
 const SingleUser = () => {
   const dispatch = useDispatch();

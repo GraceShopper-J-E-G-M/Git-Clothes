@@ -5,7 +5,7 @@ import {
   selectSingleUser,
   fetchSingleUser,
   editSingleUser,
-} from "./singleuserSlice";
+} from "./singleUserSlice";
 
 const UpdateUser = () => {
 
