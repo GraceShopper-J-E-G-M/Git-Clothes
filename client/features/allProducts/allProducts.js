@@ -14,16 +14,19 @@ const AllProducts = () => {
   }, [dispatch]);
 
   return (
-    <div className="allProductsContainer">
-      <h1> All Products </h1>
-      <div className="products">
+    <div>
+      <h1 className="allproductsheader"> All Products </h1>
+      <div className="allProductsContainer">
         {allProducts.map((product, i) => {
           return (
-            <div key={`inside the all products view ${i}`}>
+            <div
+              className="productcard"
+              key={`inside the all products view ${i}`}
+              >
+              <img className="productImg" src={product.prodImg} />
               <Link to={`/allProducts/${product.id}`}>
-                <h2>{product.prodName}</h2>
+                <h2 className="itemTitle">{product.prodName}</h2>
               </Link>
-              <img src={product.prodImg} />
             </div>
           );
         })}

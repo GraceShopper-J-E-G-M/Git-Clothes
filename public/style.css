@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background-color: #fbf2d5;
 }
 
 a {
@@ -18,6 +19,51 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+.allproductsheader {
+  background-color: #394a51;
+  min-height: 100px;
+  color: #fbf2d5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 80px;
+  /* align-content: center; */
+}
+
+.allProductsContainer { 
+  background-color: #fbf2d5;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 40px;
+  box-sizing: border-box;
+  padding: 3rem;
+}
+.productcard{
+  margin: 3rem;
+  flex: auto;
+  /* padding: 20px; */
+  justify-content: space-around;
+  max-width: 250px;
+  max-height: 300px;
+  display: block;
+  /* flex-wrap: wrap; */
+  /* flex-direction: row; */
+  /* background-color: #fdc57b; */
+  box-sizing: border-box;
+  align-content: center;
+  text-align: center;
+}
+.productImg { 
+  max-width: 250px;
+  padding: 20px; 
+}
+
+.itemTitle{
+  font-size: large;
 }
 
 /* .number-input input[type="number"] {
