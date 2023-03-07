@@ -12,81 +12,72 @@ const AddNewProduct = () => {
     const navigate = useNavigate();
 
     //need state for storing edit
-    const [prodName, setProdName] = useState("");
-    const [prodQuantity, setprodQuantity] = useState(0);
-    const [prodPrice, setProdPrice] = useState(0.00);
-    const [prodSize, setProdSize] = useState("");
-    const [prodColor, setProdColor] = useState("");
-    const [prodImg, setProdImg] = useState("");
+    const [newProdName, setProdName] = useState("");
+    const [newProdQuantity, setProdQuantity] = useState(0);
+    const [newProdPrice, setProdPrice] = useState(0.00);
+    const [newProdSize, setProdSize] = useState("XS");
+    const [newProdColor, setProdColor] = useState("Red");
+    const [newProdImg, setProdImg] = useState("");
+
+    const handleUpdateProduct = async (event) => {
+        event.preventDefault();
+        //create an updated ProductObj to send to backend
+        const productObj = {
+            prodName: newProdName,
+            prodQuantity: newProdQuantity,
+            prodPrice: newProdPrice,
+            prodSize: newProdSize,
+            prodColor: newProdColor,
+            prodImg: newProdImg,
+        };
+        console.log(productObj);
+        await dispatch(newProduct(productObj));
+        setProdName("");
+        setProdQuantity(0);
+        setProdPrice(0.00);
+        setProdSize("XS");
+        setProdColor("Red");
+        setProdImg("");
+        await dispatch(fetchAllProductsAsync());
+        navigate("/allProducts");
+    };
 
     return (
-        <form className="addNew" onSubmit={(event) => {
-            event.preventDefault();
-            //create an updated ProductObj to send to backend
-            const productObj = {
-                prodName,
-                prodQuantity,
-                prodPrice,
-                prodSize,
-                prodColor,
-                prodImg,
-            }
-            dispatch(newProduct(productObj));
-            dispatch(fetchAllProductsAsync());
-            //might need to fix route
-            navigate("/api/products");
-        }}>
-            {/* Input Product Info */}
-            <div className="inputRow">
-                <p>Product Name:</p>
-                <input onChange={(event) => {
-                    setProdName(event.target.value)
-                }}
-                    value={prodName}></input>
-            </div>
-            <div className="inputRow">
-                <p>Product Quantity:</p>
-                <input onChange={(event) => {
-                    setprodQuantity(event.target.value)
-                }}
-                    value={prodQuantity}></input>
-            </div>
-            <div className="inputRow">
-                <p>Product Price:</p>
-                <input onChange={(event) => {
-                    setProdPrice(event.target.value)
-                }}
-                    value={prodPrice}></input>
-            </div>
-            {/* Product size drop down menu */}
-            <select className="inputRow"
-                    onChange={(event) => {
-                        setProdSize(event.target.value)
-                    }}
-                    value={prodSize}>
-                    {sizeArray.map((size) => (
-                        <option value={size}>{size}</option>
+        <form onSubmit={ event => handleUpdateProduct(event)}>
+            <label>Product Name:
+                <input type="text" name="productName" value={newProdName}
+                onChange={ event => setProdName(event.target.value)} />
+            </label>
+            <label>Product Quantity:
+                <input type="number" name="productQuantity" value={newProdQuantity}
+                onChange={ event => setProdQuantity(event.target.value)} />
+            </label>
+            <label>Product Price:
+                <input type="number" step="0.01" name="productPrice" value={newProdPrice}
+                onChange= { event => setProdPrice(event.target.value)}/>
+            </label>
+            <label>Product Size:
+                <select name="prodSize"
+                onChange={ (event) => setProdSize(event.target.value)}>
+                    {sizeArray.map( (size, index) => (
+                        <option value={size} key={index}>{size}</option>
                     ))}
-            </select>
-            {/* Product color drop down menu */}
-            <select className="inputRow"
-                    onChange={(event) => {
-                        setProdColor(event.target.value)
-                    }}
-                    value={prodColor}>
-                    {colorArray.map((color) => (
-                        <option value={color}>{color}</option>
+                </select>
+            </label>
+            <label>Product Color:
+                <select name="prodColor"
+                onChange={ (event) => setProdColor(event.target.value)}>
+                    {colorArray.map( (color, index) => (
+                        <option value={color} key={color}>{color}</option>
                     ))}
-            </select>
-            <div className="inputRow">
-                <p>Image:</p>
-                <input onChange={(event) => {
-                    setProdImg(event.target.value)
-                }}
-                    value={prodImg}></input>
-            </div>
+                </select>
+            </label>
+            <label>Product Img:
+                <input type="text" name="productImg" value={newProdImg}
+                onChange= { event => setProdImg(event.target.value)}/>
+            </label>
             <br></br>
-            <button type="submit">Submit</button>
+            <button type="submit">Update</button>
         </form>
     )
 }

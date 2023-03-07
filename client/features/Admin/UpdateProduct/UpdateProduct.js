@@ -43,79 +43,81 @@ const updateProduct = () => {
         setProdImg(prodImg);
     }, [product])
 
-    const handleUpdate = (event) => {
-        
+    const handleDeleteProduct = async (event) => {
+        event.preventDefault();
+        //create an updated ProductObj to send to backend
+        const productObj = {
+            id: prodId,
+            prodName: newProdName,
+            prodQuantity: newProdQuantity,
+            prodPrice: newProdPrice,
+            prodSize: newProdSize,
+            prodColor: newProdColor,
+            prodImg: newProdImg,
+        }
+        console.log(productObj);
+        dispatch(editProduct(productObj));
+        dispatch(fetchSingleProduct(prodId));
+        dispatch(fetchAllProductsAsync());
+        //might need to fix route
+        navigate(`/allProducts/${prodId}`);
     }
 
     return (
-        <form className="update" onSubmit={(event) => {
-            event.preventDefault();
-            //create an updated ProductObj to send to backend
-            const productObj = {
-                id: prodId,
-                prodName: newProdName,
-                prodQuantity: newProdQuantity,
-                prodPrice: newProdPrice,
-                prodSize: newProdSize,
-                prodColor: newProdColor,
-                prodImg: newProdImg,
-            }
-            //it is creating the object
-            console.log(productObj);
-            dispatch(editProduct(productObj));
-            dispatch(fetchSingleProduct(prodId));
-            dispatch(fetchAllProductsAsync());
-            //might need to fix route
-            navigate(`/allProducts/${prodId}`);
-        }}>
+        <form className="update" onSubmit={(event) => handleDeleteProduct(event)}>
             {/* Single Product info */}
             <div className="inputRow">
                 <p>Product Name:</p>
-                <input onChange={(event) => {
+                <input 
+                value={newProdName}
+                onChange={(event) => {
                     setProdName(event.target.value)
-                }}
-                    value={newProdName}></input>
+                    console.log(newProdName);
+                }}></input>
             </div>
             <div className="inputRow">
                 <p>Product Quantity:</p>
-                <input onChange={(event) => {
+                <input 
+                value={newProdQuantity}
+                onChange={(event) => {
                     setProdQuantity(event.target.value)
-                }}
-                    value={newProdQuantity}></input>
+                }}></input>
             </div>
             <div className="inputRow">
                 <p>Product Price:</p>
-                <input onChange={(event) => {
+                <input 
+                value={newProdPrice}
+                onChange={(event) => {
                     setProdPrice(event.target.value)
-                }}
-                    value={newProdPrice}></input>
+                }}></input>
             </div>
             {/* Product size drop down menu */}
             <select className="inputRow"
+                value={newProdSize}
                     onChange={(event) => {
                         setProdSize(event.target.value)
-                    }}
-                    value={newProdSize}>
+                    }}>
                     {sizeArray.map((size) => (
                         <option value={size}>{size}</option>
                     ))}
             </select>
             {/* Product color drop down menu */}
             <select className="inputRow"
+                    value={newProdColor}
                     onChange={(event) => {
                         setProdColor(event.target.value)
-                    }}
-                    value={newProdColor}>
+                    }}>
                     {colorArray.map((color) => (
                         <option value={color}>{color}</option>
                     ))}
             </select>
             <div className="inputRow">
                 <p>Image:</p>
-                <input onChange={(event) => {
+                <input 
+                value={newProdImg}
+                onChange={(event) => {
                     setProdImg(event.target.value)
-                }}
-                    value={newProdImg}></input>
+                }}></input>
             </div>
             <br></br>
             <button type="submit">Submit</button>
