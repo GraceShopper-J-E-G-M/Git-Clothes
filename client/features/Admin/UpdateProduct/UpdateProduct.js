@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
     fetchSingleProduct,
@@ -9,7 +9,7 @@ import {
 import { fetchAllProductsAsync } from "../../allProducts/allProductSlice";
 
 const updateProduct = () => {
-    const sizeArray = ["XS","S","M","L","XL","XXL"];
+    const sizeArray = ["XS", "S", "M", "L", "XL", "XXL"];
     const colorArray = ["Red", "Pink", "Plum", "Mustard", "Burgundy", "Forest Green", "Beige", "Olive", "Grey", "Black", "Brown", "Dark Brown", "Blue"];
 
     const dispatch = useDispatch();
@@ -20,8 +20,8 @@ const updateProduct = () => {
     const [newProdName, setProdName] = useState("");
     const [newProdQuantity, setProdQuantity] = useState(0);
     const [newProdPrice, setProdPrice] = useState(0.00);
-    const [newProdSize, setProdSize] = useState("");
-    const [newProdColor, setProdColor] = useState("");
+    const [newProdSize, setProdSize] = useState("XS");
+    const [newProdColor, setProdColor] = useState("Red");
     const [newProdImg, setProdImg] = useState("");
 
     //fetch product
@@ -30,7 +30,6 @@ const updateProduct = () => {
 
     useEffect(() => {
         dispatch(fetchSingleProduct(prodId));
-        dispatch(fetchAllProductsAsync());
     }, [dispatch]);
 
     // useEffect hook so the state doesn't cause an infinity loop
@@ -43,7 +42,7 @@ const updateProduct = () => {
         setProdImg(prodImg);
     }, [product])
 
-    const handleDeleteProduct = async (event) => {
+    const handleUpdateProduct = async (event) => {
         event.preventDefault();
         //create an updated ProductObj to send to backend
         const productObj = {
@@ -56,71 +55,51 @@ const updateProduct = () => {
             prodImg: newProdImg,
         }
         console.log(productObj);
-        dispatch(editProduct(productObj));
-        dispatch(fetchSingleProduct(prodId));
-        dispatch(fetchAllProductsAsync());
+        await dispatch(editProduct(productObj));
+        await dispatch(fetchSingleProduct(prodId));
         //might need to fix route
         navigate(`/allProducts/${prodId}`);
     }
 
     return (
-        <form className="update" onSubmit={(event) => handleDeleteProduct(event)}>
-            {/* Single Product info */}
-            <div className="inputRow">
-                <p>Product Name:</p>
-                <input 
-                value={newProdName}
-                onChange={(event) => {
-                    setProdName(event.target.value)
-                    console.log(newProdName);
-                }}></input>
-            </div>
-            <div className="inputRow">
-                <p>Product Quantity:</p>
-                <input 
-                value={newProdQuantity}
-                onChange={(event) => {
-                    setProdQuantity(event.target.value)
-                }}></input>
-            </div>
-            <div className="inputRow">
-                <p>Product Price:</p>
-                <input 
-                value={newProdPrice}
-                onChange={(event) => {
-                    setProdPrice(event.target.value)
-                }}></input>
-            </div>
-            {/* Product size drop down menu */}
-            <select className="inputRow"
-                value={newProdSize}
-                    onChange={(event) => {
-                        setProdSize(event.target.value)
-                    }}>
-                    {sizeArray.map((size) => (
-                        <option value={size}>{size}</option>
+        <form onSubmit={event => handleUpdateProduct(event)}>
+            <label>Product Name:
+                <input type="text" name="productName" value={newProdName}
+                    onChange={event => setProdName(event.target.value)} />
+            </label>
+            <label>Product Quantity:
+                <input type="text" name="productQuantity" value={newProdQuantity}
+                    onChange={event => setProdQuantity(event.target.value)} />
+            </label>
+            <label>Product Price:
+                <input type="text" name="productPrice" value={newProdPrice}
+                    onChange={event => setProdPrice(event.target.value)} />
+            </label>   
+            <label>Product Size:
+                <select name="prodSize"
+                    onChange={(event) => setProdSize(event.target.value)}>
+                    {sizeArray.map((size, index) => (
+                        <option value={size} key={index}>{size}</option>
                     ))}
-            </select>
-            {/* Product color drop down menu */}
-            <select className="inputRow"
-                    value={newProdColor}
-                    onChange={(event) => {
-                        setProdColor(event.target.value)
-                    }}>
-                    {colorArray.map((color) => (
-                        <option value={color}>{color}</option>
+                </select>
+            </label>
+            <label>Product Color:
+                <select name="prodColor"
+                    onChange={(event) => setProdColor(event.target.value)}>
+                    {colorArray.map((color, index) => (
+                        <option value={color} key={index}>{color}</option>
                     ))}
-            </select>
-            <div className="inputRow">
-                <p>Image:</p>
-                <input 
-                value={newProdImg}
-                onChange={(event) => {
-                    setProdImg(event.target.value)
-                }}></input>
-            </div>
+                </select>
+            </label>
+            <label>Product Img:
+                <input type="text" name="productImg" value={newProdImg}
+                    onChange={event => setProdImg(event.target.value)} />
+            </label>         
             <br></br>
-            <button type="submit">Submit</button>
+            <button type="submit">Update</button>
+            <Link to="/allProducts">
+                <button>Back to All Products</button>
+            </Link>
         </form>
     )
 }

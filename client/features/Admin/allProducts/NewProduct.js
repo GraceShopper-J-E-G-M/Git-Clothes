@@ -5,7 +5,7 @@ import { newProduct } from "../../allProducts/allProductSlice";
 import { fetchAllProductsAsync } from "../../allProducts/allProductSlice";
 
 const AddNewProduct = () => {
-    const sizeArray = ["XS","S","M","L","XL","XXL"];
+    const sizeArray = ["XS", "S", "M", "L", "XL", "XXL"];
     const colorArray = ["Red", "Pink", "Plum", "Mustard", "Burgundy", "Forest Green", "Beige", "Olive", "Grey", "Black", "Brown", "Dark Brown", "Blue"];
 
     const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const AddNewProduct = () => {
     const [newProdColor, setProdColor] = useState("Red");
     const [newProdImg, setProdImg] = useState("");
 
-    const handleUpdateProduct = async (event) => {
+    const handleAddProduct = async (event) => {
         event.preventDefault();
         //create an updated ProductObj to send to backend
         const productObj = {
@@ -43,38 +43,38 @@ const AddNewProduct = () => {
     };
 
     return (
-        <form onSubmit={ event => handleUpdateProduct(event)}>
+        <form onSubmit={event => handleAddProduct(event)}>
             <label>Product Name:
                 <input type="text" name="productName" value={newProdName}
-                onChange={ event => setProdName(event.target.value)} />
+                    onChange={event => setProdName(event.target.value)} />
             </label>
             <label>Product Quantity:
                 <input type="number" name="productQuantity" value={newProdQuantity}
-                onChange={ event => setProdQuantity(event.target.value)} />
+                    onChange={event => setProdQuantity(event.target.value)} />
             </label>
             <label>Product Price:
                 <input type="number" step="0.01" name="productPrice" value={newProdPrice}
-                onChange= { event => setProdPrice(event.target.value)}/>
+                    onChange={event => setProdPrice(event.target.value)} />
             </label>
             <label>Product Size:
                 <select name="prodSize"
-                onChange={ (event) => setProdSize(event.target.value)}>
-                    {sizeArray.map( (size, index) => (
+                    onChange={(event) => setProdSize(event.target.value)}>
+                    {sizeArray.map((size, index) => (
                         <option value={size} key={index}>{size}</option>
                     ))}
                 </select>
             </label>
             <label>Product Color:
                 <select name="prodColor"
-                onChange={ (event) => setProdColor(event.target.value)}>
-                    {colorArray.map( (color, index) => (
-                        <option value={color} key={color}>{color}</option>
+                    onChange={(event) => setProdColor(event.target.value)}>
+                    {colorArray.map((color, index) => (
+                        <option value={color} key={index}>{color}</option>
                     ))}
                 </select>
             </label>
             <label>Product Img:
                 <input type="text" name="productImg" value={newProdImg}
-                onChange= { event => setProdImg(event.target.value)}/>
+                    onChange={event => setProdImg(event.target.value)} />
             </label>
             <br></br>
             <button type="submit">Update</button>
