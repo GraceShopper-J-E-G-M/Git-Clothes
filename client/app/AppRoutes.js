@@ -37,17 +37,7 @@ const AppRoutes = () => {
         <Route path="/allProducts" element={<AllProducts />} />
         <Route path="/allProducts/:prodId" element={<SingleProduct />} />
       </Routes>
-      {/**This is where we should add the ADMIN routes for /allUsers, /allUsers/:id, /allProducts, and /allProducts/:id */}
-      {isAdmin ? (
-        <Routes>
-          <Route path="/admin" element={<AdminNavBar />} />
-          <Route path="/allUsers" element={<AllUsers />} />
-          <Route path="/allUsers/:userId" element={<SingleUser />} />
-          <Route path="/allUsers/:userId" element={<UpdateUser />} />
-          <Route path="/allProducts" element={<AdminAllProducts />} />
-          <Route path="/allProducts/:prodId" element={<UpdateProduct />} />
-        </Routes>
-      ) : null}
+      
       {isLoggedIn ? (
         <Routes>
           <Route path="/*" element={<Home />} />
@@ -77,6 +67,19 @@ const AppRoutes = () => {
           <Route path="/confirmation" element={<Success />} />
         </Routes>
       )}
+
+      {/**This is where we should add the ADMIN routes for /allUsers, /allUsers/:id, /allProducts, and /allProducts/:id */}
+      {isAdmin ? (
+        <Routes>
+          <Route path="/admin" element={<AdminNavBar />} />
+          <Route path="/allUsers" element={<AllUsers />} />
+          <Route path="/allUsers/:userId" element={<SingleUser />} />
+          <Route path="/allUsers/:userId" element={<UpdateUser />} />
+          <Route path="/allProducts" element={<AdminAllProducts />} />
+          <Route path="/allProducts/:prodId" element={<UpdateProduct />} />
+        </Routes>
+      ) : null}
+      
     </div>
   );
 };
