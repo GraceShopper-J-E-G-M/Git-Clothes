@@ -6,9 +6,8 @@ import {
     editProduct,
     selectSingleProduct,
 } from "../../singleProduct/singleProductSlice";
-import { fetchAllProductsAsync } from "../../allProducts/allProductSlice";
 
-const updateProduct = () => {
+const UpdateProduct = () => {
     const sizeArray = ["XS", "S", "M", "L", "XL", "XXL"];
     const colorArray = ["Red", "Pink", "Plum", "Mustard", "Burgundy", "Forest Green", "Beige", "Olive", "Grey", "Black", "Brown", "Dark Brown", "Blue"];
 
@@ -104,4 +103,4 @@ const updateProduct = () => {
     )
 }
 
-export default updateProduct;
+export default UpdateProduct;

@@ -6,7 +6,7 @@ import singleProductSlice from "../features/singleProduct/singleProductSlice";
 import allProductsSlice from "../features/allProducts/allProductSlice";
 import addressSlice from "../features/checkout/addressSlice";
 import orderItemSlice from "../features/cart/orderItemSlice";
-import singleUserSlice from "../features/admin/singleuser/singleuserSlice";
+import singleUserSlice from "../features/admin/singleUser/singleuserSlice";
 import paymentSlice from "../features/checkout/paymentSlice";
 import shippingSlice from "../features/checkout/shippingSlice";
 import allUsersReducer from "../features/admin/allUsers/allUsersSlice";
