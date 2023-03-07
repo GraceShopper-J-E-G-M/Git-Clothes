@@ -21,6 +21,9 @@ const AuthForm = ({ name, displayName }) => {
     const formName = evt.target.name;
     const username = evt.target.username.value;
     const password = evt.target.password.value;
+    if (username === "ADMIN") {
+      navigate("/admin");
+    }
     dispatch(authenticate({ username, password, method: formName }));
   };
 
@@ -49,7 +52,7 @@ const AuthForm = ({ name, displayName }) => {
     dispatch(
       authenticate({ username: "guest", password: "guestpwd", method: "guest" })
     );
-    navigate(`/allProducts`)
+    navigate(`/allProducts`);
   };
 
   return (
@@ -61,7 +64,7 @@ const AuthForm = ({ name, displayName }) => {
         <select onChange={handleRoleChange} className="selectRole">
           <option value="User">User</option>
           {/* <option value="Guest">Guest</option> */}
-          {/* <option value="Admin">Admin</option>
+      {/* <option value="Admin">Admin</option>
         </select>
       </span> */}
       {/*the component will show this form if `admin` role is selected*/}

@@ -22,7 +22,7 @@ import UpdateProduct from "../features/admin/UpdateProduct/UpdateProduct";
 
 const AppRoutes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
-  const isAdmin = useSelector((state) => state.auth.me.role);
+  const isAdmin = useSelector((state) => state.auth.me.role === "admin");
   const dispatch = useDispatch();
 
   console.log("isAdmin", isAdmin);
@@ -33,11 +33,6 @@ const AppRoutes = () => {
 
   return (
     <div>
-      <Routes>
-        <Route path="/allProducts" element={<AllProducts />} />
-        <Route path="/allProducts/:prodId" element={<SingleProduct />} />
-      </Routes>
-      
       {isLoggedIn ? (
         <Routes>
           <Route path="/*" element={<Home />} />
@@ -62,6 +57,8 @@ const AppRoutes = () => {
             path="/signup"
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
+          <Route path="/allProducts" element={<AllProducts />} />
+          <Route path="/allProducts/:prodId" element={<SingleProduct />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/confirmation" element={<Success />} />
@@ -69,7 +66,7 @@ const AppRoutes = () => {
       )}
 
       {/**This is where we should add the ADMIN routes for /allUsers, /allUsers/:id, /allProducts, and /allProducts/:id */}
-      {isAdmin ? (
+      {isLoggedIn && isAdmin ? (
         <Routes>
           <Route path="/admin" element={<AdminNavBar />} />
           <Route path="/allUsers" element={<AllUsers />} />
@@ -79,7 +76,6 @@ const AppRoutes = () => {
           <Route path="/allProducts/:prodId" element={<UpdateProduct />} />
         </Routes>
       ) : null}
-      
     </div>
   );
 };
