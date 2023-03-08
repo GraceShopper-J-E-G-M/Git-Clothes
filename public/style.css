@@ -156,7 +156,7 @@ form div {
   align-items: center;
   margin: 2rem;
   width: 100%;
-}
+} */
 
 #title {
   font-size: 4rem;
@@ -181,7 +181,8 @@ a:-webkit-any-link {
 .singleProductContainer {
   display: flex;
   flex-direction: row;
-  margin: 3rem;
+  background-color: #fbf2d5;
+  padding: 3rem;
 }
 
 .productImage {
@@ -202,18 +203,39 @@ a:-webkit-any-link {
 }
 
 .productDetails > p {
+  font-weight: bolder;
   font-size: 1.5rem;
+  color: #394a51;
 }
 
 button > a:-webkit-any-link {
   text-decoration: none;
-  color: black;
+  color: white;
+
+}
+
+button {
+  display: inline-block;
+  /* flex-direction: row-reverse; */
+  background-color: #394a51;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;  
+  /* font-size: 16px; */
+  border-radius: 10px;
+  border: none;
+}
+
+button:hover {
+  background-color: #394a51;
+  transition: .7s;
 }
 
 /* Admin all products */
 
 .allDisplay {
-  margin: 2rem;
+  padding: 2rem;
+  background-color: #fbf2d5;
 }
 
 .allDisplay > * {
@@ -254,6 +276,7 @@ label {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #fbf2d5;
 }
 
 #updateProduct > * {
