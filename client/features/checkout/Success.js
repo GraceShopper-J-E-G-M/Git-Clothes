@@ -84,7 +84,7 @@ const Success = () => {
         </div>
       </section>
 
-      <Link className="mx-3" to={"/home"}>
+      <Link className="mx-3" to={"/allProducts"}>
         Continue Shopping
       </Link>
     </div>
