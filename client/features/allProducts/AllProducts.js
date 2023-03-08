@@ -15,20 +15,21 @@ const AllProducts = () => {
 
   return (
     <div>
-      <h2> All Products </h2>
+      <h1 className="allproductsheader"> All Products </h1>
       <div className="allProductsContainer">
-        <div className="products">
-          {allProducts.map((product, i) => {
-            return (
-              <div key={`inside the all products view ${i}`}>
-                <Link to={`/allProducts/${product.id}`}>
-                  <h2>{product.prodName}</h2>
-                <img src={product.prodImg} />
-                </Link>
-              </div>
-            );
-          })}
-        </div>
+        {allProducts.map((product, i) => {
+          return (
+            <div
+              className="productcard"
+              key={`inside the all products view ${i}`}
+              >
+              <img className="productImg" src={product.prodImg} />
+              <Link to={`/allProducts/${product.id}`}>
+                <h2 className="itemTitle">{product.prodName}</h2>
+              </Link>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
