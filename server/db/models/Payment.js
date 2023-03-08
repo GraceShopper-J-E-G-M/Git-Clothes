@@ -8,7 +8,6 @@ const Payment = db.define("payment", {
   },
   cardName: {
     type: Sequelize.STRING,
-    allowNull: false,
   },
   cvv: {
     type: Sequelize.INTEGER,
