@@ -40,7 +40,7 @@ const AllUsers = () => {
     <div >
       <div >
       <Link to="/admin">
-        <button className= "backToAdminBtn">Back to admin portal</button>
+        <button className= "portalBtn" > Back to admin portal</button>
       </Link>
       </div>
       <div className="allUsercontainer">

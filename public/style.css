@@ -92,11 +92,25 @@ form div {
   color: black;
   }
 
+.portalBtn {
+  display: inline-block;
+  background-color: #7fa99b;
+  color: #fbf2d5;
+  padding: 10px 25px;
+  text-align: center;  
+  /* font-size: 16px; */
+  border-radius: 10px;
+  border: none;
+}
+.portalBtn:hover {
+  background-color: #fdc57b;
+  transition: .7s;
+}
+
 .backToAdminBtn {
   display: inline-block;
-  /* flex-direction: row-reverse; */
-  background-color: #7fa99b;
-  color: white;
+  background-color: #fbf2d5;
+  color: #394a51;
   padding: 10px 25px;
   text-align: center;  
   /* font-size: 16px; */
@@ -104,7 +118,7 @@ form div {
   border: none;
 }
 .backToAdminBtn:hover {
-  background-color: #394a51;
+  background-color: #fdc57b;
   transition: .7s;
 }
 
@@ -156,7 +170,7 @@ form div {
   align-items: center;
   margin: 2rem;
   width: 100%;
-}
+} */
 
 #title {
   font-size: 4rem;
@@ -181,7 +195,8 @@ a:-webkit-any-link {
 .singleProductContainer {
   display: flex;
   flex-direction: row;
-  margin: 3rem;
+  background-color: #fbf2d5;
+  padding: 3rem;
 }
 
 .productImage {
@@ -202,18 +217,39 @@ a:-webkit-any-link {
 }
 
 .productDetails > p {
+  font-weight: bolder;
   font-size: 1.5rem;
+  color: #394a51;
 }
 
 button > a:-webkit-any-link {
   text-decoration: none;
-  color: black;
+  color: white;
+
+}
+
+button {
+  display: inline-block;
+  /* flex-direction: row-reverse; */
+  background-color: #394a51;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;  
+  /* font-size: 16px; */
+  border-radius: 10px;
+  border: none;
+}
+
+button:hover {
+  background-color: #394a51;
+  transition: .7s;
 }
 
 /* Admin all products */
 
 .allDisplay {
-  margin: 2rem;
+  padding: 2rem;
+  background-color: #fbf2d5;
 }
 
 .allDisplay > * {
@@ -254,8 +290,58 @@ label {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #fbf2d5;
 }
 
 #updateProduct > * {
   margin: 1rem;
+}
+
+.fullName{
+  text-decoration: #7fa99b;
+}
+.AdminSingleUsercontainer{
+  background-color: #7fa99b;
+  max-width: 400px;
+  display: inline-block;
+  border-radius: 10px;
+  margin-left: 20px;
+  padding: 2rem;
+}
+
+.editUserBtn {
+  display: inline-block;
+  background-color: #fbf2d5;
+  color: #394a51;
+  padding: 10px 25px;
+  text-align: center;  
+  border-radius: 10px;
+  border: none;
+}
+
+.editUserBtn:hover {
+  background-color:  #fdc57b;
+  transition: .7s;
+}
+.buttons {
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+}
+.editUserform{
+  background-color: #7fa99b;
+  max-width: 400px;
+  display: block;
+  border-radius: 10px;
+  margin-left: 20px;
+  padding: 2rem;
+}
+
+.justTheForm{
+  display: flex;
+  flex-direction: column;
+}
+
+.justTheForm > * {
+  margin: 3px;
 }
