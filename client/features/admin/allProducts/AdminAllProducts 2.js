@@ -22,7 +22,7 @@ const AdminAllProducts = () => {
         event.preventDefault();
         await dispatch(removeProduct(id));
         await dispatch(fetchAllProductsAsync());
-        navigate("/allAdminProducts");
+        navigate("/allProducts");
     };
 
     return loading ? (
@@ -33,22 +33,20 @@ const AdminAllProducts = () => {
             <Link to="/admin">
                 <button>Back to admin portal</button>
             </Link>
-            <div className="AdminAllProductsDisplay">
-                <section id="adminAllProducts">
-                    {products && products.length
-                        ? products.map((product) => (
-                            <div key={product.id.toString()} className="adminProduct">
-                                <Link to={`/allAdminProducts/${product.id}`}>
-                                    <h2>{product.prodName}</h2>
-                                </Link>
-                                <p>{`Price: ${product.prodPrice}`}</p>
-                                <button onClick={(event) => handleDeleteProduct(event, product.id)}>Delete Product</button>
-                            </div>
-                        ))
-                        : null}
-                </section>
-                <AddNewProduct />
-            </div>
+            <section id="adminAllProducts">
+                {products && products.length
+                    ? products.map((product) => (
+                        <div key={product.id.toString()} className="adminProduct">
+                            <Link to={`/allProducts/${product.id}`}>
+                                <h2>{product.id} {product.prodName}</h2>
+                            </Link>
+                            <p>{`Price: ${product.prodPrice}`}</p>
+                            <button onClick={(event) => handleDeleteProduct(event, product.id)}>Delete Product</button>
+                        </div>
+                    ))
+                    : null}
+            </section>
+            <AddNewProduct />
         </div>
     )
 }

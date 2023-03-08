@@ -18,9 +18,9 @@ const AdminNavBar = () => {
 
   return (
     <div>
-      <nav>
+      <nav style={{ textAlign: 'center' }}>
         <Link to="/allUsers">All Users</Link>
-        <Link to="/allProducts">All Products</Link>
+        <Link to="/allAdminProducts">All Products</Link>
         <button type="button" onClick={logoutAndRedirectHome}>
           Logout
         </button>

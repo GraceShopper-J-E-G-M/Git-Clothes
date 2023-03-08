@@ -59,9 +59,9 @@ const AppRoutes = () => {
           />
           <Route path="/allProducts" element={<AllProducts />} />
           <Route path="/allProducts/:prodId" element={<SingleProduct />} />
-          <Route path="/cart" element={<Cart />} />
+          {/* <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/confirmation" element={<Success />} />
+          <Route path="/confirmation" element={<Success />} /> */}
         </Routes>
       )}
 
@@ -72,8 +72,8 @@ const AppRoutes = () => {
           <Route path="/allUsers" element={<AllUsers />} />
           <Route path="/allUsers/:userId" element={<SingleUser />} />
           <Route path="/allUsers/:userId/edit" element={<UpdateUser />} />
-          <Route path="/allProducts" element={<AdminAllProducts />} />
-          <Route path="/allProducts/:prodId" element={<UpdateProduct />} />
+          <Route path="/allAdminProducts" element={<AdminAllProducts />} />
+          <Route path="/allAdminProducts/:prodId" element={<UpdateProduct />} />
         </Routes>
       ) : null}
     </div>

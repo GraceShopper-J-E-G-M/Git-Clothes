@@ -60,14 +60,37 @@ router.delete("/:id", async (req, res, next) => {
 })
 
 //add new single product
-router.post("/", async (req, res, next) => {
+// router.post("/", async (req, res, next) => {
+//   try {
+//     const newProduct = await Product.create(req.body);
+//     console.log(newProduct);
+//     res.send(newProduct);
+//   } catch (err) {
+//     console.log("stuck on API")
+//     next(err);
+//   }
+// })
+
+//find or create for add to cart
+router.post("/", async(req,res,next) => {
   try {
-    const newProduct = await Product.create(req.body);
-    console.log(newProduct);
-    res.send(newProduct);
-  } catch (err) {
-    console.log("stuck on API")
-    next(err);
+    const [product, created] = await Product.findOrCreate({
+      where: { 
+        prodName: req.body.prodName,
+        prodQuantity: req.body.prodQuantity,
+        prodPrice: req.body.prodPrice,
+        prodSize: req.body.prodSize,
+        prodColor: req.body.prodColor,
+        prodImg: req.body.prodImg,
+      }
+    })
+  if(created){
+    res.status(201).send(product);
+  }else {
+    res.status(409).send();
+  }
+  } catch (error) {
+    next(error)
   }
 })
 
