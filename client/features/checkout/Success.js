@@ -28,15 +28,16 @@ const Success = () => {
   };
   return (
     <div>
-      <h3 className="mx-3">Congrats!!!Your Order{cartId} got placed</h3>
+      <h3 className="mx-3">
+        Thanks for shopping with us. Your order number: {cartId}
+      </h3>
       <section className="h-100 gradient-custom">
         <div className="container py-5">
           <div className="row d-flex justify-content-center my-4">
             <div className="col-md-8">
               <div className="card mb-4">
                 <div className="card-header py-3">
-                  <h5 className="mb-0">Cart Summary</h5>
-                  <p className="mt-3">Order Number: {cartId}</p>
+                  <h5 className="mb-0">Order Summary</h5>
                 </div>
                 <div className="card-body">
                   {cart?.orderItems?.length > 0 && (
@@ -67,8 +68,8 @@ const Success = () => {
                                   <strong>{orderItem.product.prodName}</strong>
                                 </Link>
                               </p>
-                              <p>Color : {orderItem.product.prodColor}</p>
-                              <p>Size : {orderItem.product.prodSize}</p>
+                              {/* <p>Color : {orderItem.product.prodColor}</p>
+                              <p>Size : {orderItem.product.prodSize}</p> */}
                               <p>OrderedQty : {orderItem.quantity}</p>
                             </div>
                           </div>
