@@ -23,16 +23,20 @@ const Home = (props) => {
     <div>
       {role === "user" ? (
         <div>
-          <h3>Welcome, {username}</h3>
-          <button>
-            <Link to="/allProducts">View all products</Link>
-          </button>
-          <button>
-            <Link to="/cart">View my cart</Link>
-          </button>
+          <h3 style={{ textAlign: "center" }}>Welcome, {username}</h3>
+          <div style={{ textAlign: "center" }}>
+            <button>
+              <Link to="/allProducts">View all products</Link>
+            </button>
+            <button>
+              <Link to="/cart">View my cart</Link>
+            </button>
+          </div>
         </div>
       ) : (
-        <h1 style={{ textAlign: 'center' }}>Welcome to Git-Clothes Admin Portal! </h1>
+        <h1 style={{ textAlign: "center" }}>
+          Welcome to Git-Clothes Admin Portal!{" "}
+        </h1>
       )}
     </div>
   );
