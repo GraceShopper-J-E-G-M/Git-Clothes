@@ -42,7 +42,7 @@ const Checkout = () => {
   const calculateTotalCost = (totalcost) => {
     totalcost = Number(totalcost);
     totalCostWithTax = totalcost + totalcost * 0.05;
-    return totalCostWithTax;
+    return totalCostWithTax.toFixed(2);
   };
 
   //const [cardNum, setCardNum] = useState("");
@@ -310,7 +310,9 @@ const Checkout = () => {
                       <h3 className="mx-3 my-3">Shipping Address:</h3>
                       <p className="mx-3">
                         Name :{" "}
-                        {cart?.user?.firstName + " " + cart?.user?.lastName}
+                        {cart?.shipping?.firstName +
+                          " " +
+                          cart?.shipping?.lastName}
                       </p>
                       <p className="mx-3">
                         Address Line1 : {cart.shipping.line1}
@@ -593,7 +595,7 @@ const Checkout = () => {
                 </div>
                 <div>
                   <p className="text mx-3 my-3">
-                    Cart Total : {cart.totalCost}
+                    Cart Total : ${cart.totalCost}
                   </p>
                   <p className="text mx-3 my-3">Tax : 5%</p>
                   <h3 className="text mx-3 my-3">

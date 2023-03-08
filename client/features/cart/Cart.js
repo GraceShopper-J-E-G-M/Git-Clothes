@@ -48,14 +48,17 @@ const Cart = () => {
               </div>
               <div className="card-body">
                 <div>
-                  {orderItem.name === "Error" && <p>{orderItem.message}</p>}
+                  {orderItem.name === "Error" && (
+                    <p className="text-danger-emphasis">{orderItem.message}</p>
+                  )}
                   {cart?.orderItems?.length > 0 ? (
                     <div>
-                      <p>Total items:{cart?.totalCartItems}</p>
-                      <p>Pre-Tax Order Total:{cart?.totalCost}</p>
+                      <p>Total items: {cart?.totalCartItems}</p>
+                      <p>Pre-Tax Order Total: ${cart?.totalCost}</p>
                       {cart?.orderItems?.map((orderItem) => {
                         return (
                           <div className="row" key={orderItem.id}>
+                            <span className="border border-top-0 mb-3"></span>
                             <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
                               <div
                                 className="bg-image hover-overlay hover-zoom ripple rounded"
@@ -76,8 +79,8 @@ const Cart = () => {
                                   <strong>{orderItem.product.prodName}</strong>
                                 </Link>
                               </p>
-                              <p>Color : {orderItem.product.prodColor}</p>
-                              <p>Size : {orderItem.product.prodSize}</p>
+                              {/* <p>Color : {orderItem.product.prodColor}</p>
+                              <p>Size : {orderItem.product.prodSize}</p> */}
                               <button
                                 type="button"
                                 className="btn btn-danger btn-sm me-1 mb-2"
