@@ -34,7 +34,8 @@ const SingleProduct = () => {
   const product = useSelector(selectSingleProduct);
   const user = useSelector((state) => state.auth.me);
 
-  const { prodName, prodQuantity, prodPrice, prodSize, prodColor, prodImg } = product;
+  const { prodName, prodQuantity, prodPrice, prodSize, prodColor, prodImg } =
+    product;
 
   useEffect(() => {
     dispatch(fetchSingleProduct(prodId));
@@ -48,17 +49,17 @@ const SingleProduct = () => {
 
   const addToCart = async (event) => {
     event.preventDefault();
-    const productObj = {
-      id: prodId,
-      prodName,
-      prodQuantity,
-      prodPrice,
-      prodSize: selectedSize,
-      prodColor: selectedColor,
-      prodImg,
-    }
-    console.log(productObj);
-    await dispatch(editProduct(productObj));
+    // const productObj = {
+    //   id: prodId,
+    //   prodName,
+    //   prodQuantity,
+    //   prodPrice,
+    //   prodSize: selectedSize,
+    //   prodColor: selectedColor,
+    //   prodImg,
+    // }
+    // console.log(productObj);
+    // await dispatch(editProduct(productObj));
     const reqbody = {
       userId: user.id,
       prodId: product.id,
