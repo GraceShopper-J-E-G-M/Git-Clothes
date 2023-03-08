@@ -14,19 +14,21 @@ const AllProducts = () => {
   }, [dispatch]);
 
   return (
-    <div className="allProductsContainer">
-      <h1> All Products </h1>
-      <div className="products">
-        {allProducts.map((product, i) => {
-          return (
-            <div key={`inside the all products view ${i}`}>
-              <Link to={`/allProducts/${product.id}`}>
-                <h2>{product.prodName}</h2>
-              </Link>
-              <img src={product.prodImg} />
-            </div>
-          );
-        })}
+    <div>
+      <h2> All Products </h2>
+      <div className="allProductsContainer">
+        <div className="products">
+          {allProducts.map((product, i) => {
+            return (
+              <div key={`inside the all products view ${i}`}>
+                <Link to={`/allProducts/${product.id}`}>
+                  <h2>{product.prodName}</h2>
+                <img src={product.prodImg} />
+                </Link>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { fetchSingleProduct, selectSingleProduct, editProduct } from "./singleProductSlice";
+import { fetchSingleProduct, selectSingleProduct } from "./singleProductSlice";
+import { newProduct } from "../allProducts/allProductSlice";
 import { addCartAsync } from "../cart/cartSlice";
 
 const SingleProduct = () => {
@@ -21,7 +22,6 @@ const SingleProduct = () => {
     "Dark Brown",
     "Blue",
   ];
-  console.log(colorArray);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,7 +33,6 @@ const SingleProduct = () => {
 
   const product = useSelector(selectSingleProduct);
   const user = useSelector((state) => state.auth.me);
-  console.log(product);
 
   const { prodName, prodQuantity, prodPrice, prodSize, prodColor, prodImg } = product;
 
@@ -49,77 +48,91 @@ const SingleProduct = () => {
 
   const addToCart = async (event) => {
     event.preventDefault();
-    const productObj = {
-      id: prodId,
-      prodName,
-      prodQuantity,
-      prodPrice,
-      prodSize: selectedSize,
-      prodColor: selectedColor,
-      prodImg,
+    //if size/color selected is not default, create a new object instead and add to cart
+    if(selectedColor !== "Red" || selectedSize !== "XS"){
+      const productObj = {
+        prodName,
+        prodQuantity,
+        prodPrice,
+        prodSize: selectedSize,
+        prodColor: selectedColor,
+        prodImg,
+      }
+      console.log(productObj);
+      const createdProduct = await dispatch(newProduct(productObj));
+      console.log(createdProduct);
+      const reqbody = {
+        userId: user.id,
+        prodId: createdProduct.id,
+      };
+      await dispatch(addCartAsync(reqbody));
+      navigate("/cart");
+    // or else add the default product
+    }else {
+      const reqbody = {
+        userId: user.id,
+        prodId: product.id,
+      };
+      await dispatch(addCartAsync(reqbody));
+      navigate("/cart");
     }
-    console.log(productObj);
-    await dispatch(editProduct(productObj));
-    const reqbody = {
-      userId: user.id,
-      prodId: product.id,
-      // selectedColor,
-      // selectedSize,
-    };
-    await dispatch(addCartAsync(reqbody));
-    navigate("/cart");
   };
 
   return (
     // container will be flex row
-    <section className="singleProductContainer">
-      <img className="productImage" src={prodImg}></img>
-      <form
-        className="productDetails"
-        onSubmit={(event) => {
-          //event.preventDefault();
-          addToCart(event);
-          // dispatch add to cart
-          // addCartAsync();
-        }}
-      >
-        <p className="productName">{prodName}</p>
-        <p className="productPrice">{`$ ${prodPrice}`}</p>
-
-        {/* Drop down menu for selecting color */}
-        <select
-          className="productColorSelector"
-          onChange={(event) => {
-            setSelectedColor(event.target.value);
+    <div>
+      <Link to="/admin">
+        <button>Back to All Products</button>
+      </Link>
+      <section className="singleProductContainer">
+        <img className="productImage" src={prodImg}></img>
+        <form
+          className="productDetails"
+          onSubmit={(event) => {
+            //event.preventDefault();
+            addToCart(event);
+            // dispatch add to cart
+            // addCartAsync();
           }}
-          value={selectedColor}
         >
-          {colorArray.map((color) => (
-            <option value={color}>{color}</option>
-          ))}
-        </select>
+          <p className="productName">{prodName}</p>
+          <p className="productPrice">{`$ ${prodPrice}`}</p>
 
-        {/* Drop down menu for selecting size */}
-        <select
-          className="productSizeSelector"
-          onChange={(event) => {
-            setSelectedSize(event.target.value);
-          }}
-          value={selectedSize}
-        >
-          {sizeArray.map((size) => (
-            <option value={size}>{size}</option>
-          ))}
-        </select>
-        {product.prodQuantity < 1 && <p>Out of Stock</p>}
-        {product.prodQuantity >= 1 && (
-          <button type="submit">Add to Cart</button>
-        )}
-        <button>
-          <Link to="/allProducts">Back to all products</Link>
-        </button>
-      </form>
-    </section>
+          {/* Drop down menu for selecting color */}
+          <select
+            className="productColorSelector"
+            onChange={(event) => {
+              setSelectedColor(event.target.value);
+            }}
+            value={selectedColor}
+          >
+            {colorArray.map((color) => (
+              <option value={color}>{color}</option>
+            ))}
+          </select>
+
+          {/* Drop down menu for selecting size */}
+          <select
+            className="productSizeSelector"
+            onChange={(event) => {
+              setSelectedSize(event.target.value);
+            }}
+            value={selectedSize}
+          >
+            {sizeArray.map((size) => (
+              <option value={size}>{size}</option>
+            ))}
+          </select>
+          {product.prodQuantity < 1 && <p>Out of Stock</p>}
+          {product.prodQuantity >= 1 && (
+            <button type="submit">Add to Cart</button>
+          )}
+          <button>
+            <Link to="/allProducts">Back to all products</Link>
+          </button>
+        </form>
+      </section>
+    </div>
   );
 };
 
