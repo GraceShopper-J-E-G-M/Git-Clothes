@@ -182,6 +182,15 @@ const Cart = () => {
                   ) : (
                     <div>There are no items in the cart</div>
                   )}
+                  <button
+                    type="button"
+                    className="btn btn-primary mb-4 mx-3"
+                    onClick={() => {
+                      navigate("/allProducts");
+                    }}
+                  >
+                    Back to Shopping
+                  </button>
                   {cart?.orderItems?.length > 0 && (
                     <button
                       type="button"

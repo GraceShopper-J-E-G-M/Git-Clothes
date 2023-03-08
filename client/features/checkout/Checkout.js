@@ -87,10 +87,10 @@ const Checkout = () => {
   const handleFormShippingAddress = async (event) => {
     event.preventDefault();
     const error = shippingFormValidate(
-      address1,
-      address2,
       firstName,
       lastName,
+      address1,
+      address2,
       zipcode,
       state,
       city,
@@ -202,6 +202,12 @@ const Checkout = () => {
     phoneNumber
   ) => {
     const error = {};
+    if (!firstName) {
+      error.firstName = "FirstName cant be blank";
+    }
+    if (!lastName) {
+      error.lastName = "LastName cant be blank";
+    }
     if (!address1) {
       error.address1 = "Address Line1 cant be blank";
     }
@@ -214,12 +220,8 @@ const Checkout = () => {
     if (!city) {
       error.city = "City cant be blank";
     }
-    if (!firstName) {
-      error.firstName = "FirstName cant be blank";
-    }
-    if (!lastName) {
-      error.lastName = "LastName cant be blank";
-    }
+
+    console.log(error);
     const zipRegex = /^[0-9]{5}$/;
     if (!zipcode.match(zipRegex)) {
       error.zipcode = "Not a valid zipcode";
@@ -255,17 +257,19 @@ const Checkout = () => {
     ) {
       error.cardNum = "Not a valid card format";
     }
-    const expiryRegex = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
+    const expiryRegex = /^(0[1-9]|1[0-2])\/+([0-9]{2})$/;
     const monthAndYear = expiry.split("/");
     const month = Number(monthAndYear[0]);
     const year = Number(monthAndYear[1]);
-    if (year < 23 || (year == 23 && month < 3)) {
-      error.expiry = "expired card";
-    }
 
     if (!expiry.match(expiryRegex)) {
       error.expiry = "Not a valid year";
     }
+
+    if (year < 23 || (year == 23 && month < 3)) {
+      error.expiry = "expired card";
+    }
+
     const cvvRegex = /^[0-9]{3}$/;
     if (!cvv.match(cvvRegex)) {
       error.cvv = "Not a valid cvv";
