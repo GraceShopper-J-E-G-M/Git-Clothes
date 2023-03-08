@@ -20,6 +20,47 @@ form div {
   display: inline-block;
 }
 
+
+.backToAdminBtn {
+  display: inline-block;
+  /* flex-direction: row-reverse; */
+  background-color: #7fa99b;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;  
+  /* font-size: 16px; */
+  border-radius: 10px;
+  border: none;
+}
+.backToAdminBtn:hover {
+  background-color: #394a51;
+  transition: .7s;
+}
+
+.allUsercontainer { 
+  background-color: #fbf2d5;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 40px;
+  box-sizing: border-box;
+  padding: 3rem;
+}
+.deleteBtn {
+  background-color: #7fa99b;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  margin:5px 5px;
+}
+.deleteBtn:hover {
+  background-color: #394a51;
+  transition: .7s;
+}
+
+
 /* .number-input input[type="number"] {
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
