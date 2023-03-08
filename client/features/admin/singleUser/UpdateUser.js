@@ -2,66 +2,64 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  // updateSingleUser,
   selectSingleUser,
   fetchSingleUser,
   editSingleUser,
 } from "./singleUserSlice";
-import { fetchAllUsersAsync } from "../allUsers/allUsersSlice";
 
 const UpdateUser = () => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { userId } = useParams();
+
+  //state for storing edits
   const [newFirstName, setFirstName] = useState("");
   const [newLastName, setLastName] = useState("");
   const [newEmail, setEmail] = useState("");
   const [newUsername, setUsername ] = useState("");
   const [newPassword, setPassword ] = useState("");
   const [newRole, setRole ] = useState("");
-  // const [imageUrl, setImageUrl] = useState("");
-  const [newAddress, setAddress ] = useState("");
 
-  const dispatch = useDispatch();
+  // fetch user
   const updateUser = useSelector(selectSingleUser);
-  const { userId } = useParams();
-  const navigate = useNavigate();
-  const { firstName, lastName, email, address, username, password, role } = updateUser;
+  const { firstName, lastName, email, username, password, role } = updateUser;
 
   useEffect(() => {
     dispatch(fetchSingleUser(userId));
   }, [dispatch]);
 
   useEffect(() => {
-    setFirstName(firstName ?? "");
-    setLastName(updateUser.lastName ?? "");
-    setEmail(updateUser.email ?? "");
     setUsername(updateUser.username ?? "");
     setPassword(updateUser.password ?? "");
-    // setImageUrl(updateUser.imageUrl ?? ""); are we doing images for user? 
-    setAddress(updateUser.address ?? "");
+    setFirstName(updateUser.firstName ?? "");
+    setLastName(updateUser.lastName ?? "");
+    setEmail(updateUser.email ?? "");
     setRole(updateUser.role ?? "");
     console.log(updateUser);
   }, [updateUser]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await dispatch(
-      editSingleUser({
+    const updatedObject = {
+        id: userId,
+        username: newUsername,
+        password: newPassword,
         firstName: newFirstName,
         lastName: newLastName,
         email: newEmail,
-        // imageUrl,
-        address: newAddress,
-        username: newUsername,
-        password: newPassword,
         role: newRole,
-      })
-    );
-    navigate(`/user/${userId}/edit`);
+    }
+    console.log(updatedObject)
+    await dispatch(editSingleUser(updatedObject));
+    await dispatch(fetchSingleUser(userId));
+    navigate(`/allUsers/${userId}/edit`);
   };
 
   return (
     <div>
-      <h2>Information not correct? Let's change it!</h2>
-      <form id="editUser-form" onSubmit={handleSubmit}>
+      <h2>User's info not correct? Edit here!</h2>
+      <form id="editUser-form" onSubmit={event => handleSubmit(event)}>
         <label htmlFor="firstName">First Name:</label>
         <input
           name="firstName"
@@ -94,21 +92,6 @@ const UpdateUser = () => {
           value={newPassword}
           onChange={(evt) => setPassword(evt.target.value)}
         />
-
-        {/* <label htmlFor="imageUrl">ImageUrl:</label> */}
-        {/* <input */}
-          {/* name="imageUrl"
-          value={imageUrl}
-          onChange={(evt) => setImageUrl(evt.target.value)}
-        /> */}
-
-        <label htmlFor="address">Address:</label>
-        <input
-          name="Address"
-          value={newAddress}
-          onChange={(evt) => setAddress(evt.target.value)}
-        />
-  
         <button type="submit"> Submit Changes </button>
         <Link to="/allUsers">
           <button> Back to All Users </button>

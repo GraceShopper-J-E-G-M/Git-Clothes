@@ -32,13 +32,13 @@ const Navbar = () => {
   const [cartStatus, setCartStatus] = useState("");
   console.log("Cart Status in Nav:", cart.status);
   return (
-    <div>
-      <h1>Git-Clothes</h1>
+    <div id="navBar">
+      <Link to="/allProducts"><h1 id="title">Git-Clothes</h1></Link>
       <nav>
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
-            <Link to="/home">Home</Link>
+            <Link to="/home"><h2 className="navLinks">Home</h2></Link>
             <button
               type="button"
               className="mx-3 btn btn-primary"
@@ -71,8 +71,8 @@ const Navbar = () => {
         ) : (
           <div>
             {/* The navbar will show these links before you log in */}
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
+            <Link to="/login"><h2 className="navLinks">Login</h2></Link>
+            <Link to="/signup"><h2 className="navLinks">Sign Up</h2></Link>
           </div>
         )}
       </nav>

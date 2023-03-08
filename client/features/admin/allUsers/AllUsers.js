@@ -37,15 +37,18 @@ const AllUsers = () => {
   return loading ? (
     <p style={{ textAlign: "center" }}>Loading...</p>
   ) : (
-    <div>
+    <div >
+      <div >
       <Link to="/admin">
-        <button>Back to admin portal</button>
+        <button className= "backToAdminBtn">Back to admin portal</button>
       </Link>
-      <ul id="users-list">
+      </div>
+      <div className="allUsercontainer">
+      <ol id="users-list">
         {allUsers.map((user, i) => {
           return (
             <div key={`Inside all user view: ${i}`}>
-              <li id="users-view-list-item">
+              <div className="allUserList" id="users-view-list-item">
                 {/** Clicking on a user from the users view should navigate to show that user */}
                 <Link id="link" to={`/allUsers/${user.id}`}>
                   <span>
@@ -53,16 +56,16 @@ const AllUsers = () => {
                   </span>
                 </Link>{"  "}
                 {/* - [ ] In the users view, include an `X` button next to each user */}
-                <span><button onClick={(evt) => handleDeleteUser(evt, user.id)}>
+                <span><button className="deleteBtn" onClick={(evt) => handleDeleteUser(evt, user.id)}>
                   X
                 </button></span>
                 <p>Email: {user.email}</p>
-              </li>
+              </div>
             </div>
-          );
+          )
         })}
-        ;
-      </ul>
+      </ol>
+      </div>
     </div>
   );
 };

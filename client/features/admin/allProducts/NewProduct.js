@@ -39,24 +39,24 @@ const AddNewProduct = () => {
         setProdColor("Red");
         setProdImg("");
         await dispatch(fetchAllProductsAsync());
-        navigate("/allProducts");
+        navigate("/allAdminProducts");
     };
 
     return (
-        <form onSubmit={event => handleAddProduct(event)}>
+        <form id="addNewProduct"onSubmit={event => handleAddProduct(event)}>
             <label>Product Name:
                 <input type="text" name="productName" value={newProdName}
                     onChange={event => setProdName(event.target.value)} />
             </label>
-            <label>Product Quantity:
+            <label>Product Quantity: 
                 <input type="number" name="productQuantity" value={newProdQuantity}
                     onChange={event => setProdQuantity(event.target.value)} />
             </label>
-            <label>Product Price:
+            <label>Product Price: 
                 <input type="number" step="0.01" name="productPrice" value={newProdPrice}
                     onChange={event => setProdPrice(event.target.value)} />
             </label>
-            <label>Product Size:
+            <label>Product Size: 
                 <select name="prodSize"
                     onChange={(event) => setProdSize(event.target.value)}>
                     {sizeArray.map((size, index) => (
@@ -64,7 +64,7 @@ const AddNewProduct = () => {
                     ))}
                 </select>
             </label>
-            <label>Product Color:
+            <label>Product Color: 
                 <select name="prodColor"
                     onChange={(event) => setProdColor(event.target.value)}>
                     {colorArray.map((color, index) => (
@@ -72,12 +72,12 @@ const AddNewProduct = () => {
                     ))}
                 </select>
             </label>
-            <label>Product Img:
+            <label>Product Img: 
                 <input type="text" name="productImg" value={newProdImg}
                     onChange={event => setProdImg(event.target.value)} />
             </label>
             <br></br>
-            <button type="submit">Update</button>
+            <button className="submitNewProduct"type="submit">Update</button>
         </form>
     )
 }

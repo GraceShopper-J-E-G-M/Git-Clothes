@@ -7,25 +7,26 @@ const AllProducts = () => {
   const dispatch = useDispatch();
   const allProducts = useSelector(selectAllProducts);
   // const { productId } = useParams();
-  console.log('allProducts', allProducts);
+  console.log("allProducts", allProducts);
 
   useEffect(() => {
     dispatch(fetchAllProductsAsync());
   }, [dispatch]);
 
   return (
-    <div className="allProductsContainer">
-      <Link to="/admin">
-        <button>Back to admin portal</button>
-      </Link>
-      <h1> All Products </h1>
-      <div className="products">
-        <button><Link to="/home">Back to Home</Link></button>
+    <div>
+      <h1 className="allproductsheader"> All Products </h1>
+      <div className="allProductsContainer">
         {allProducts.map((product, i) => {
           return (
-            <div key={`inside the all products view ${i}`}>
-              <Link to={`/allProducts/${product.id}`}><h2>{product.prodName}</h2></Link>
-              <img src={product.prodImg} />
+            <div
+              className="productcard"
+              key={`inside the all products view ${i}`}
+              >
+              <img className="productImg" src={product.prodImg} />
+              <Link to={`/allProducts/${product.id}`}>
+                <h2 className="itemTitle">{product.prodName}</h2>
+              </Link>
             </div>
           );
         })}
