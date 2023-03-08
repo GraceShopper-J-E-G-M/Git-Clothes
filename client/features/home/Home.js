@@ -32,7 +32,7 @@ const Home = (props) => {
           </button>
         </div>
       ) : (
-        <h1>Welcome to Git-Clothes Admin Portal! </h1>
+        <h1 style={{ textAlign: 'center' }}>Welcome to Git-Clothes Admin Portal! </h1>
       )}
     </div>
   );

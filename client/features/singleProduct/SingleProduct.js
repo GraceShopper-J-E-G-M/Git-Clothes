@@ -48,42 +48,30 @@ const SingleProduct = () => {
 
   const addToCart = async (event) => {
     event.preventDefault();
-    //if size/color selected is not default, create a new object instead and add to cart
-    if(selectedColor !== "Red" || selectedSize !== "XS"){
-      const productObj = {
-        prodName,
-        prodQuantity,
-        prodPrice,
-        prodSize: selectedSize,
-        prodColor: selectedColor,
-        prodImg,
-      }
-      console.log(productObj);
-      const createdProduct = await dispatch(newProduct(productObj));
-      console.log(createdProduct);
-      const reqbody = {
-        userId: user.id,
-        prodId: createdProduct.id,
-      };
-      await dispatch(addCartAsync(reqbody));
-      navigate("/cart");
-    // or else add the default product
-    }else {
-      const reqbody = {
-        userId: user.id,
-        prodId: product.id,
-      };
-      await dispatch(addCartAsync(reqbody));
-      navigate("/cart");
+    const productObj = {
+      id: prodId,
+      prodName,
+      prodQuantity,
+      prodPrice,
+      prodSize: selectedSize,
+      prodColor: selectedColor,
+      prodImg,
     }
+    console.log(productObj);
+    await dispatch(editProduct(productObj));
+    const reqbody = {
+      userId: user.id,
+      prodId: product.id,
+      // selectedColor,
+      // selectedSize,
+    };
+    await dispatch(addCartAsync(reqbody));
+    navigate("/cart");
   };
 
   return (
     // container will be flex row
     <div>
-      <Link to="/admin">
-        <button>Back to All Products</button>
-      </Link>
       <section className="singleProductContainer">
         <img className="productImage" src={prodImg}></img>
         <form
