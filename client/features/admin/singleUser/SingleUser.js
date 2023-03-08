@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import { fetchSingleUser, selectSingleUser } from "./singleUserSlice";
- 
+
 const SingleUser = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectSingleUser);
@@ -25,9 +25,9 @@ const SingleUser = () => {
   return loading ? (
     <p style={{ textAlign: "center" }}>Loading...</p>
   ) : (
-    <div>
+    <div className="AdminSingleUsercontainer">
       {firstName && lastName ? (
-        <h1>
+        <h1 className="fullName">
           {lastName}, {firstName}
         </h1>
       ) : (
@@ -69,14 +69,16 @@ const SingleUser = () => {
           <p>No role for this user.</p>
         )}
       </div>
+      <div className="buttons">
       <Link to={`/allUsers/${userId}/edit`}>
-      {/* <Link to="/allUsers/${userId}/edit"> */}
-        <button> Edit User </button>
+        {/* <Link to="/allUsers/${userId}/edit"> */}
+        <button className="backToAdminBtn"> Edit User </button>
         {/* {" "} */}
       </Link>
       <Link to="/allUsers">
-        <button>Back to All Users</button>
+        <button className="backToAdminBtn"> Back to All Users</button>
       </Link>
+      </div>
     </div>
   );
 };
