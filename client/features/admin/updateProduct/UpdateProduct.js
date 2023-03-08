@@ -61,7 +61,7 @@ const UpdateProduct = () => {
     }
 
     return (
-        <form onSubmit={event => handleUpdateProduct(event)}>
+        <form id="updateProduct"onSubmit={event => handleUpdateProduct(event)}>
             <label>Product Name:
                 <input type="text" name="productName" value={newProdName}
                     onChange={event => setProdName(event.target.value)} />

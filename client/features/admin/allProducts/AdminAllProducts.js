@@ -33,20 +33,22 @@ const AdminAllProducts = () => {
             <Link to="/admin">
                 <button>Back to admin portal</button>
             </Link>
-            <section id="adminAllProducts">
-                {products && products.length
-                    ? products.map((product) => (
-                        <div key={product.id.toString()} className="adminProduct">
-                            <Link to={`/allAdminProducts/${product.id}`}>
-                                <h2>{product.id} {product.prodName}</h2>
-                            </Link>
-                            <p>{`Price: ${product.prodPrice}`}</p>
-                            <button onClick={(event) => handleDeleteProduct(event, product.id)}>Delete Product</button>
-                        </div>
-                    ))
-                    : null}
-            </section>
-            <AddNewProduct />
+            <div className="AdminAllProductsDisplay">
+                <section id="adminAllProducts">
+                    {products && products.length
+                        ? products.map((product) => (
+                            <div key={product.id.toString()} className="adminProduct">
+                                <Link to={`/allAdminProducts/${product.id}`}>
+                                    <h2>{product.prodName}</h2>
+                                </Link>
+                                <p>{`Price: ${product.prodPrice}`}</p>
+                                <button onClick={(event) => handleDeleteProduct(event, product.id)}>Delete Product</button>
+                            </div>
+                        ))
+                        : null}
+                </section>
+                <AddNewProduct />
+            </div>
         </div>
     )
 }
