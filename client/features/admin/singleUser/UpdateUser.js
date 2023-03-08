@@ -57,9 +57,9 @@ const UpdateUser = () => {
   };
 
   return (
-    <div>
+    <div className="editUserform">
       <h2>User's info not correct? Edit here!</h2>
-      <form id="editUser-form" onSubmit={event => handleSubmit(event)}>
+      <form className="justTheForm" id="editUser-form" onSubmit={event => handleSubmit(event)}>
         <label htmlFor="firstName">First Name:</label>
         <input
           name="firstName"
@@ -92,10 +92,12 @@ const UpdateUser = () => {
           value={newPassword}
           onChange={(evt) => setPassword(evt.target.value)}
         />
-        <button type="submit"> Submit Changes </button>
+        <div className="buttons">
+        <button className="editUserBtn" type="submit"> Submit Changes </button>
         <Link to="/allUsers">
-          <button> Back to All Users </button>
+          <button className="backToAdminBtn"> Back to All Users </button>
         </Link>
+        </div>
       </form>
     </div>
   );
