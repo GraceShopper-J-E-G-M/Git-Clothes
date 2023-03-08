@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  // updateSingleUser,
   selectSingleUser,
   fetchSingleUser,
   editSingleUser,
 } from "./singleUserSlice";
-import { fetchAllUsersAsync } from "../allUsers/allUsersSlice";
 
 const UpdateUser = () => {
 
@@ -22,7 +20,6 @@ const UpdateUser = () => {
   const [newUsername, setUsername ] = useState("");
   const [newPassword, setPassword ] = useState("");
   const [newRole, setRole ] = useState("");
-  // const [newAddress, setAddress ] = useState("");
 
   // fetch user
   const updateUser = useSelector(selectSingleUser);
@@ -38,8 +35,6 @@ const UpdateUser = () => {
     setFirstName(updateUser.firstName ?? "");
     setLastName(updateUser.lastName ?? "");
     setEmail(updateUser.email ?? "");
-    // setImageUrl(updateUser.imageUrl ?? ""); are we doing images for user? 
-    // setAddress(updateUser.address ?? "");
     setRole(updateUser.role ?? "");
     console.log(updateUser);
   }, [updateUser]);
@@ -52,7 +47,6 @@ const UpdateUser = () => {
         password: newPassword,
         firstName: newFirstName,
         lastName: newLastName,
-        // address: newAddress,
         email: newEmail,
         role: newRole,
     }
@@ -98,21 +92,6 @@ const UpdateUser = () => {
           value={newPassword}
           onChange={(evt) => setPassword(evt.target.value)}
         />
-
-        {/* <label htmlFor="imageUrl">ImageUrl:</label> */}
-        {/* <input */}
-          {/* name="imageUrl"
-          value={imageUrl}
-          onChange={(evt) => setImageUrl(evt.target.value)}
-        /> */}
-
-        {/* <label htmlFor="address">Address:</label>
-        <input
-          name="Address"
-          value={newAddress}
-          onChange={(evt) => setAddress(evt.target.value)}
-        /> */}
-  
         <button type="submit"> Submit Changes </button>
         <Link to="/allUsers">
           <button> Back to All Users </button>
