@@ -35,7 +35,7 @@ const AddNewProduct = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  //Local state for storing a user's edits to the form
+  //Local state for storing an admin's edits to the form
   const [newProdName, setProdName] = useState("");
   const [newProdQuantity, setProdQuantity] = useState(0);
   const [newProdPrice, setProdPrice] = useState(0.0);
