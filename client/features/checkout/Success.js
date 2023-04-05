@@ -1,9 +1,14 @@
+//Libraries
 import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { fetchCheckoutCartAsync, selectCheckout } from "./checkoutSlice";
-import { fetchCartAsync } from "../cart/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 
+//Files
+import { fetchCheckoutCartAsync, selectCheckout } from "./checkoutSlice";
+
+/**
+ * Success component.
+ */
 const Success = () => {
   const { cartId } = useParams();
   const dispatch = useDispatch();
@@ -12,7 +17,6 @@ const Success = () => {
   useEffect(() => {
     const handleDispatch = async () => {
       if (user) {
-        //dispatch(fetchCartAsync(user.id));
         dispatch(fetchCheckoutCartAsync(cartId));
       }
     };
@@ -20,8 +24,6 @@ const Success = () => {
   }, [dispatch, cartId]);
 
   const cart = useSelector(selectCheckout);
-  console.log("cart in success page:", cart);
-  console.log("cartId:", cartId);
 
   const imgWidth = {
     width: "120px",
@@ -68,8 +70,6 @@ const Success = () => {
                                   <strong>{orderItem.product.prodName}</strong>
                                 </Link>
                               </p>
-                              {/* <p>Color : {orderItem.product.prodColor}</p>
-                              <p>Size : {orderItem.product.prodSize}</p> */}
                               <p>OrderedQty : {orderItem.quantity}</p>
                             </div>
                           </div>
@@ -83,7 +83,6 @@ const Success = () => {
           </div>
         </div>
       </section>
-
       <Link className="mx-3" to={"/allProducts"}>
         Continue Shopping
       </Link>
