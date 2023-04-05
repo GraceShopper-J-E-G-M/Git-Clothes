@@ -1,13 +1,21 @@
+/**
+ * This file contains an `AllProducts` components to display all products.
+ */
+
+//Libraries 
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+
+//Files
 import { fetchAllProductsAsync, selectAllProducts } from "./allProductSlice";
 
+/**
+ * AllProducts component. 
+ */
 const AllProducts = () => {
   const dispatch = useDispatch();
   const allProducts = useSelector(selectAllProducts);
-  // const { productId } = useParams();
-  console.log("allProducts", allProducts);
 
   useEffect(() => {
     dispatch(fetchAllProductsAsync());

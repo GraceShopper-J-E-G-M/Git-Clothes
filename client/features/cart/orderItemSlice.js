@@ -16,21 +16,6 @@ export const editOrderItemAsync = createAsyncThunk(
   }
 );
 
-// export const fetchOrderItemAsync = createAsyncThunk("orderItem", async(user) => {
-//   try {
-//     //console.log("In slice:", user);
-//     if (user) {
-//       const userId = user.id;
-
-//       const { data } = await axios.get("/api/cart", { params: { userId } });
-//       //console.log("In slice:", data);
-//       return data;
-//     }
-//   } catch (err) {
-//     console.error(err);
-//   }
-// })
-
 export const deleteOrderItemAsync = createAsyncThunk(
   "deleteOrderItem",
   async (orderItemId) => {

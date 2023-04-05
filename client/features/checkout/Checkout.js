@@ -1,5 +1,10 @@
+//Libraries
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import PhoneInput, { isPossiblePhoneNumber } from "react-phone-number-input";
+
+//Files
 import { fetchAddressAsync, selectAddress } from "./addressSlice";
 import {
   fetchPaymentAsync,
@@ -12,10 +17,10 @@ import {
   selectCart,
 } from "../cart/cartSlice";
 import { addShippingAddressAsync, selectShipping } from "./shippingSlice";
-import { useNavigate } from "react-router-dom";
-import PhoneInput, { isPossiblePhoneNumber } from "react-phone-number-input";
-//import "react-phone-number-input/style.css";
 
+/**
+ * Checkout component.
+ */
 const Checkout = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.me);
@@ -34,10 +39,6 @@ const Checkout = () => {
   const payment = useSelector(selectPayment);
   const shipping = useSelector(selectShipping);
   let totalCostWithTax;
-  console.log("In checkout address:", addresses);
-  console.log("In checkout cart", cart);
-  console.log("In checkout payment", payment);
-  console.log("In checkout shipping", shipping);
 
   const calculateTotalCost = (totalcost) => {
     totalcost = Number(totalcost);
@@ -45,7 +46,6 @@ const Checkout = () => {
     return totalCostWithTax.toFixed(2);
   };
 
-  //const [cardNum, setCardNum] = useState("");
   const [cvv, setCvv] = useState("");
   const [expiry, setExpiry] = useState("");
 
@@ -60,9 +60,7 @@ const Checkout = () => {
       cvv,
       expiry
     );
-    console.log("Error:", error);
     const cardNum = cardFirst + cardSec + cardThird + cardFourth;
-    console.log("card:", cardNum);
     const reqbody = {
       card: cardNum,
       cardName,
@@ -220,8 +218,6 @@ const Checkout = () => {
     if (!city) {
       error.city = "City cant be blank";
     }
-
-    console.log(error);
     const zipRegex = /^[0-9]{5}$/;
     if (!zipcode.match(zipRegex)) {
       error.zipcode = "Not a valid zipcode";
@@ -278,8 +274,6 @@ const Checkout = () => {
       error.cardName = "cardName cant be blank";
     }
     setPayFormError(() => error);
-    console.log("Inside validation:", error);
-    console.log("payFormError:", payFormError);
     return error;
   };
 
@@ -543,16 +537,6 @@ const Checkout = () => {
                               >
                                 Phone Number :{" "}
                               </label>
-                              {/* <input
-                  type="text"
-                  name="phoneNumber"
-                  value={phoneNumber}
-                  placeholder="phoneNumber"
-                  onChange={(event) => {
-                    setPhoneNumber(event.target.value);
-                    setShipFormError({});
-                  }}
-                /> */}
                               <PhoneInput
                                 defaultCountry="US"
                                 value={phoneNumber}
