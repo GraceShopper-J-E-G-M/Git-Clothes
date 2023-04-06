@@ -1,8 +1,19 @@
+/**
+ * This file contains a `SingleUser` component to display a single
+ * user (including first name, last name, email, username, address, role, and createdAt).
+ */
+
+//Libraries 
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
+
+//Files
 import { fetchSingleUser, selectSingleUser } from "./singleUserSlice";
 
+/**
+ * SingleUser component. 
+ */
 const SingleUser = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectSingleUser);
@@ -21,7 +32,6 @@ const SingleUser = () => {
     setLoading(false);
   }, [dispatch]);
 
-  console.log("singleUser", user);
   return loading ? (
     <p style={{ textAlign: "center" }}>Loading...</p>
   ) : (

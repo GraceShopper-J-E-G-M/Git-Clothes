@@ -23,11 +23,8 @@ router.get("/", async (req, res, next) => {
 router.get("/:userId/address", async (req, res, next) => {
   try {
     const userId = req.params.userId;
-    console.log("userId:", userId);
     const user = await User.findByPk(userId);
-    console.log("user:", user);
     const [addresses] = await user.getAddresses();
-    console.log("address:", addresses);
     res.json(addresses);
   } catch (err) {
     next(err);
@@ -60,7 +57,6 @@ router.get("/:userId/payment", async (req, res, next) => {
   }
 });
 
-//edit single user
 router.put("/:userId", async (req, res, next) => {
   try {
     const singleUser = await User.findByPk(req.params.userId);
@@ -71,6 +67,7 @@ router.put("/:userId", async (req, res, next) => {
     next(error);
   }
 });
+
 /**
  * DELETE `/api/users/:userId` is a route to remove a user (based on its id).
  */
@@ -84,13 +81,3 @@ router.delete("/:userId", async (req, res, next) => {
     next(error);
   }
 });
-
-//adding new user
-// router.post("/", async (req, res, next) => {
-//   try {
-//     const addUser = await User.create(req.body);
-//     res.send(addUser);
-//   } catch (err) {
-//     next(err);
-//   }
-// });

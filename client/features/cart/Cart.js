@@ -1,19 +1,24 @@
+//Libraries
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+
+//Files
 import { fetchCartAsync, selectCart } from "./cartSlice";
 import {
   editOrderItemAsync,
   deleteOrderItemAsync,
   selectOrderItem,
 } from "./orderItemSlice";
-import { useNavigate, Link } from "react-router-dom";
 import Checkout from "../checkout/Checkout";
 
+/**
+ * Cart component.
+ */
 const Cart = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.me);
   const navigate = useNavigate();
-  //console.log("User:", user);
 
   useEffect(() => {
     if (user.id) {
@@ -79,8 +84,6 @@ const Cart = () => {
                                   <strong>{orderItem.product.prodName}</strong>
                                 </Link>
                               </p>
-                              {/* <p>Color : {orderItem.product.prodColor}</p>
-                              <p>Size : {orderItem.product.prodSize}</p> */}
                               <button
                                 type="button"
                                 className="btn btn-danger btn-sm me-1 mb-2"
@@ -89,14 +92,10 @@ const Cart = () => {
                                 title="Remove item"
                               >
                                 Delete
-                                {/* <i className="fas fa-trash"></i> */}
                               </button>
                             </div>
                             <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                              <div
-                                className="d-flex mb-4 flex-column align-items-end"
-                                //style={{ maxWidth: "100px" }}
-                              >
+                              <div className="d-flex mb-4 flex-column align-items-end">
                                 <input
                                   type="number"
                                   name="quantity"
@@ -135,45 +134,10 @@ const Cart = () => {
                                 </p>
                               </div>
                             </div>
-
-                            {/* <input
-                              type="number"
-                              name="quantity"
-                              onChange={(event) => setQty(event.target.value)}
-                            />
-
-                            {qty >= 0 &&
-                              (qty == 0 ? (
-                                <button
-                                  type="button"
-                                  onClick={() => handleDelete(orderItem.id)}
-                                >
-                                  Update
-                                </button>
-                              ) : (
-                                <button
-                                  type="button"
-                                  onClick={() =>
-                                    handleUpdateQuantity(
-                                      orderItem.id,
-                                      orderItem.product.prodPrice
-                                    )
-                                  }
-                                >
-                                  Update
-                                </button>
-                              ))} */}
                             <p>ProdQty : {orderItem.quantity}</p>
-                            {/* <p>ProdPrice:{orderItem.product.prodPrice}</p> */}
                             <p>
                               ProdTotal : <strong>${orderItem.total}</strong>
                             </p>
-                            {/* <button
-                              type="button"
-                              onClick={() => handleDelete(orderItem.id)}
-                            >
-                              Delete
-                            </button> */}
                             <br />
                           </div>
                         );

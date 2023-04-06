@@ -1,23 +1,25 @@
 /**
- * This file contains a `Users` component to display a
+ * This file contains an `AllUsers` component to display a
  * list of all users (at least their first and last names).
  */
 
+//Libraries
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+
+//Files
 import {
   selectAllUsers,
   fetchAllUsersAsync,
   deleteUserById,
 } from "./allUsersSlice";
 
-//`Users` component lives here.
+//`AllUsers` component.
 const AllUsers = () => {
   const dispatch = useDispatch();
   const allUsers = useSelector(selectAllUsers);
 
-  console.log("allUsers", allUsers);
   const [loading, setLoading] = useState(true);
 
   //React dispatches a thunk to load initial data from /api/users.
@@ -37,34 +39,40 @@ const AllUsers = () => {
   return loading ? (
     <p style={{ textAlign: "center" }}>Loading...</p>
   ) : (
-    <div >
-      <div >
-      <Link to="/admin">
-        <button className= "portalBtn" > Back to admin portal</button>
-      </Link>
+    <div>
+      <div>
+        <Link to="/admin">
+          <button className="portalBtn"> Back to admin portal</button>
+        </Link>
       </div>
       <div className="allUsercontainer">
-      <ol id="users-list">
-        {allUsers.map((user, i) => {
-          return (
-            <div key={`Inside all user view: ${i}`}>
-              <div className="allUserList" id="users-view-list-item">
-                {/** Clicking on a user from the users view should navigate to show that user */}
-                <Link id="link" to={`/allUsers/${user.id}`}>
+        <ol id="users-list">
+          {allUsers.map((user, i) => {
+            return (
+              <div key={`Inside all user view: ${i}`}>
+                <div className="allUserList" id="users-view-list-item">
+                  {/** Clicking on a user from the users view should navigate to show that user */}
+                  <Link id="link" to={`/allUsers/${user.id}`}>
+                    <span>
+                      {user.id}. {user.username}
+                    </span>
+                  </Link>
+                  {"  "}
+                  {/** In the users view, include an `X` button next to each user */}
                   <span>
-                    {user.id}. {user.username}
+                    <button
+                      className="deleteBtn"
+                      onClick={(evt) => handleDeleteUser(evt, user.id)}
+                    >
+                      X
+                    </button>
                   </span>
-                </Link>{"  "}
-                {/* - [ ] In the users view, include an `X` button next to each user */}
-                <span><button className="deleteBtn" onClick={(evt) => handleDeleteUser(evt, user.id)}>
-                  X
-                </button></span>
-                <p>Email: {user.email}</p>
+                  <p>Email: {user.email}</p>
+                </div>
               </div>
-            </div>
-          )
-        })}
-      </ol>
+            );
+          })}
+        </ol>
       </div>
     </div>
   );

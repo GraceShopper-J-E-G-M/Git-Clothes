@@ -1,5 +1,8 @@
+//Libraries
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
+
+//Files
 import authReducer from "../features/auth/authSlice";
 import cartSlice from "../features/cart/cartSlice";
 import singleProductSlice from "../features/singleProduct/singleProductSlice";
@@ -12,6 +15,9 @@ import shippingSlice from "../features/checkout/shippingSlice";
 import allUsersReducer from "../features/admin/allUsers/allUsersSlice";
 import checkoutSlice from "../features/checkout/checkoutSlice";
 
+/**
+ * This is where we configure our Redux store. We import our slice reducers here.
+ */
 const store = configureStore({
   reducer: {
     auth: authReducer,

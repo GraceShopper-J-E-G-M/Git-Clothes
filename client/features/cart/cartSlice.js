@@ -3,12 +3,10 @@ import axios from "axios";
 
 export const fetchCartAsync = createAsyncThunk("cart", async (user) => {
   try {
-    //console.log("In slice:", user);
     if (user) {
       const userId = user.id;
 
       const { data } = await axios.get("/api/cart", { params: { userId } });
-      //console.log("In slice:", data);
       return data;
     }
   } catch (err) {
