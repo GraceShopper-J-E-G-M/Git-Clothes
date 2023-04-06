@@ -1,44 +1,40 @@
-const router = require('express').Router();
-const { models: { Product } } = require('../db');
+const router = require("express").Router();
+const {
+  models: { Product },
+} = require("../db");
 
-//get all
-// /products
-router.get('/', async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const allProducts = await Product.findAll();
     res.send(allProducts);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
-//get single product
-// /products/${id}
-router.get('/:id', async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   try {
-      const singleProduct = await Product.findByPk(req.params.id);
-      if (!singleProduct) {
-        res.status(404).send();
-      } else {
-        res.status(200).send(singleProduct);
-      }
-    } catch (error) {
-      next(error);
+    const singleProduct = await Product.findByPk(req.params.id);
+    if (!singleProduct) {
+      res.status(404).send();
+    } else {
+      res.status(200).send(singleProduct);
     }
-})
+  } catch (error) {
+    next(error);
+  }
+});
 
-//edit single product
 router.put("/:id", async (req, res, next) => {
   try {
     const singleProduct = await Product.findByPk(req.params.id);
     await singleProduct.update(req.body);
     res.status(204).send();
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
-//delete single product
 router.delete("/:id", async (req, res, next) => {
   try {
     const prodId = req.params.id;
@@ -57,41 +53,28 @@ router.delete("/:id", async (req, res, next) => {
       next(error);
     }
   }
-})
+});
 
-//add new single product
-// router.post("/", async (req, res, next) => {
-//   try {
-//     const newProduct = await Product.create(req.body);
-//     console.log(newProduct);
-//     res.send(newProduct);
-//   } catch (err) {
-//     console.log("stuck on API")
-//     next(err);
-//   }
-// })
-
-//find or create for add to cart
-router.post("/", async(req,res,next) => {
+router.post("/", async (req, res, next) => {
   try {
     const [product, created] = await Product.findOrCreate({
-      where: { 
+      where: {
         prodName: req.body.prodName,
         prodQuantity: req.body.prodQuantity,
         prodPrice: req.body.prodPrice,
         prodSize: req.body.prodSize,
         prodColor: req.body.prodColor,
         prodImg: req.body.prodImg,
-      }
-    })
-  if(created){
-    res.status(201).send(product);
-  }else {
-    res.status(409).send();
-  }
+      },
+    });
+    if (created) {
+      res.status(201).send(product);
+    } else {
+      res.status(409).send();
+    }
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
-module.exports = router
+module.exports = router;
