@@ -43,7 +43,7 @@ const AdminAllProducts = () => {
   ) : (
     <div className="allDisplay">
       <Link to="/admin">
-        <button>Back to admin portal</button>
+        <button className="portalBtn">Back to admin portal</button>
       </Link>
       <div className="AdminAllProductsDisplay">
         <section id="adminAllProducts">
@@ -55,6 +55,7 @@ const AdminAllProducts = () => {
                   </Link>
                   <p>{`Price: ${product.prodPrice}`}</p>
                   <button
+                    className="deleteBtn"
                     onClick={(event) => handleDeleteProduct(event, product.id)}
                   >
                     Delete Product
@@ -63,7 +64,9 @@ const AdminAllProducts = () => {
               ))
             : null}
         </section>
-        <AddNewProduct />
+        <div className="newProductForm">
+          <AddNewProduct />
+        </div>
       </div>
     </div>
   );
