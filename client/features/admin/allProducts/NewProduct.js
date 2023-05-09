@@ -30,7 +30,7 @@ const AddNewProduct = () => {
             prodColor: newProdColor,
             prodImg: newProdImg,
         };
-        console.log(productObj);
+        
         await dispatch(newProduct(productObj));
         setProdName("");
         setProdQuantity(0);

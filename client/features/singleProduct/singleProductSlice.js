@@ -6,7 +6,7 @@ export const fetchSingleProduct = createAsyncThunk("singleProduct", async (id) =
         const { data } = await axios.get(`/api/products/${id}`);
         return data;
     } catch (error) {
-        console.log(error);
+    
     }
 });
 
@@ -16,7 +16,6 @@ export const editProduct = createAsyncThunk("editProduct", async (productObj) =>
         const { data } = await axios.put(`/api/products/${productObj.id}`,productObj);
         return data;
     } catch (error) {
-        console.log(error);
     }
 });
 

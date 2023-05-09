@@ -25,7 +25,7 @@ const AppRoutes = () => {
   const isAdmin = useSelector((state) => state.auth.me.role === "admin");
   const dispatch = useDispatch();
 
-  console.log("isAdmin", isAdmin);
+  
 
   useEffect(() => {
     dispatch(me());

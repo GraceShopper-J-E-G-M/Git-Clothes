@@ -17,7 +17,6 @@ const AllUsers = () => {
   const dispatch = useDispatch();
   const allUsers = useSelector(selectAllUsers);
 
-  console.log("allUsers", allUsers);
   const [loading, setLoading] = useState(true);
 
   //React dispatches a thunk to load initial data from /api/users.

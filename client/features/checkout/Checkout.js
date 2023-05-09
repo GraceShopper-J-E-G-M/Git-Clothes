@@ -14,8 +14,8 @@ import {
 import { addShippingAddressAsync, selectShipping } from "./shippingSlice";
 import { useNavigate } from "react-router-dom";
 import PhoneInput, { isPossiblePhoneNumber } from "react-phone-number-input";
-//import "react-phone-number-input/style.css";
 
+/* This component is used to display checkout details with shipping and payment information */
 const Checkout = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.me);
@@ -34,23 +34,22 @@ const Checkout = () => {
   const payment = useSelector(selectPayment);
   const shipping = useSelector(selectShipping);
   let totalCostWithTax;
-  console.log("In checkout address:", addresses);
-  console.log("In checkout cart", cart);
-  console.log("In checkout payment", payment);
-  console.log("In checkout shipping", shipping);
+ 
 
+  /* This function is used to calculate the TotalCost including Tax amount */
   const calculateTotalCost = (totalcost) => {
     totalcost = Number(totalcost);
     totalCostWithTax = totalcost + totalcost * 0.05;
     return totalCostWithTax.toFixed(2);
   };
 
-  //const [cardNum, setCardNum] = useState("");
   const [cvv, setCvv] = useState("");
   const [expiry, setExpiry] = useState("");
 
+  /* This function is used to handle payment details from the form */
   const handleFormPayment = async (event) => {
     event.preventDefault();
+    /* Validating payment information */
     const error = payFormValidate(
       cardFirst,
       cardSec,
@@ -60,9 +59,9 @@ const Checkout = () => {
       cvv,
       expiry
     );
-    console.log("Error:", error);
+   
     const cardNum = cardFirst + cardSec + cardThird + cardFourth;
-    console.log("card:", cardNum);
+   
     const reqbody = {
       card: cardNum,
       cardName,
@@ -84,8 +83,10 @@ const Checkout = () => {
     }
   };
 
+  /* This function is used to handle shipping address details from the form */
   const handleFormShippingAddress = async (event) => {
     event.preventDefault();
+    /* Validate shipping details information */
     const error = shippingFormValidate(
       firstName,
       lastName,
@@ -124,6 +125,7 @@ const Checkout = () => {
     }
   };
 
+  /* This function is used to handle payment details from the User Table */
   const handlePayment = async () => {
     const reqbody = {
       card: payment.card,
@@ -136,6 +138,7 @@ const Checkout = () => {
     await dispatch(fetchCartAsync(user));
   };
 
+  /* This function is used to handle shipping details from the User Table */
   const handleShippingAddress = async () => {
     const reqbody = {
       line1: addresses.line1,
@@ -152,6 +155,7 @@ const Checkout = () => {
     await dispatch(fetchCartAsync(user));
   };
 
+  /* This function is used to place order for the user */
   const handlePlaceOrder = async () => {
     const cartId = cart.id;
     const cartProdList = cartProdListandQty();
@@ -167,6 +171,7 @@ const Checkout = () => {
     navigate(`/confirmation/${cartId}`);
   };
 
+  
   const cartProdListandQty = () => {
     const orderItems = cart.orderItems;
     const prodList = orderItems.map((orderItem) => {
@@ -191,6 +196,7 @@ const Checkout = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
+  /* Validating function for shipping form */
   const shippingFormValidate = (
     firstName,
     lastName,
@@ -221,7 +227,7 @@ const Checkout = () => {
       error.city = "City cant be blank";
     }
 
-    console.log(error);
+   
     const zipRegex = /^[0-9]{5}$/;
     if (!zipcode.match(zipRegex)) {
       error.zipcode = "Not a valid zipcode";
@@ -233,6 +239,7 @@ const Checkout = () => {
     return error;
   };
 
+  /* Validating function for payment form */
   const payFormValidate = (
     cardFirst,
     cardSec,
@@ -278,8 +285,6 @@ const Checkout = () => {
       error.cardName = "cardName cant be blank";
     }
     setPayFormError(() => error);
-    console.log("Inside validation:", error);
-    console.log("payFormError:", payFormError);
     return error;
   };
 
@@ -306,6 +311,10 @@ const Checkout = () => {
             <div className="card mb-4">
               <div className="card-header py-3">
                 <h5 className="mb-0">Checkout</h5>
+                <p className="text-danger-emphasis">
+                    Note: This app is a Capstone Project. Orders will not
+                    actually be sent to Store
+                  </p>
               </div>
               <div>
                 <div>
@@ -543,16 +552,7 @@ const Checkout = () => {
                               >
                                 Phone Number :{" "}
                               </label>
-                              {/* <input
-                  type="text"
-                  name="phoneNumber"
-                  value={phoneNumber}
-                  placeholder="phoneNumber"
-                  onChange={(event) => {
-                    setPhoneNumber(event.target.value);
-                    setShipFormError({});
-                  }}
-                /> */}
+                              
                               <PhoneInput
                                 defaultCountry="US"
                                 value={phoneNumber}
@@ -612,6 +612,10 @@ const Checkout = () => {
                 <div>
                   <div>
                     <h3 className="text mx-3 my-3">Payment:</h3>
+                    <p className="mx-3 text-danger-emphasis">
+                    Note: This app is a Capstone Project. Orders will not
+                    actually be sent to Store
+                  </p>
                     {cart.orderpayment ? (
                       <div>
                         <p className="mx-3">

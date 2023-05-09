@@ -36,7 +36,7 @@ const UpdateUser = () => {
     setLastName(updateUser.lastName ?? "");
     setEmail(updateUser.email ?? "");
     setRole(updateUser.role ?? "");
-    console.log(updateUser);
+  
   }, [updateUser]);
 
   const handleSubmit = async (event) => {
@@ -50,7 +50,7 @@ const UpdateUser = () => {
         email: newEmail,
         role: newRole,
     }
-    console.log(updatedObject)
+   
     await dispatch(editSingleUser(updatedObject));
     await dispatch(fetchSingleUser(userId));
     navigate(`/allUsers/${userId}/edit`);

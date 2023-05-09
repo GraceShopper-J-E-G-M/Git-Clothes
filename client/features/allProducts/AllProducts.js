@@ -7,7 +7,7 @@ const AllProducts = () => {
   const dispatch = useDispatch();
   const allProducts = useSelector(selectAllProducts);
   // const { productId } = useParams();
-  console.log("allProducts", allProducts);
+ 
 
   useEffect(() => {
     dispatch(fetchAllProductsAsync());

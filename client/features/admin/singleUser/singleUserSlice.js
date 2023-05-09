@@ -6,10 +6,10 @@ export const fetchSingleUser = createAsyncThunk(
   async (userId) => {
     try {
       const { data } = await axios.get(`/api/users/${userId}`);
-      console.log("data", data);
+    
       return data;
     } catch (err) {
-      console.error(err);
+ 
     }
   }
 );
@@ -22,7 +22,7 @@ export const editSingleUser = createAsyncThunk(
       const { data } = await axios.put(`/api/users/${updatedObject.id}`, updatedObject);
       return data;
     } catch (err) {
-      console.log(err);
+     
       next(err);
     }
   }

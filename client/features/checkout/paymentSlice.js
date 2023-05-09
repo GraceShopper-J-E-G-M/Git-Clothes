@@ -11,7 +11,7 @@ export const addPaymentAsync = createAsyncThunk(
       );
       return data;
     } catch (err) {
-      console.error(err);
+      
     }
   }
 );
@@ -20,13 +20,11 @@ export const fetchPaymentAsync = createAsyncThunk("payment", async (user) => {
   try {
     if (user) {
       const userId = user.id;
-      console.log("In slice:", userId);
       const { data } = await axios.get(`/api/users/${userId}/payment`);
-      console.log("Fetch Payment:", data);
       return data;
     }
   } catch (err) {
-    console.error(err);
+    
   }
 });
 

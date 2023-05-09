@@ -16,12 +16,12 @@ const SingleUser = () => {
 
   //React dispatches a thunk to load intital data from /api/users/:id.
   useEffect(() => {
-    console.log(userId);
+    
     dispatch(fetchSingleUser(userId));
     setLoading(false);
   }, [dispatch]);
 
-  console.log("singleUser", user);
+ 
   return loading ? (
     <p style={{ textAlign: "center" }}>Loading...</p>
   ) : (

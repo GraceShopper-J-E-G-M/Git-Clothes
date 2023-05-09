@@ -59,17 +59,7 @@ router.delete("/:id", async (req, res, next) => {
   }
 })
 
-//add new single product
-// router.post("/", async (req, res, next) => {
-//   try {
-//     const newProduct = await Product.create(req.body);
-//     console.log(newProduct);
-//     res.send(newProduct);
-//   } catch (err) {
-//     console.log("stuck on API")
-//     next(err);
-//   }
-// })
+
 
 //find or create for add to cart
 router.post("/", async(req,res,next) => {

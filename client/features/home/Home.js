@@ -11,7 +11,6 @@ const Home = (props) => {
   const user = useSelector((state) => state.auth.me);
   const dispatch = useDispatch();
   const role = useSelector((state) => state.auth.me.role);
-  console.log(role);
 
   useEffect(() => {
     if (user) {

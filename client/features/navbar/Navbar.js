@@ -30,7 +30,7 @@ const Navbar = () => {
   // };
 
   const [cartStatus, setCartStatus] = useState("");
-  console.log("Cart Status in Nav:", cart.status);
+  
   return (
     <div id="navBar">
       <Link to="/allProducts"><h1 id="title">Git-Clothes</h1></Link>

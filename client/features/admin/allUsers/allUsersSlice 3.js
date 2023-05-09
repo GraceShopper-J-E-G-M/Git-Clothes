@@ -18,7 +18,6 @@ export const fetchAllUsersAsync = createAsyncThunk(
       data.sort();
       return data;
     } catch (error) {
-      console.log(error);
     }
   }
 );

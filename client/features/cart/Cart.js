@@ -7,13 +7,14 @@ import {
   selectOrderItem,
 } from "./orderItemSlice";
 import { useNavigate, Link } from "react-router-dom";
+
 import Checkout from "../checkout/Checkout";
 
+/* This component is used to display cart with orderItems */
 const Cart = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.me);
   const navigate = useNavigate();
-  //console.log("User:", user);
 
   useEffect(() => {
     if (user.id) {
@@ -23,15 +24,17 @@ const Cart = () => {
 
   const cart = useSelector(selectCart);
   const orderItem = useSelector(selectOrderItem);
-  console.log("After dispatch:", cart);
 
   const [qty, setQty] = useState(1);
+
+  /* This function is used to update quantity in the cart */
   const handleUpdateQuantity = async (orderItemId, prodPrice) => {
     const reqBody = { qty, prodPrice };
     await dispatch(editOrderItemAsync({ orderItemId, reqBody }));
     await dispatch(fetchCartAsync(user));
   };
 
+  /* This function is used to delete the product in the cart */
   const handleDelete = async (orderItemId) => {
     await dispatch(deleteOrderItemAsync(orderItemId));
     await dispatch(fetchCartAsync(user));
@@ -45,6 +48,10 @@ const Cart = () => {
             <div className="card mb-4">
               <div className="card-header py-3">
                 <h5 className="mb-0">Cart items</h5>
+                <p className="text-danger-emphasis">
+                    Note: This app is a Capstone Project. Orders will not
+                    actually be sent to Store
+                  </p>
               </div>
               <div className="card-body">
                 <div>
@@ -79,8 +86,7 @@ const Cart = () => {
                                   <strong>{orderItem.product.prodName}</strong>
                                 </Link>
                               </p>
-                              {/* <p>Color : {orderItem.product.prodColor}</p>
-                              <p>Size : {orderItem.product.prodSize}</p> */}
+                              
                               <button
                                 type="button"
                                 className="btn btn-danger btn-sm me-1 mb-2"
@@ -89,13 +95,13 @@ const Cart = () => {
                                 title="Remove item"
                               >
                                 Delete
-                                {/* <i className="fas fa-trash"></i> */}
+                                
                               </button>
                             </div>
                             <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
                               <div
                                 className="d-flex mb-4 flex-column align-items-end"
-                                //style={{ maxWidth: "100px" }}
+                            
                               >
                                 <input
                                   type="number"
@@ -136,44 +142,12 @@ const Cart = () => {
                               </div>
                             </div>
 
-                            {/* <input
-                              type="number"
-                              name="quantity"
-                              onChange={(event) => setQty(event.target.value)}
-                            />
-
-                            {qty >= 0 &&
-                              (qty == 0 ? (
-                                <button
-                                  type="button"
-                                  onClick={() => handleDelete(orderItem.id)}
-                                >
-                                  Update
-                                </button>
-                              ) : (
-                                <button
-                                  type="button"
-                                  onClick={() =>
-                                    handleUpdateQuantity(
-                                      orderItem.id,
-                                      orderItem.product.prodPrice
-                                    )
-                                  }
-                                >
-                                  Update
-                                </button>
-                              ))} */}
                             <p>ProdQty : {orderItem.quantity}</p>
-                            {/* <p>ProdPrice:{orderItem.product.prodPrice}</p> */}
+
                             <p>
                               ProdTotal : <strong>${orderItem.total}</strong>
                             </p>
-                            {/* <button
-                              type="button"
-                              onClick={() => handleDelete(orderItem.id)}
-                            >
-                              Delete
-                            </button> */}
+
                             <br />
                           </div>
                         );

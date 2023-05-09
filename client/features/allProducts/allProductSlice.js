@@ -8,7 +8,7 @@ export const fetchAllProductsAsync = createAsyncThunk('allProducts', async () =>
     const { data } = await axios.get(`/api/products`);
     return data;
   } catch (err) {
-    console.error(err);
+ 
   }
 });
 
@@ -18,8 +18,7 @@ export const newProduct = createAsyncThunk("newProduct", async (prodcutObj) => {
     const { data } = await axios.post(`/api/products`, prodcutObj);
     return data;
   } catch (error) {
-    console.log("stuck on thunks")
-    console.log(error);
+    
   }
 });
 
@@ -29,7 +28,7 @@ export const removeProduct = createAsyncThunk("removeProduct", async (id) => {
         const { data } = await axios.delete(`/api/products/${id}`);
         return data;
     } catch (error) {
-        console.log(error);
+        
     }
 });
   

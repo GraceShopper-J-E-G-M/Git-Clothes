@@ -16,10 +16,10 @@ export const fetchAllUsersAsync = createAsyncThunk(
     try {
       const { data } = await axios.get("http://localhost:8080/api/users");
       data.sort();
-      console.log(data);
+      
       return data;
     } catch (error) {
-      console.log(error);
+  
     }
   }
 );

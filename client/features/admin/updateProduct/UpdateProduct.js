@@ -53,7 +53,7 @@ const UpdateProduct = () => {
             prodColor: newProdColor,
             prodImg: newProdImg,
         }
-        console.log(productObj);
+      
         await dispatch(editProduct(productObj));
         await dispatch(fetchSingleProduct(prodId));
         //might need to fix route
