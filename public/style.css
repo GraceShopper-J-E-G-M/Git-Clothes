@@ -28,7 +28,6 @@ form div {
   justify-content: center;
   align-items: center;
   font-size: 80px;
-  /* align-content: center; */
 }
 
 .allProductsContainer { 
@@ -45,14 +44,10 @@ form div {
 .productcard{
   margin: 3rem;
   flex: auto;
-  /* padding: 20px; */
   justify-content: space-around;
   max-width: 250px;
   max-height: 300px;
   display: block;
-  /* flex-wrap: wrap; */
-  /* flex-direction: row; */
-  /* background-color: #fdc57b; */
   box-sizing: border-box;
   align-content: center;
   text-align: center;
@@ -98,7 +93,6 @@ form div {
   color: #fbf2d5;
   padding: 10px 25px;
   text-align: center;  
-  /* font-size: 16px; */
   border-radius: 10px;
   border: none;
 }
@@ -113,7 +107,6 @@ form div {
   color: #394a51;
   padding: 10px 25px;
   text-align: center;  
-  /* font-size: 16px; */
   border-radius: 10px;
   border: none;
 }
@@ -122,7 +115,7 @@ form div {
   transition: .7s;
 }
 
-.allUsercontainer { 
+.allUsercontainer, .AdminAllProductsDisplay { 
   background-color: #fbf2d5;
   display: flex;
   flex-wrap: wrap;
@@ -145,58 +138,12 @@ form div {
   transition: .7s;
 }
 
-
-/* .number-input input[type="number"] {
-  -webkit-appearance: textfield;
-  -moz-appearance: textfield;
-  appearance: textfield;
-  }
-  
-  .number-input input[type=number]::-webkit-inner-spin-button,
-  .number-input input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  }
-  
-  .number-input {
-    display: flex;
-    justify-content: space-around;
-    align-items: left;
-  }
-  
-  .number-input button {
-  -webkit-appearance: none;
-  background-color: transparent;
-  border: none;
-  align-items: center;
-  margin: 2rem;
-  width: 100%;
-} */
-
-#title {
-  font-size: 4rem;
-  font-weight: bolder;
-  color: black;
-  font-family: 'Courier New', Courier, monospace;
-}
-
-.navLinks {
-  color: black;
-  font-size: 1.5rem;
-  font-weight: bolder;
-}
-
-a:-webkit-any-link {
-  text-decoration: none;
-  color: black;
-}
-
 /* single Product */
 
 .singleProductContainer {
   display: flex;
   flex-direction: row;
-  background-color: #fbf2d5;
-  padding: 3rem;
+  margin: 3rem;
 }
 
 .productImage {
@@ -217,39 +164,18 @@ a:-webkit-any-link {
 }
 
 .productDetails > p {
-  font-weight: bolder;
   font-size: 1.5rem;
-  color: #394a51;
 }
 
 button > a:-webkit-any-link {
   text-decoration: none;
-  color: white;
-
-}
-
-button {
-  display: inline-block;
-  /* flex-direction: row-reverse; */
-  background-color: #394a51;
-  color: white;
-  padding: 10px 25px;
-  text-align: center;  
-  /* font-size: 16px; */
-  border-radius: 10px;
-  border: none;
-}
-
-button:hover {
-  background-color: #394a51;
-  transition: .7s;
+  color: black;
 }
 
 /* Admin all products */
 
 .allDisplay {
-  padding: 2rem;
-  background-color: #fbf2d5;
+  margin: 2rem;
 }
 
 .allDisplay > * {
@@ -290,7 +216,6 @@ label {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #fbf2d5;
 }
 
 #updateProduct > * {

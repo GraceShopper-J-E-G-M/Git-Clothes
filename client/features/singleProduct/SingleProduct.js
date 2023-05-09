@@ -1,10 +1,19 @@
+/**
+ * This file contains a `SingleProduct` component to display a single product based on id.
+ */
+
+//Libraries
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link, useNavigate } from "react-router-dom";
+
+//Files
 import { fetchSingleProduct, selectSingleProduct } from "./singleProductSlice";
-import { newProduct } from "../allProducts/allProductSlice";
 import { addCartAsync } from "../cart/cartSlice";
 
+/**
+ * SingleProduct component.
+ */
 const SingleProduct = () => {
   const sizeArray = ["XS", "S", "M", "L", "XL", "XXL"];
   const colorArray = [
@@ -27,21 +36,19 @@ const SingleProduct = () => {
   const navigate = useNavigate();
   const { prodId } = useParams();
 
-  //need state for selecting color and size
+  //Local state to store a user's selections for color and size
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
 
   const product = useSelector(selectSingleProduct);
   const user = useSelector((state) => state.auth.me);
 
-  const { prodName, prodQuantity, prodPrice, prodSize, prodColor, prodImg } =
-    product;
+  const { prodName, prodPrice, prodSize, prodColor, prodImg } = product;
 
   useEffect(() => {
     dispatch(fetchSingleProduct(prodId));
   }, [dispatch]);
 
-  // useEffect hook so the state doesn't cause an infinity loop
   useEffect(() => {
     setSelectedColor(prodColor);
     setSelectedSize(prodSize);
@@ -49,39 +56,22 @@ const SingleProduct = () => {
 
   const addToCart = async (event) => {
     event.preventDefault();
-    // const productObj = {
-    //   id: prodId,
-    //   prodName,
-    //   prodQuantity,
-    //   prodPrice,
-    //   prodSize: selectedSize,
-    //   prodColor: selectedColor,
-    //   prodImg,
-    // }
-    // console.log(productObj);
-    // await dispatch(editProduct(productObj));
     const reqbody = {
       userId: user.id,
       prodId: product.id,
-      // selectedColor,
-      // selectedSize,
     };
     await dispatch(addCartAsync(reqbody));
     navigate("/cart");
   };
 
   return (
-    // container will be flex row
     <div>
       <section className="singleProductContainer">
         <img className="productImage" src={prodImg}></img>
         <form
           className="productDetails"
           onSubmit={(event) => {
-            //event.preventDefault();
             addToCart(event);
-            // dispatch add to cart
-            // addCartAsync();
           }}
         >
           <p className="productName">{prodName}</p>

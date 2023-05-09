@@ -1,5 +1,10 @@
+//Libraries
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import PhoneInput, { isPossiblePhoneNumber } from "react-phone-number-input";
+
+//Files
 import { fetchAddressAsync, selectAddress } from "./addressSlice";
 import {
   fetchPaymentAsync,
@@ -12,8 +17,7 @@ import {
   selectCart,
 } from "../cart/cartSlice";
 import { addShippingAddressAsync, selectShipping } from "./shippingSlice";
-import { useNavigate } from "react-router-dom";
-import PhoneInput, { isPossiblePhoneNumber } from "react-phone-number-input";
+
 
 /* This component is used to display checkout details with shipping and payment information */
 const Checkout = () => {

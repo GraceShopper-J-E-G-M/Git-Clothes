@@ -1,6 +1,12 @@
+/**
+ * This file contains a singleUserSlice to configure all of my Redux logic for the `SingleUser` slice of my state.
+ */
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+/**
+ * `fetchSingleUser` GETS data at /api/users/:userId and returns a single user based on id.
+ */
 export const fetchSingleUser = createAsyncThunk(
   "fetchSingleUser",
   async (userId) => {
@@ -14,7 +20,9 @@ export const fetchSingleUser = createAsyncThunk(
   }
 );
 
-//admin edit user
+/**
+ * `editSingleUser` updates data at /api/users/:usersId and returns updated user based on id.
+ */
 export const editSingleUser = createAsyncThunk(
   "editSingleUser",
   async ( updatedObject ) => {

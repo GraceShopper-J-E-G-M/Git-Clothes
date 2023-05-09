@@ -1,14 +1,16 @@
+//Libraries
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+
+//Files
 import { fetchCartAsync, selectCart } from "./cartSlice";
 import {
   editOrderItemAsync,
   deleteOrderItemAsync,
   selectOrderItem,
 } from "./orderItemSlice";
-import { useNavigate, Link } from "react-router-dom";
 
-import Checkout from "../checkout/Checkout";
 
 /* This component is used to display cart with orderItems */
 const Cart = () => {

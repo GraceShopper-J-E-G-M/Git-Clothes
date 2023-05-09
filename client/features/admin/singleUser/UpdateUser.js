@@ -1,27 +1,36 @@
+/**
+ * This file contains a `UpdateUser` component to display a form for an admin
+ * to update a user.
+ */
+
+//Libraries
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
+//Files
 import {
   selectSingleUser,
   fetchSingleUser,
   editSingleUser,
 } from "./singleUserSlice";
 
+/**
+ * UpdateUser component.
+ */
 const UpdateUser = () => {
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { userId } = useParams();
 
-  //state for storing edits
+  //Local state for storing an admin's edits
   const [newFirstName, setFirstName] = useState("");
   const [newLastName, setLastName] = useState("");
   const [newEmail, setEmail] = useState("");
-  const [newUsername, setUsername ] = useState("");
-  const [newPassword, setPassword ] = useState("");
-  const [newRole, setRole ] = useState("");
+  const [newUsername, setUsername] = useState("");
+  const [newPassword, setPassword] = useState("");
+  const [newRole, setRole] = useState("");
 
-  // fetch user
   const updateUser = useSelector(selectSingleUser);
   const { firstName, lastName, email, username, password, role } = updateUser;
 
@@ -39,27 +48,30 @@ const UpdateUser = () => {
   
   }, [updateUser]);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const updatedObject = {
-        id: userId,
-        username: newUsername,
-        password: newPassword,
-        firstName: newFirstName,
-        lastName: newLastName,
-        email: newEmail,
-        role: newRole,
-    }
-   
-    await dispatch(editSingleUser(updatedObject));
-    await dispatch(fetchSingleUser(userId));
+      id: userId,
+      username: newUsername,
+      password: newPassword,
+      firstName: newFirstName,
+      lastName: newLastName,
+      email: newEmail,
+      role: newRole,
+    };
+    dispatch(editSingleUser(updatedObject));
+    dispatch(fetchSingleUser(userId));
     navigate(`/allUsers/${userId}/edit`);
   };
 
   return (
     <div className="editUserform">
       <h2>User's info not correct? Edit here!</h2>
-      <form className="justTheForm" id="editUser-form" onSubmit={event => handleSubmit(event)}>
+      <form
+        className="justTheForm"
+        id="editUser-form"
+        onSubmit={(event) => handleSubmit(event)}
+      >
         <label htmlFor="firstName">First Name:</label>
         <input
           name="firstName"
@@ -93,10 +105,13 @@ const UpdateUser = () => {
           onChange={(evt) => setPassword(evt.target.value)}
         />
         <div className="buttons">
-        <button className="editUserBtn" type="submit"> Submit Changes </button>
-        <Link to="/allUsers">
-          <button className="backToAdminBtn"> Back to All Users </button>
-        </Link>
+          <button className="editUserBtn" type="submit">
+            {" "}
+            Submit Changes{" "}
+          </button>
+          <Link to="/allUsers">
+            <button className="backToAdminBtn"> Back to All Users </button>
+          </Link>
         </div>
       </form>
     </div>

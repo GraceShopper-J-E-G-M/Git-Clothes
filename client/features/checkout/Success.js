@@ -1,3 +1,4 @@
+//Libraries
 import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { fetchCheckoutCartAsync, selectCheckout } from "./checkoutSlice";
@@ -72,8 +73,6 @@ const Success = () => {
                                   <strong>{orderItem.product.prodName}</strong>
                                 </Link>
                               </p>
-                              {/* <p>Color : {orderItem.product.prodColor}</p>
-                              <p>Size : {orderItem.product.prodSize}</p> */}
                               <p>OrderedQty : {orderItem.quantity}</p>
                             </div>
                           </div>
@@ -87,7 +86,6 @@ const Success = () => {
           </div>
         </div>
       </section>
-
       <Link className="mx-3" to={"/allProducts"}>
         Continue Shopping
       </Link>

@@ -1,6 +1,9 @@
+//Libraries
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
+
+//Files
 import AuthForm from "../features/auth/AuthForm";
 import Home from "../features/home/Home";
 import { me } from "./store";
@@ -17,7 +20,7 @@ import AdminAllProducts from "../features/admin/allProducts/AdminAllProducts";
 import UpdateProduct from "../features/admin/updateProduct/UpdateProduct";
 
 /**
- * COMPONENT
+ * AppRoutes component.
  */
 
 const AppRoutes = () => {
@@ -25,14 +28,13 @@ const AppRoutes = () => {
   const isAdmin = useSelector((state) => state.auth.me.role === "admin");
   const dispatch = useDispatch();
 
-  
-
   useEffect(() => {
     dispatch(me());
   }, []);
 
   return (
     <div>
+      {/**These are routes for a logged-in user. */}
       {isLoggedIn ? (
         <Routes>
           <Route path="/*" element={<Home />} />
@@ -44,6 +46,7 @@ const AppRoutes = () => {
           <Route path="/allProducts/:prodId" element={<SingleProduct />} />
         </Routes>
       ) : (
+        /**These are routes for a logged-out user. */
         <Routes>
           <Route
             path="/*"
@@ -59,13 +62,10 @@ const AppRoutes = () => {
           />
           <Route path="/allProducts" element={<AllProducts />} />
           <Route path="/allProducts/:prodId" element={<SingleProduct />} />
-          {/* <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/confirmation" element={<Success />} /> */}
         </Routes>
       )}
 
-      {/**This is where we should add the ADMIN routes for /allUsers, /allUsers/:id, /allProducts, and /allProducts/:id */}
+      {/**These are routes for a logged-in ADMIN. */}
       {isLoggedIn && isAdmin ? (
         <Routes>
           <Route path="/admin" element={<AdminNavBar />} />

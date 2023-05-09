@@ -55,7 +55,11 @@ const AuthForm = ({ name, displayName }) => {
       ) : (
         <div>
           {/*the component will show this form if `user` role is selected*/}
-          <form style={{ textAlign: 'center' }} onSubmit={handleUserSubmit} name={name}>
+          <form
+            style={{ textAlign: "center" }}
+            onSubmit={handleUserSubmit}
+            name={name}
+          >
             <div>
               <label htmlFor="username">
                 <small>Username</small>
@@ -73,7 +77,7 @@ const AuthForm = ({ name, displayName }) => {
             </div>
             {error && <div> {error} </div>}
           </form>
-          <div className="guest" style={{ textAlign: 'center' }}>
+          <div className="guest" style={{ textAlign: "center" }}>
             <small>
               Don't have an account?
               <button onClick={continueAsGuest}>Continue as a guest</button>
