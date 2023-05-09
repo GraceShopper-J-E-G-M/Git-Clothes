@@ -45,7 +45,7 @@ const UpdateUser = () => {
     setLastName(updateUser.lastName ?? "");
     setEmail(updateUser.email ?? "");
     setRole(updateUser.role ?? "");
-    console.log(updateUser);
+  
   }, [updateUser]);
 
   const handleSubmit = (event) => {

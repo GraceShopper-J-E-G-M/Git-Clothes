@@ -1,14 +1,11 @@
 //Libraries
 import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-
-//Files
 import { fetchCheckoutCartAsync, selectCheckout } from "./checkoutSlice";
 
-/**
- * Success component.
- */
+import { useDispatch, useSelector } from "react-redux";
+
+/* This component is used to display order summary details after checkout page */
 const Success = () => {
   const { cartId } = useParams();
   const dispatch = useDispatch();
@@ -17,6 +14,7 @@ const Success = () => {
   useEffect(() => {
     const handleDispatch = async () => {
       if (user) {
+        
         dispatch(fetchCheckoutCartAsync(cartId));
       }
     };
@@ -24,6 +22,7 @@ const Success = () => {
   }, [dispatch, cartId]);
 
   const cart = useSelector(selectCheckout);
+ 
 
   const imgWidth = {
     width: "120px",
@@ -40,6 +39,10 @@ const Success = () => {
               <div className="card mb-4">
                 <div className="card-header py-3">
                   <h5 className="mb-0">Order Summary</h5>
+                  <p className="mx-3 text-danger-emphasis">
+                    Note: This app is a Capstone Project. Orders will not
+                    actually be sent to Store
+                  </p>
                 </div>
                 <div className="card-body">
                   {cart?.orderItems?.length > 0 && (

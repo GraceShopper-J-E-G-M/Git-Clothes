@@ -5,11 +5,12 @@ export const fetchCheckoutCartAsync = createAsyncThunk(
   "checkoutCart",
   async (cartId) => {
     try {
+ 
       const { data } = await axios.get(`/api/checkout/${cartId}`);
-      console.log("IN SLICE:+++++", data);
+
       return data;
     } catch (err) {
-      console.log(err);
+   
     }
   }
 );

@@ -60,6 +60,8 @@ const updateExistingProd = async (cart, userProd, newQuantity) => {
   let updateOrderItem, updateOrderItemQty;
   const existingOrderItems = await cart.getOrderItems();
   for (const orderItem of existingOrderItems) {
+  
+
     const existingProduct = await orderItem.getProduct();
 
     if (existingProduct.id === userProd.id) {
@@ -70,12 +72,14 @@ const updateExistingProd = async (cart, userProd, newQuantity) => {
     }
   }
   if (updateProd) {
+    
     await updateOrderItem.update({
       quantity: updateOrderItemQty + newQuantity,
       total: newQuantity * userProd.prodPrice,
     });
   } else {
     const newOrderItem = await createOrderItem(newQuantity, userProd.prodPrice);
+    
     await newOrderItem.setProduct(userProd);
     await newOrderItem.setCart(cart);
   }
@@ -83,6 +87,7 @@ const updateExistingProd = async (cart, userProd, newQuantity) => {
 
 router.post("/", async (req, res, next) => {
   try {
+    
     const userId = req.body.userId;
     const prodId = req.body.prodId;
     const qty = req.body.quantity ? req.body.quantity : 1;
@@ -113,9 +118,10 @@ router.post("/", async (req, res, next) => {
     const existingOrderItems = await cart.getOrderItems();
     if (existingOrderItems.length > 0) {
       await updateExistingProd(cart, prod, qty);
-      // }
+      
     } else {
       const orderItem = await createOrderItem(qty, prod.prodPrice);
+      
       await orderItem.setProduct(prod);
       await orderItem.setCart(cart);
     }
@@ -123,6 +129,7 @@ router.post("/", async (req, res, next) => {
     const { totalCartCost, totalCartQty } = await findTotalCartCostQty(cart.id);
 
     const updatedCart = await updateCart(cart, totalCartCost, totalCartQty);
+    
 
     res.status(200).json(updatedCart);
   } catch (err) {
@@ -134,7 +141,9 @@ router.get("/", async (req, res, next) => {
   try {
     const userId = req.query.userId;
     if (userId) {
+      
       const user = await User.findByPk(userId);
+      
       const [userCart] = await user.getCarts({
         where: {
           status: "Pending",
@@ -145,6 +154,7 @@ router.get("/", async (req, res, next) => {
             include: [
               {
                 model: Product,
+    
               },
             ],
           },
@@ -170,11 +180,14 @@ router.put("/:orderItemId", async (req, res, next) => {
   try {
     const orderItemId = req.params.orderItemId;
     const userQuantity = req.body.qty;
+
+    
     const orderItem = await OrderItem.findByPk(orderItemId);
     const cart = await orderItem.getCart();
     const product = await orderItem.getProduct();
 
     if (userQuantity > product.prodQuantity) {
+      
       res.sendStatus(404);
       return; // user quantity exceeds the available product quantity
     }
@@ -182,6 +195,7 @@ router.put("/:orderItemId", async (req, res, next) => {
       quantity: req.body.qty,
       total: req.body.qty * req.body.prodPrice,
     });
+    
     const { totalCartCost, totalCartQty } = await findTotalCartCostQty(cart.id);
     await updateCart(cart, totalCartCost, totalCartQty);
     res.json(updatedOrderItem);
@@ -192,6 +206,7 @@ router.put("/:orderItemId", async (req, res, next) => {
 
 router.put("/", async (req, res, next) => {
   try {
+    
     const totalCostWithTax = req.body.totalCostWithTax;
     const cartId = req.body.cartId;
     const prodList = req.body.cartProdList;
@@ -215,6 +230,7 @@ router.put("/", async (req, res, next) => {
         prodQuantity: product.prodQuantity - prod.userQty,
       });
     }
+  
     const updateCart = await cart.update({
       totalCost: totalCostWithTax,
       status: "Completed",
@@ -241,6 +257,7 @@ router.delete("/", async (req, res, next) => {
     } else {
       updatedCart = updateCart(cart, 0, 0);
     }
+    
 
     res.send(orderItem);
   } catch (err) {

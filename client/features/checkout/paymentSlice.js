@@ -11,7 +11,7 @@ export const addPaymentAsync = createAsyncThunk(
       );
       return data;
     } catch (err) {
-      console.error(err);
+      
     }
   }
 );
@@ -24,7 +24,7 @@ export const fetchPaymentAsync = createAsyncThunk("payment", async (user) => {
       return data;
     }
   } catch (err) {
-    console.error(err);
+    
   }
 });
 

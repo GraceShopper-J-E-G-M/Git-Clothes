@@ -18,9 +18,8 @@ import {
 } from "../cart/cartSlice";
 import { addShippingAddressAsync, selectShipping } from "./shippingSlice";
 
-/**
- * Checkout component.
- */
+
+/* This component is used to display checkout details with shipping and payment information */
 const Checkout = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.me);
@@ -39,7 +38,9 @@ const Checkout = () => {
   const payment = useSelector(selectPayment);
   const shipping = useSelector(selectShipping);
   let totalCostWithTax;
+ 
 
+  /* This function is used to calculate the TotalCost including Tax amount */
   const calculateTotalCost = (totalcost) => {
     totalcost = Number(totalcost);
     totalCostWithTax = totalcost + totalcost * 0.05;
@@ -49,8 +50,10 @@ const Checkout = () => {
   const [cvv, setCvv] = useState("");
   const [expiry, setExpiry] = useState("");
 
+  /* This function is used to handle payment details from the form */
   const handleFormPayment = async (event) => {
     event.preventDefault();
+    /* Validating payment information */
     const error = payFormValidate(
       cardFirst,
       cardSec,
@@ -60,7 +63,9 @@ const Checkout = () => {
       cvv,
       expiry
     );
+   
     const cardNum = cardFirst + cardSec + cardThird + cardFourth;
+   
     const reqbody = {
       card: cardNum,
       cardName,
@@ -82,8 +87,10 @@ const Checkout = () => {
     }
   };
 
+  /* This function is used to handle shipping address details from the form */
   const handleFormShippingAddress = async (event) => {
     event.preventDefault();
+    /* Validate shipping details information */
     const error = shippingFormValidate(
       firstName,
       lastName,
@@ -122,6 +129,7 @@ const Checkout = () => {
     }
   };
 
+  /* This function is used to handle payment details from the User Table */
   const handlePayment = async () => {
     const reqbody = {
       card: payment.card,
@@ -134,6 +142,7 @@ const Checkout = () => {
     await dispatch(fetchCartAsync(user));
   };
 
+  /* This function is used to handle shipping details from the User Table */
   const handleShippingAddress = async () => {
     const reqbody = {
       line1: addresses.line1,
@@ -150,6 +159,7 @@ const Checkout = () => {
     await dispatch(fetchCartAsync(user));
   };
 
+  /* This function is used to place order for the user */
   const handlePlaceOrder = async () => {
     const cartId = cart.id;
     const cartProdList = cartProdListandQty();
@@ -165,6 +175,7 @@ const Checkout = () => {
     navigate(`/confirmation/${cartId}`);
   };
 
+  
   const cartProdListandQty = () => {
     const orderItems = cart.orderItems;
     const prodList = orderItems.map((orderItem) => {
@@ -189,6 +200,7 @@ const Checkout = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
+  /* Validating function for shipping form */
   const shippingFormValidate = (
     firstName,
     lastName,
@@ -218,6 +230,8 @@ const Checkout = () => {
     if (!city) {
       error.city = "City cant be blank";
     }
+
+   
     const zipRegex = /^[0-9]{5}$/;
     if (!zipcode.match(zipRegex)) {
       error.zipcode = "Not a valid zipcode";
@@ -229,6 +243,7 @@ const Checkout = () => {
     return error;
   };
 
+  /* Validating function for payment form */
   const payFormValidate = (
     cardFirst,
     cardSec,
@@ -300,6 +315,10 @@ const Checkout = () => {
             <div className="card mb-4">
               <div className="card-header py-3">
                 <h5 className="mb-0">Checkout</h5>
+                <p className="text-danger-emphasis">
+                    Note: This app is a Capstone Project. Orders will not
+                    actually be sent to Store
+                  </p>
               </div>
               <div>
                 <div>
@@ -537,6 +556,7 @@ const Checkout = () => {
                               >
                                 Phone Number :{" "}
                               </label>
+                              
                               <PhoneInput
                                 defaultCountry="US"
                                 value={phoneNumber}
@@ -596,6 +616,10 @@ const Checkout = () => {
                 <div>
                   <div>
                     <h3 className="text mx-3 my-3">Payment:</h3>
+                    <p className="mx-3 text-danger-emphasis">
+                    Note: This app is a Capstone Project. Orders will not
+                    actually be sent to Store
+                  </p>
                     {cart.orderpayment ? (
                       <div>
                         <p className="mx-3">

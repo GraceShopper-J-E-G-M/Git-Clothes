@@ -11,10 +11,11 @@ export const addShippingAddressAsync = createAsyncThunk(
       );
       return data;
     } catch (err) {
-      console.error(err);
     }
   }
 );
+
+
 
 const initialState = {};
 export const shippingSlice = createSlice({

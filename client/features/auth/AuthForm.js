@@ -30,7 +30,6 @@ const AuthForm = ({ name, displayName }) => {
   //We want this function to act like the sign up function `PUT` thunk, except a temp User instance is created with attribute `guest`.
   const continueAsGuest = (evt) => {
     evt.preventDefault();
-    console.log("continue as guest");
     dispatch(
       authenticate({ username: "guest", password: "guestpwd", method: "guest" })
     );

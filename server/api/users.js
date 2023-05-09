@@ -46,11 +46,11 @@ router.get("/:userId", async (req, res, next) => {
 router.get("/:userId/payment", async (req, res, next) => {
   try {
     const userId = req.params.userId;
-    console.log("userId:", userId);
+   
     const user = await User.findByPk(userId);
-    console.log("user:", user);
+ 
     const payment = await user.getPayment();
-    console.log("payment:", payment);
+   
     res.json(payment);
   } catch (err) {
     next(err);
@@ -63,7 +63,7 @@ router.put("/:userId", async (req, res, next) => {
     await singleUser.update(req.body);
     res.status(204).send();
   } catch (error) {
-    console.log(error);
+ 
     next(error);
   }
 });
@@ -74,7 +74,6 @@ router.put("/:userId", async (req, res, next) => {
 router.delete("/:userId", async (req, res, next) => {
   try {
     const userToDelete = await User.findByPk(req.params.userId);
-    console.log(userToDelete);
     await userToDelete.destroy();
     res.send(userToDelete);
   } catch (error) {

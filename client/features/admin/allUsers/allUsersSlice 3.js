@@ -1,6 +1,7 @@
 /**
- * This file contains an allUsersSlice to configure all of my Redux logic for the `users` slice of my state.
+ * A users slice to manage users in the Redux store.
  */
+// This is where I configure all of my Redux logic for the `users` slice of my state.
 
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
@@ -8,16 +9,15 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 /**
  * `fetchUsersAsync` GETS data at /api/users and returns all users.
  */
+
 export const fetchAllUsersAsync = createAsyncThunk(
   "allUsers/fetchAll",
   async () => {
     try {
       const { data } = await axios.get("http://localhost:8080/api/users");
       data.sort();
-      
       return data;
     } catch (error) {
-  
     }
   }
 );
@@ -34,6 +34,7 @@ export const deleteUserById = createAsyncThunk(
 );
 
 //Here I invoke the createSlice function, and pass it an object with all of my state details.
+
 export const allUsersSlice = createSlice({
   name: "allUsers",
   initialState: [],
